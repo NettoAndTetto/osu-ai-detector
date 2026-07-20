@@ -424,7 +424,10 @@ def _whitebox_cache_key(
     if not isinstance(identities, Mapping) or not identities:
         return None
     payload = {
-        "schema": "osu-ai-web-whitebox-cache/v1",
+        # v2 binds the relaxed active-runtime identity policy.  Do not reuse
+        # v1 entries whose discriminator may have abstained only because of
+        # unread README/cache/other-gamemode files.
+        "schema": "osu-ai-web-whitebox-cache/v2",
         "detector_version": __version__,
         "map_sha256": hashlib.sha256(item.data).hexdigest(),
         "audio_sha256": audio_sha256,

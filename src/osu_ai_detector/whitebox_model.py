@@ -62,6 +62,94 @@ _STANDARD_MODE_IDENTITY_EQUIVALENCES: dict[
     }
 }
 
+# Minimal calibration identity for the five published standard-mode models.
+#
+# The older calibration artifact bound whole repository snapshots.  That made
+# harmless packaging details (README files, .gitattributes, Hugging Face
+# download metadata, and checkpoints for unused game modes) invalidate a
+# perfectly valid run.  The discriminator now accepts an identity mismatch only
+# when the exact four files actually loaded by the standard-mode runtime match
+# this revision-pinned manifest byte-for-byte.  Model weights, tokenizer,
+# architecture config, generation config, repository, revision, game mode, and
+# the extraction/search protocols remain fail-closed.
+_MINIMUM_RUNTIME_PAYLOADS: dict[tuple[str, str, str], dict[str, Any]] = {
+    (
+        "mapperatorinator-whitebox-logistic-v1-501c17853200",
+        "v29",
+        "06bdb62e19ecdb8d3ead8a3dd089ad03eaa56dd740d3cd27a958eed7a94e56d0",
+    ): {
+        "repo_id": "OliBomby/Mapperatorinator-v29.1",
+        "resolved_revision": "656db0cd04a8a6a77d94a96e7af89810fb6de5ef",
+        "gamemode": 0,
+        "files": {
+            "config.json": {"bytes": 1756, "sha256": "9c2430265b817aac884ca650cd14c6121e0e4e4b9a7e9a28ba7714a0d88d0963"},
+            "generation_config.json": {"bytes": 231, "sha256": "f87c708d474172a24345b50335958e6046fd1322cfaf864f8de3e289749b35bf"},
+            "model.safetensors": {"bytes": 877083296, "sha256": "945b49765a3eeef88751474c9aa31d0e4e7670875005d06aebe323bb2a3bc2fe"},
+            "tokenizer.json": {"bytes": 3082602, "sha256": "44b7e494652440bbbf964b7fbd25b2cdac0ffed84118121be9a07e01494e06ca"},
+        },
+    },
+    (
+        "mapperatorinator-whitebox-logistic-v1-501c17853200",
+        "v30",
+        "48bc8d1931d87a5a4db9bb086121bf5625da1fae996041928002ff37ba1fd79c",
+    ): {
+        "repo_id": "OliBomby/Mapperatorinator-v30",
+        "resolved_revision": "a4c6e6e69c055711c2293d63161c0e52980e56a1",
+        "gamemode": 0,
+        "files": {
+            "config.json": {"bytes": 2237, "sha256": "3f0bc161f22d838a7a1582ea0231816dbf4e26ee04e030394f1ceb05e3bdb2cb"},
+            "generation_config.json": {"bytes": 231, "sha256": "cdd37c2acd98f11d2160f4a6be5766a39495bb148c8526a51611576016e2db97"},
+            "model.safetensors": {"bytes": 861280756, "sha256": "28c56449d9bb23afdd2b0a16743ce27dd37aabc5b1a846c78efa63485454fc97"},
+            "tokenizer.json": {"bytes": 1876018, "sha256": "d801be48048583822b55cd4c8ef1e382c38934c8e1b9496e0be83cab3048f8e2"},
+        },
+    },
+    (
+        "mapperatorinator-whitebox-logistic-v1-501c17853200",
+        "v31",
+        "c51d89a974e1d125a78823baca1997714a808efb7787a3512c1890c9c436ddcb",
+    ): {
+        "repo_id": "OliBomby/Mapperatorinator-v31",
+        "resolved_revision": "12772791b862b97a11153aa766b2481afa5dda11",
+        "gamemode": 0,
+        "files": {
+            "config.json": {"bytes": 2756, "sha256": "250551fbc9fa300cebb9468c7340b932145c496d4fcaae2f457c9fd82714320b"},
+            "generation_config.json": {"bytes": 259, "sha256": "668105b2e2df1f1adbcfa453cd6ec2087b9cce0a8e7cf1edabd5b377ece3f0ac"},
+            "model.safetensors": {"bytes": 880954204, "sha256": "8adeaea3dd1be66d1df42fb3fe7e471797be1a89c765f656dd37c489cdda11d6"},
+            "tokenizer.json": {"bytes": 3082188, "sha256": "db48ee9de0608264c48cb3746048a5bf401a4e4ac28bf296f57b58c622b33210"},
+        },
+    },
+    (
+        "mapperatorinator-whitebox-logistic-v1-501c17853200",
+        "v32",
+        "a00ccc0a14e8747b762f35712101dc203159ad7437a7fe0800c2e4360e2936f4",
+    ): {
+        "repo_id": "OliBomby/Mapperatorinator-v32",
+        "resolved_revision": "74f22583400d259bf424819e11027c17933efe54",
+        "gamemode": 0,
+        "files": {
+            "config.json": {"bytes": 2972, "sha256": "ff96b8c059179978c93b6f938e39fac945d5682a3495789c00cc159d571a1a22"},
+            "generation_config.json": {"bytes": 259, "sha256": "10b901beeb3c982c16c53cd5b37a4f9b3d4674fc70cbc3e64c7b20fdb0433f51"},
+            "model.safetensors": {"bytes": 865544236, "sha256": "dc60cf15609a1e93bf2280b360f00ba30b833c8e95d088db21babe44e1c4d6e9"},
+            "tokenizer.json": {"bytes": 4974127, "sha256": "6b98be0fc04a95a9e9d4feb8e8b67cc48728a6667e3091dcd5cc528baeca18bd"},
+        },
+    },
+    (
+        "mapperatorinator-whitebox-logistic-v1-501c17853200",
+        "v32-mini",
+        "e1ea1a1543dee28c8e37eb0e96d90765f38ab8cb7b24ccfbf59cd48d9fd00add",
+    ): {
+        "repo_id": "OliBomby/Mapperatorinator-v32-mini",
+        "resolved_revision": "7807f0dc70cab671be012e1f5ddf945b0b8b7278",
+        "gamemode": 0,
+        "files": {
+            "config.json": {"bytes": 2963, "sha256": "df23449d5ddc05e07fb30a576b39aed0703de94c8418086a9ebd6e537a65acc0"},
+            "generation_config.json": {"bytes": 259, "sha256": "10b901beeb3c982c16c53cd5b37a4f9b3d4674fc70cbc3e64c7b20fdb0433f51"},
+            "model.safetensors": {"bytes": 222891244, "sha256": "a7a795018ea39747be369e571a19319954f999e93925e0c47aa9a807d22c8d7b"},
+            "tokenizer.json": {"bytes": 4974127, "sha256": "6b98be0fc04a95a9e9d4feb8e8b67cc48728a6667e3091dcd5cc528baeca18bd"},
+        },
+    },
+}
+
 FAMILIES: tuple[str, ...] = (
     "dist",
     "pos",
@@ -444,6 +532,126 @@ def canonical_checkpoint_identity(identity: Any, checkpoint: str) -> dict[str, A
     if checkpoint_identity_sha256(identity) != digest:
         raise ValueError(f"checkpoint identity for {checkpoint} does not reconcile to its fields")
     return copy.deepcopy(dict(identity)) | {"identity_sha256": digest}
+
+
+def _minimum_runtime_identity_equivalence(
+    *,
+    model_id: str,
+    checkpoint: str,
+    expected: Mapping[str, Any],
+    observed: Mapping[str, Any],
+    checkpoint_result: Mapping[str, Any],
+) -> dict[str, Any] | None:
+    """Accept exact loaded bytes while ignoring unrelated snapshot files."""
+
+    expected_digest = str(expected.get("identity_sha256") or "").casefold()
+    observed_digest = str(observed.get("identity_sha256") or "").casefold()
+    rule = _MINIMUM_RUNTIME_PAYLOADS.get(
+        (model_id, checkpoint, expected_digest)
+    )
+    if rule is None:
+        return None
+
+    for field in ("repo_id", "resolved_revision"):
+        required = str(rule[field]).casefold()
+        if str(expected.get(field) or "").casefold() != required:
+            return None
+        if str(observed.get(field) or "").casefold() != required:
+            return None
+    if str(observed.get("checkpoint") or "").strip().casefold() != checkpoint:
+        return None
+    if str(observed.get("config_name") or "").strip().casefold() != checkpoint:
+        return None
+
+    condition = checkpoint_result.get("condition_view")
+    condition = condition if isinstance(condition, Mapping) else {}
+    preserved = condition.get("preserved_fields")
+    preserved = preserved if isinstance(preserved, Mapping) else {}
+    if condition.get("label_symmetric") is not True:
+        return None
+    if condition.get("deployment_allowed") is not True:
+        return None
+    if preserved.get("gamemode") != rule["gamemode"]:
+        return None
+    if observed.get("active_runtime_mode") != rule["gamemode"]:
+        return None
+
+    raw_files = observed.get("active_runtime_files")
+    if not isinstance(raw_files, Mapping):
+        return None
+    active_files: dict[str, dict[str, Any]] = {}
+    for raw_name, raw_identity in raw_files.items():
+        name = str(raw_name).replace("\\", "/")
+        if not name or "/" in name or not isinstance(raw_identity, Mapping):
+            return None
+        digest = str(raw_identity.get("sha256") or "").strip().casefold()
+        if len(digest) != 64 or any(
+            character not in "0123456789abcdef" for character in digest
+        ):
+            return None
+        size = raw_identity.get("bytes")
+        if not isinstance(size, int) or isinstance(size, bool) or size < 0:
+            return None
+        active_files[name] = {"sha256": digest, "bytes": size}
+    if active_files != rule["files"]:
+        return None
+
+    payload_digest = hashlib.sha256(
+        json.dumps(
+            active_files,
+            sort_keys=True,
+            separators=(",", ":"),
+            allow_nan=False,
+        ).encode("utf-8")
+    ).hexdigest()
+    if observed.get("active_runtime_file_count") != len(active_files):
+        return None
+    if str(observed.get("active_runtime_payload_sha256") or "").casefold() != payload_digest:
+        return None
+
+    runtime_identity_payload = {
+        key: observed.get(key)
+        for key in (
+            "schema_version",
+            "checkpoint",
+            "config_name",
+            "repo_id",
+            "resolved_revision",
+            "active_runtime_mode",
+            "active_runtime_subfolder",
+            "active_runtime_payload_sha256",
+        )
+    }
+    runtime_identity_digest = hashlib.sha256(
+        json.dumps(
+            runtime_identity_payload,
+            sort_keys=True,
+            separators=(",", ":"),
+            allow_nan=False,
+        ).encode("utf-8")
+    ).hexdigest()
+    if (
+        str(observed.get("active_runtime_identity_sha256") or "").casefold()
+        != runtime_identity_digest
+    ):
+        return None
+
+    return {
+        "checkpoint": checkpoint,
+        "expected_identity_sha256": expected_digest,
+        "observed_identity_sha256": observed_digest,
+        "repo_id": rule["repo_id"],
+        "resolved_revision": rule["resolved_revision"],
+        "gamemode": rule["gamemode"],
+        "projection": "active standard-mode runtime payload",
+        "active_runtime_subfolder": observed.get("active_runtime_subfolder"),
+        "active_runtime_payload_sha256": payload_digest,
+        "reason": (
+            "the exact revision-pinned model weights, tokenizer, architecture "
+            "config, and generation config loaded for this run match calibration; "
+            "unread snapshot files are ignored"
+        ),
+    }
 
 
 def _standard_mode_identity_equivalence(
@@ -1254,12 +1462,21 @@ class WhiteboxDiscriminator:
             actual_digest = actual.get("identity_sha256") if actual else None
             if actual_digest != expected_digest:
                 equivalence = (
-                    _standard_mode_identity_equivalence(
-                        model_id=self.model_id,
-                        checkpoint=name,
-                        expected=expected_identity,
-                        observed=actual,
-                        checkpoint_result=by_name[name][0],
+                    (
+                        _minimum_runtime_identity_equivalence(
+                            model_id=self.model_id,
+                            checkpoint=name,
+                            expected=expected_identity,
+                            observed=actual,
+                            checkpoint_result=by_name[name][0],
+                        )
+                        or _standard_mode_identity_equivalence(
+                            model_id=self.model_id,
+                            checkpoint=name,
+                            expected=expected_identity,
+                            observed=actual,
+                            checkpoint_result=by_name[name][0],
+                        )
                     )
                     if actual is not None and len(by_name.get(name, ())) == 1
                     else None

@@ -885,7 +885,7 @@ class _Runtime:
 
 
 _VENDOR_RUNTIME_LOCK = threading.RLock()
-_CHECKPOINT_IDENTITY_CACHE: dict[tuple[str, str, str, str], dict[str, Any]] = {}
+_CHECKPOINT_IDENTITY_CACHE: dict[tuple[str, str, str, str, int], dict[str, Any]] = {}
 _RUNTIME_SOURCE_IDENTITY_CACHE: dict[tuple[str, str], dict[str, Any]] = {}
 
 
@@ -970,7 +970,45 @@ def _snapshot_file_identity(path: Path) -> dict[str, Any]:
     return {"sha256": digest, "bytes": path.stat().st_size, "identity_source": source}
 
 
-def _checkpoint_identity(checkpoint: WhiteboxCheckpoint, args: Any, model: Any) -> dict[str, Any]:
+def _active_runtime_checkpoint_paths(
+    snapshot: Path,
+    *,
+    mode: int,
+) -> tuple[str, list[Path]]:
+    """Return only the files that define the model loaded for this run.
+
+    Hugging Face snapshots may also contain README files, download metadata,
+    or checkpoints for other game modes.  Those files are not read by the
+    standard-mode runtime and therefore must not invalidate calibration.  The
+    four files below are the complete runtime payload used by every supported
+    Mapperatorinator checkpoint in the published detector.
+    """
+
+    subfolder = f"gamemode={int(mode)}"
+    if snapshot.is_file():
+        return "", [snapshot]
+    active_dir = snapshot / subfolder
+    if not active_dir.is_dir():
+        active_dir = snapshot
+        subfolder = ""
+    required_names = (
+        "config.json",
+        "generation_config.json",
+        "model.safetensors",
+        "tokenizer.json",
+    )
+    return subfolder, [
+        active_dir / name for name in required_names if (active_dir / name).is_file()
+    ]
+
+
+def _checkpoint_identity(
+    checkpoint: WhiteboxCheckpoint,
+    args: Any,
+    model: Any,
+    *,
+    mode: int = 0,
+) -> dict[str, Any]:
     source = str(args.model_path)
     config = getattr(model, "config", None)
     model_revision = str(getattr(config, "_commit_hash", None) or "").strip().casefold()
@@ -979,7 +1017,7 @@ def _checkpoint_identity(checkpoint: WhiteboxCheckpoint, args: Any, model: Any) 
     local_source = configured.exists()
     repo_id = str(checkpoint.logical_repo_id or "").strip() or (None if local_source else source)
     resolved_revision = declared_revision or model_revision
-    cache_key = (checkpoint.display_name, source, repo_id or "", resolved_revision)
+    cache_key = (checkpoint.display_name, source, repo_id or "", resolved_revision, int(mode))
     cached = _CHECKPOINT_IDENTITY_CACHE.get(cache_key) if not local_source else None
     if cached is not None:
         return dict(cached)
@@ -1012,15 +1050,15 @@ def _checkpoint_identity(checkpoint: WhiteboxCheckpoint, args: Any, model: Any) 
             "identity_sha256": None,
         }
 
-    files = [snapshot] if snapshot.is_file() else sorted(
-        (item for item in snapshot.rglob("*") if item.is_file()),
-        key=lambda item: item.relative_to(snapshot).as_posix(),
+    active_subfolder, files = _active_runtime_checkpoint_paths(
+        snapshot,
+        mode=mode,
     )
     manifest: dict[str, dict[str, Any]] = {}
     tokenizer_files: dict[str, str] = {}
     weight_files: dict[str, str] = {}
     for item in files:
-        relative = item.name if snapshot.is_file() else item.relative_to(snapshot).as_posix()
+        relative = item.name
         identity = _snapshot_file_identity(item)
         # Transport metadata (HF LFS symlink versus copied local file) must not
         # change the identity of byte-identical, revision-pinned snapshots.
@@ -1039,6 +1077,19 @@ def _checkpoint_identity(checkpoint: WhiteboxCheckpoint, args: Any, model: Any) 
     weights_digest = hashlib.sha256(
         json.dumps(weight_files, sort_keys=True, separators=(",", ":")).encode("utf-8")
     ).hexdigest() if weight_files else None
+    active_runtime_files = copy.deepcopy(manifest)
+    active_runtime_payload_digest = (
+        hashlib.sha256(
+            json.dumps(
+                active_runtime_files,
+                sort_keys=True,
+                separators=(",", ":"),
+                allow_nan=False,
+            ).encode("utf-8")
+        ).hexdigest()
+        if active_runtime_files
+        else None
+    )
     identity_errors = []
     if declared_revision and model_revision and declared_revision != model_revision:
         identity_errors.append(
@@ -1083,7 +1134,33 @@ def _checkpoint_identity(checkpoint: WhiteboxCheckpoint, args: Any, model: Any) 
         "snapshot_file_count": len(manifest),
         "model_weight_file_count": len(weight_files),
         "tokenizer_file_count": len(tokenizer_files),
+        "active_runtime_mode": int(mode),
+        "active_runtime_subfolder": active_subfolder,
+        "active_runtime_files": active_runtime_files,
+        "active_runtime_file_count": len(active_runtime_files),
+        "active_runtime_payload_sha256": active_runtime_payload_digest,
     }
+    active_runtime_identity_payload = {
+        key: payload.get(key)
+        for key in (
+            "schema_version",
+            "checkpoint",
+            "config_name",
+            "repo_id",
+            "resolved_revision",
+            "active_runtime_mode",
+            "active_runtime_subfolder",
+            "active_runtime_payload_sha256",
+        )
+    }
+    payload["active_runtime_identity_sha256"] = hashlib.sha256(
+        json.dumps(
+            active_runtime_identity_payload,
+            sort_keys=True,
+            separators=(",", ":"),
+            allow_nan=False,
+        ).encode("utf-8")
+    ).hexdigest()
     # Bind logical provenance and exact bytes, not their transport path.  This
     # lets a calibrated HF snapshot be copied to a frozen local directory
     # without changing identity while still detecting any repo, revision,
@@ -1626,7 +1703,7 @@ class WhiteboxEngine:
             beatmap_class=Beatmap,
             generation_config_from_beatmap=generation_config_from_beatmap,
             torch=torch,
-            checkpoint_identity=_checkpoint_identity(checkpoint, args, model),
+            checkpoint_identity=_checkpoint_identity(checkpoint, args, model, mode=mode),
             runtime_source_identity=runtime_source_identity,
         )
 

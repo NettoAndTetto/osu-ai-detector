@@ -146,9 +146,9 @@
       "sha256": "49cf84c24dd3df1cc26a400b4f1da2bc8135275de1aa0d710396f66854e2f1d2"
     },
     {
-      "bytes": 117898,
+      "bytes": 118103,
       "path": "src/osu_ai_detector/web.py",
-      "sha256": "49207874416631b73ae53b4202d3c15f4001e71708ab32dfe000532553d2bbe8"
+      "sha256": "a58a175d3bce11a2eb710ba1e35351ae47a61611ae1bd8ebc0a0a0deabec60af"
     },
     {
       "bytes": 2044,
@@ -161,14 +161,14 @@
       "sha256": "160ee5c03a75e3133789f0419cf6419f16cc0da4790e13b87d0c7324d7f4f7ab"
     },
     {
-      "bytes": 111156,
+      "bytes": 113412,
       "path": "src/osu_ai_detector/whitebox.py",
-      "sha256": "b5fbc7ab8d586c2887c1c0c750720c04397700111511699380ed56706416ff3e"
+      "sha256": "abc387c999c2b8daf4e59fbe64fccaa8c74dc95b53fa046b8c4ee602c46fd10b"
     },
     {
-      "bytes": 82160,
+      "bytes": 92058,
       "path": "src/osu_ai_detector/whitebox_model.py",
-      "sha256": "d4bcc7143770ce9dd190e31c833d40a21326b7e872bf391d378fd9450c3805f1"
+      "sha256": "a37bb1a3fb457a2233c7ea2aa3b5ce33ee5d114f41f36bef26003d36f51d05ba"
     },
     {
       "bytes": 14633,
