@@ -1,0 +1,7 @@
+defaults:
+  - inference
+  - osut5: train_v1
+  - diffusion: v1
+  - _self_
+
+version: 'osuT5 V1'        # Beatmap version

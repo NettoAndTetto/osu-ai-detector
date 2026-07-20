@@ -1,0 +1,9 @@
+results/
+/testing/beatmap_df.pkl
+/testing/2d-embs.npy
+Pipfile.lock
+.venv/
+logs/
+/embeddings/*.csv
+*.pickle
+__pycache__

@@ -1,0 +1,7 @@
+defaults:
+  - model
+  - _self_
+
+name: 'openai/whisper-base'
+input_features: true
+classifier_proj_size: 2048

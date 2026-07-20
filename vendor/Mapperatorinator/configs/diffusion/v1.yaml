@@ -1,0 +1,72 @@
+defaults:
+  - /diffusion/base@_here_
+
+compile: true
+device: gpu
+precision: 'bf16'              # Precision
+seed: 0                     # Global seed
+checkpoint_path: ''                          # Checkpoint path
+
+model:
+  model: 'DiT-B'                    # Model architecture
+  noise_schedule: 'squaredcos_cap_v2'          # Noise schedule
+  l1_loss: false                    # L1 loss
+  diffusion_steps: 1000             # Number of diffusion steps
+  max_diffusion_step: 100           # Maximum diffusion step used in training. Reduce to make a specialized refinement model
+  context_size: 272                 # Size of the context vector fed to the model
+
+data:
+  train_dataset_path: '/workspace/datasets/ORS16291/'               # Path to the data
+  start: 0
+  end: 16291
+  shuffle: true
+  seq_len: 128                      # Sequence length
+  stride: 16                        # Stride
+  cycle_length: 64                  # Cycle length
+  beatmap_class: false              # Include beatmap classes
+  difficulty_class: true            # Include difficulty classes
+  mapper_class: true                # Include mapper classes
+  descriptor_class: true            # Include descriptor classes
+  circle_size_class: true           # Include circle size classes
+  class_dropout_prob: 0.2
+  diff_dropout_prob: 0.2
+  mapper_dropout_prob: 0.2
+  descriptor_dropout_prob: 0.2
+  cs_dropout_prob: 0.2
+  descriptors_path: "../../../datasets/beatmap_descriptors.csv"   # Path to file with all beatmap descriptors
+  mappers_path: "../../../datasets/beatmap_users.json"       # Path to file with all beatmap mappers
+  num_diff_classes: 26  # Number of difficulty classes
+  max_diff: 12          # Maximum difficulty of difficulty classes
+  num_cs_classes: 22     # Number of circle size classes
+  double_time_prob: 0.5
+  distance_std: 0.1    # Standard deviation of the distance noise
+
+
+dataloader:             # Dataloader settings
+  num_workers: 4
+
+optim:                  # Optimizer settings
+  name: adamw
+  base_lr: 2e-4         # Learning rate
+  batch_size: 256       # Global batch size
+  total_steps: 400000
+  warmup_steps: 10000
+  lr_scheduler: cosine
+  weight_decay: 0.0
+  grad_acc: 2
+  grad_clip: 1.0
+  final_cosine: 1e-5
+
+checkpoint:             # Checkpoint settings
+  every_steps: 50000
+
+logging:                # Logging settings
+  log_with: 'wandb'     # Logging service (wandb/tensorboard)
+  every_steps: 10
+  mode: 'online'
+
+hydra:
+  job:
+    chdir: True
+  run:
+    dir: ./logs/${now:%Y-%m-%d}/${now:%H-%M-%S}

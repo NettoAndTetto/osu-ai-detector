@@ -1,0 +1,845 @@
+import logging
+import os
+import random
+import traceback
+from datetime import timedelta
+from pathlib import Path
+from typing import Optional
+
+import hydra
+import numpy as np
+import torch
+import torch.nn.functional as F
+from omegaconf import OmegaConf
+from scipy import linalg
+from slider import Beatmap, Circle, Slider, Spinner, HoldNote
+from torch.utils.data import DataLoader
+from tqdm import tqdm
+from transformers import AutoProcessor, AutoModel
+
+from classifier.classify import ExampleDataset
+from classifier.libs.model.model import OsuClassifierOutput
+from classifier.libs.utils import load_ckpt
+from config import FidConfig, InferenceConfig
+from inference import load_diff_model, generate, load_model_with_server, compile_device_and_seed, \
+    setup_inference_environment
+from osuT5.osuT5.dataset.data_utils import load_audio_file, load_mmrs_metadata, filter_mmrs_metadata
+from osuT5.osuT5.inference import generation_config_from_beatmap, beatmap_config_from_beatmap
+from osuT5.osuT5.tokenizer import ContextType
+from multiprocessing import Process
+
+# Add imports for multiprocessing-safe logging
+import multiprocessing
+from logging.handlers import QueueHandler, QueueListener
+
+logger = logging.getLogger(__name__)
+
+CM3P_SSM_SIMILARITY = "cosine"
+
+
+# --- Extra metrics helpers (Drain/BPM/SR) ---
+
+def _drain_time_seconds(beatmap: Beatmap, *, break_threshold_seconds: float = 8.0) -> float:
+    """Drain time in seconds.
+
+    Defined as the time between the first and last hit object minus any breaks.
+    Breaks are gaps between consecutive hit object start times larger than `break_threshold_seconds`.
+    """
+    times_ms = [int(obj.time.total_seconds() * 1000) for obj in beatmap.hit_objects(stacking=False)]
+    if len(times_ms) < 2:
+        return 0.0
+
+    times_ms.sort()
+    span_ms = times_ms[-1] - times_ms[0]
+    if span_ms <= 0:
+        return 0.0
+
+    thresh_ms = int(break_threshold_seconds * 1000)
+    break_ms = 0
+    for a, b in zip(times_ms, times_ms[1:]):
+        gap = b - a
+        if gap > thresh_ms:
+            break_ms += gap
+
+    return max(0.0, (span_ms - break_ms) / 1000.0)
+
+
+def _song_length_seconds(beatmap: Beatmap) -> float:
+    """Integration domain length in seconds.
+
+    Uses the last hit object's start time as a proxy for song length.
+    """
+    times = [obj.time.total_seconds() for obj in beatmap.hit_objects(stacking=False)]
+    if not times:
+        return 0.0
+    return max(times)
+
+
+def _timing_points_sorted(beatmap: Beatmap):
+    tps = list(getattr(beatmap, "timing_points", []) or [])
+    tps.sort(key=lambda tp: float(tp.offset.total_seconds()))
+    return tps
+
+
+def _bpm_segments(beatmap: Beatmap) -> list[tuple[float, float]]:
+    """Piecewise-constant BPM segments from uninherited timing points.
+
+    Returns [(start_time_seconds, bpm), ...] sorted by start time.
+    """
+    segs: list[tuple[float, float]] = []
+    for tp in _timing_points_sorted(beatmap):
+        ms_per_beat = getattr(tp, "ms_per_beat", None)
+        if ms_per_beat is None or ms_per_beat <= 0:
+            # ignore inherited/invalid timing points
+            continue
+        bpm = 60000.0 / float(ms_per_beat)
+        segs.append((float(tp.offset.total_seconds()), bpm))
+
+    if not segs:
+        return [(0.0, 0.0)]
+
+    segs.sort(key=lambda x: x[0])
+
+    # If multiple points share the same timestamp, keep the last one.
+    deduped: list[tuple[float, float]] = []
+    for s, bpm in segs:
+        if deduped and abs(deduped[-1][0] - s) < 1e-12:
+            deduped[-1] = (s, bpm)
+        else:
+            deduped.append((s, bpm))
+    return deduped
+
+
+def _bpm_at(segments: list[tuple[float, float]], t: float) -> float:
+    """BPM at time t given piecewise segments [(start, bpm), ...]."""
+    current = segments[0][1]
+    for s, bpm in segments:
+        if s <= t + 1e-12:
+            current = bpm
+        else:
+            break
+    return current
+
+
+def _bpm_mse_for_pair(real: Beatmap, generated: Beatmap) -> tuple[float, float]:
+    """Return (integral_0^L (r(t)-g(t))^2 dt, L) for one pair."""
+    length_s = max(_song_length_seconds(real), _song_length_seconds(generated))
+    if length_s <= 0:
+        return 0.0, 0.0
+
+    r_segs = _bpm_segments(real)
+    g_segs = _bpm_segments(generated)
+
+    change_points = {0.0, float(length_s)}
+    change_points.update(s for s, _ in r_segs if 0.0 <= s <= length_s)
+    change_points.update(s for s, _ in g_segs if 0.0 <= s <= length_s)
+    cps = sorted(change_points)
+
+    integrated = 0.0
+    for a, b in zip(cps, cps[1:]):
+        if b <= a:
+            continue
+        mid = (a + b) / 2.0
+        diff = _bpm_at(r_segs, mid) - _bpm_at(g_segs, mid)
+        integrated += (diff * diff) * (b - a)
+
+    return integrated, float(length_s)
+
+
+def _sr_stars(beatmap_path: Path) -> Optional[float]:
+    """Star rating via rosu_pp_py."""
+    import rosu_pp_py as rosu
+
+    rosu_map = rosu.Beatmap(path=str(beatmap_path))
+    rosu_diff = rosu.Difficulty()
+    attrs = rosu_diff.calculate(rosu_map)
+    return attrs.stars
+
+
+def _compute_self_similarity(features: np.ndarray, similarity: str = CM3P_SSM_SIMILARITY) -> np.ndarray:
+    if features.ndim != 2:
+        raise ValueError(f"Expected 2D CM3P features, got shape {features.shape}")
+
+    if similarity == "dot":
+        return features @ features.T
+
+    norms = np.linalg.norm(features, axis=1, keepdims=True)
+    norms = np.clip(norms, a_min=1e-12, a_max=None)
+    normalized = features / norms
+    return normalized @ normalized.T
+
+
+def _normalize_similarity_matrix_for_display(
+        matrix: np.ndarray,
+        similarity: str = CM3P_SSM_SIMILARITY,
+        min_value: float | None = None,
+        max_value: float | None = None,
+) -> np.ndarray:
+    if similarity == "cosine":
+        return np.clip((matrix + 1.0) / 2.0, 0.0, 1.0).astype(np.float32, copy=False)
+
+    if min_value is None:
+        min_value = float(np.min(matrix))
+    if max_value is None:
+        max_value = float(np.max(matrix))
+
+    if max_value - min_value < 1e-12:
+        return np.zeros_like(matrix, dtype=np.float32)
+
+    return np.clip((matrix - min_value) / (max_value - min_value), 0.0, 1.0).astype(np.float32)
+
+
+def _resize_similarity_matrix(matrix: np.ndarray, target_size: int) -> np.ndarray:
+    if matrix.shape == (target_size, target_size):
+        return matrix.astype(np.float32, copy=False)
+
+    matrix_tensor = torch.from_numpy(matrix.astype(np.float32, copy=False)).unsqueeze(0).unsqueeze(0)
+    resized = F.interpolate(matrix_tensor, size=(target_size, target_size), mode="bilinear", align_corners=False)
+    return resized.squeeze(0).squeeze(0).numpy()
+
+
+def _ssm_rmse_for_pair(
+        real_features: Optional[np.ndarray],
+        generated_features: Optional[np.ndarray],
+        similarity: str = CM3P_SSM_SIMILARITY,
+) -> Optional[float]:
+    if real_features is None or generated_features is None:
+        return None
+
+    if real_features.size == 0 or generated_features.size == 0:
+        return None
+
+    matrix_real = _compute_self_similarity(real_features, similarity)
+    matrix_generated = _compute_self_similarity(generated_features, similarity)
+
+    if similarity == "dot":
+        shared_min = float(min(np.min(matrix_real), np.min(matrix_generated)))
+        shared_max = float(max(np.max(matrix_real), np.max(matrix_generated)))
+        display_real = _normalize_similarity_matrix_for_display(matrix_real, similarity, shared_min, shared_max)
+        display_generated = _normalize_similarity_matrix_for_display(
+            matrix_generated, similarity, shared_min, shared_max,
+        )
+    else:
+        display_real = _normalize_similarity_matrix_for_display(matrix_real, similarity)
+        display_generated = _normalize_similarity_matrix_for_display(matrix_generated, similarity)
+
+    target_size = max(display_real.shape[0], display_generated.shape[0])
+    resized_real = _resize_similarity_matrix(display_real, target_size)
+    resized_generated = _resize_similarity_matrix(display_generated, target_size)
+
+    return float(np.sqrt(np.mean((resized_real - resized_generated) ** 2)))
+
+
+def _configure_generation_log_parent(log_file: Path) -> tuple[QueueListener, multiprocessing.Queue]:
+    """Configure a QueueListener in the parent process that writes generation logs to a file."""
+    log_file.parent.mkdir(parents=True, exist_ok=True)
+
+    queue: multiprocessing.Queue = multiprocessing.Queue(-1)
+
+    file_handler = logging.FileHandler(log_file, mode="a", encoding="utf-8")
+    file_handler.setLevel(logging.INFO)
+    file_handler.setFormatter(
+        logging.Formatter("[%(asctime)s][%(processName)s][%(name)s][%(levelname)s] - %(message)s")
+    )
+
+    listener = QueueListener(queue, file_handler, respect_handler_level=True)
+    listener.start()
+    return listener, queue
+
+
+def _configure_generation_log_worker(queue: multiprocessing.Queue) -> logging.Logger:
+    """Configure the current process to send generation logs to the parent via QueueHandler."""
+    if queue is None:
+        # Fallback: no queue provided (e.g., single-process mode). Log to a local file.
+        gen_logger = logging.getLogger("calc_fid.generation")
+        gen_logger.setLevel(logging.INFO)
+        if not any(isinstance(h, logging.FileHandler) and getattr(h, "baseFilename", "").endswith("generation.log")
+                   for h in gen_logger.handlers):
+            fh = logging.FileHandler("generation.log", mode="a", encoding="utf-8")
+            fh.setFormatter(
+                logging.Formatter("[%(asctime)s][%(processName)s][%(name)s][%(levelname)s] - %(message)s")
+            )
+            gen_logger.addHandler(fh)
+        gen_logger.propagate = False
+        return gen_logger
+
+    gen_logger = logging.getLogger("calc_fid.generation")
+    gen_logger.setLevel(logging.INFO)
+
+    # Avoid duplicates if this function is called more than once in the same process.
+    if not any(isinstance(h, QueueHandler) for h in gen_logger.handlers):
+        gen_logger.addHandler(QueueHandler(queue))
+
+    # Prevent propagation into Hydra/root handlers (keeps calc_fid.log clean).
+    gen_logger.propagate = False
+    return gen_logger
+
+
+def _read_gamemode_from_osu(path: Path) -> int:
+    """Read the Mode field from an .osu file without fully parsing it."""
+    with open(path, "r", encoding="utf-8", errors="ignore") as f:
+        for line in f:
+            stripped = line.strip()
+            if stripped.startswith("Mode:"):
+                return int(stripped.split(":")[1].strip())
+    return 0  # default to std
+
+
+def get_beatmap_paths(args: FidConfig) -> list[Path]:
+    """Get all beatmap paths (.osu) from the dataset directory."""
+    dataset_path = Path(args.dataset_path)
+
+    if args.dataset_type == "mmrs":
+        metadata = load_mmrs_metadata(dataset_path)
+        filtered_metadata = filter_mmrs_metadata(
+            metadata,
+            start=args.dataset_start,
+            end=args.dataset_end,
+            gamemodes=args.gamemodes,
+        )
+        beatmap_files = [dataset_path / "data" / item["BeatmapSetFolder"] / item["BeatmapFile"] for _, item in
+                         filtered_metadata.iterrows()]
+    elif args.dataset_type == "ors":
+        beatmap_files = []
+        track_names = ["Track" + str(i).zfill(5) for i in range(args.dataset_start, args.dataset_end)]
+        for track_name in track_names:
+            for beatmap_file in (dataset_path / track_name / "beatmaps").iterdir():
+                beatmap_files.append(dataset_path / track_name / "beatmaps" / beatmap_file.name)
+    else:
+        raise ValueError(f"Unknown dataset type: {args.dataset_type}")
+
+    return beatmap_files
+
+
+def get_beatmap_paths_by_gamemode(args: FidConfig) -> dict[int, list[Path]]:
+    """Get beatmap paths grouped by gamemode.
+
+    For mmrs datasets the gamemode comes from the metadata.
+    For ors datasets the Mode field is read from each .osu file.
+
+    Returns:
+        Dictionary mapping gamemode (int) to the list of beatmap paths for that mode.
+    """
+    dataset_path = Path(args.dataset_path)
+    paths_by_gm: dict[int, list[Path]] = {}
+
+    if args.dataset_type == "mmrs":
+        metadata = load_mmrs_metadata(dataset_path)
+        filtered_metadata = filter_mmrs_metadata(
+            metadata,
+            start=args.dataset_start,
+            end=args.dataset_end,
+            gamemodes=args.gamemodes,
+            min_year=args.min_year,
+            max_year=args.max_year,
+            min_difficulty=args.min_difficulty,
+            max_difficulty=args.max_difficulty,
+        )
+        for _, item in filtered_metadata.iterrows():
+            gm = int(item["ModeInt"])
+            path = dataset_path / "data" / item["BeatmapSetFolder"] / item["BeatmapFile"]
+            paths_by_gm.setdefault(gm, []).append(path)
+    elif args.dataset_type == "ors":
+        track_names = ["Track" + str(i).zfill(5) for i in range(args.dataset_start, args.dataset_end)]
+        for track_name in track_names:
+            for beatmap_file in (dataset_path / track_name / "beatmaps").iterdir():
+                path = dataset_path / track_name / "beatmaps" / beatmap_file.name
+                gm = _read_gamemode_from_osu(path)
+                if gm in args.gamemodes:
+                    paths_by_gm.setdefault(gm, []).append(path)
+    else:
+        raise ValueError(f"Unknown dataset type: {args.dataset_type}")
+
+    # Sort keys so generation order is deterministic (0, 1, 2, 3)
+    return dict(sorted(paths_by_gm.items()))
+
+
+def calculate_frechet_distance(mu1, sigma1, mu2, sigma2, eps=1e-6):
+    """Numpy implementation of the Frechet Distance.
+    The Frechet distance between two multivariate Gaussians X_1 ~ N(mu_1, C_1)
+    and X_2 ~ N(mu_2, C_2) is
+            d^2 = ||mu_1 - mu_2||^2 + Tr(C_1 + C_2 - 2*sqrt(C_1*C_2)).
+
+    Stable version by Dougal J. Sutherland.
+
+    Params:
+    -- mu1   : Numpy array containing the activations of a layer of the
+               inception net (like returned by the function 'get_predictions')
+               for generated samples.
+    -- mu2   : The sample mean over activations, precalculated on an
+               representative data set.
+    -- sigma1: The covariance matrix over activations for generated samples.
+    -- sigma2: The covariance matrix over activations, precalculated on an
+               representative data set.
+
+    Returns:
+    --   : The Frechet Distance.
+    """
+
+    mu1 = np.atleast_1d(mu1)
+    mu2 = np.atleast_1d(mu2)
+
+    sigma1 = np.atleast_2d(sigma1)
+    sigma2 = np.atleast_2d(sigma2)
+
+    assert (
+            mu1.shape == mu2.shape
+    ), "Training and test mean vectors have different lengths"
+    assert (
+            sigma1.shape == sigma2.shape
+    ), "Training and test covariances have different dimensions"
+
+    diff = mu1 - mu2
+
+    # Product might be almost singular
+    covmean, _ = linalg.sqrtm(sigma1.dot(sigma2), disp=False)
+    if not np.isfinite(covmean).all():
+        msg = (
+                  "fid calculation produces singular product; "
+                  "adding %s to diagonal of cov estimates"
+              ) % eps
+        logger.warning(msg)
+        offset = np.eye(sigma1.shape[0]) * eps
+        covmean = linalg.sqrtm((sigma1 + offset).dot(sigma2 + offset))
+
+    # Numerical error might give slight imaginary component
+    if np.iscomplexobj(covmean):
+        if not np.allclose(np.diagonal(covmean).imag, 0, atol=1e-3):
+            m = np.max(np.abs(covmean.imag))
+            raise ValueError("Imaginary component {}".format(m))
+        covmean = covmean.real
+
+    tr_covmean = np.trace(covmean)
+
+    return diff.dot(diff) + np.trace(sigma1) + np.trace(sigma2) - 2 * tr_covmean
+
+
+def add_to_dict(source_dict, target_dict):
+    for key, value in source_dict.items():
+        if key not in target_dict:
+            target_dict[key] = value
+        else:
+            target_dict[key] += value
+
+
+def calculate_rhythm_stats(real_rhythm, generated_rhythm):
+    # Rhythm is a set of timestamps for each beat
+    # Calculate number of true positives, false positives, and false negatives within a leniency of 10 ms
+    leniency = 10
+    true_positives = 0
+    false_positives = 0
+    false_negatives = 0
+    for real_beat in real_rhythm:
+        if any(abs(real_beat - gen_beat) <= leniency for gen_beat in generated_rhythm):
+            true_positives += 1
+        else:
+            false_negatives += 1
+
+    for gen_beat in generated_rhythm:
+        if not any(abs(gen_beat - real_beat) <= leniency for real_beat in real_rhythm):
+            false_positives += 1
+
+    return {
+        "true_positives": true_positives,
+        "false_positives": false_positives,
+        "false_negatives": false_negatives,
+    }
+
+
+def calculate_precision(rhythm_stats):
+    true_positives = rhythm_stats["true_positives"]
+    false_positives = rhythm_stats["false_positives"]
+    if true_positives + false_positives == 0:
+        return 0.0
+    return true_positives / (true_positives + false_positives)
+
+
+def calculate_recall(rhythm_stats):
+    true_positives = rhythm_stats["true_positives"]
+    false_negatives = rhythm_stats["false_negatives"]
+    if true_positives + false_negatives == 0:
+        return 0.0
+    return true_positives / (true_positives + false_negatives)
+
+
+def calculate_f1(rhythm_stats):
+    precision = calculate_precision(rhythm_stats)
+    recall = calculate_recall(rhythm_stats)
+    if precision + recall == 0:
+        return 0.0
+    return 2 * (precision * recall) / (precision + recall)
+
+
+def get_rhythm(beatmap, passive=False):
+    # Extract the rhythm from the beatmap
+    # Active rhythm includes only circles, slider heads, and hold note heads
+    # Passive rhythm also includes slider tails, slider repeats, and spinners tails
+    rhythm = set()
+    for hit_object in beatmap.hit_objects(stacking=False):
+        if isinstance(hit_object, Circle):
+            rhythm.add(int(hit_object.time.total_seconds() * 1000 + 1e-5))
+        elif isinstance(hit_object, Slider):
+            duration: timedelta = (hit_object.end_time - hit_object.time) / hit_object.repeat
+            rhythm.add(int(hit_object.time.total_seconds() * 1000 + 1e-5))
+            if passive:
+                for i in range(hit_object.repeat):
+                    rhythm.add(int((hit_object.time + duration * (i + 1)).total_seconds() * 1000 + 1e-5))
+        elif isinstance(hit_object, Spinner):
+            if passive:
+                rhythm.add(int(hit_object.end_time.total_seconds() * 1000 + 1e-5))
+        elif isinstance(hit_object, HoldNote):
+            rhythm.add(int(hit_object.time.total_seconds() * 1000 + 1e-5))
+
+    return rhythm
+
+
+def generate_beatmaps(beatmap_paths, args: InferenceConfig, dataset_type, idx, log_queue=None):
+    torch.set_grad_enabled(False)
+    torch.set_float32_matmul_precision('high')
+
+    gen_logger = _configure_generation_log_worker(log_queue)
+
+    model, tokenizer, diff_model, diff_tokenizer, refine_model = None, None, None, None, None
+    model, tokenizer = load_model_with_server(args.model_path, args.train, args.device,
+                                              max_batch_size=args.max_batch_size, use_server=args.use_server,
+                                              precision=args.precision, attn_implementation=args.attn_implementation,
+                                              gamemode=args.gamemode,
+                                              auto_select_gamemode_model=args.auto_select_gamemode_model)
+
+    if args.compile:
+        model.transformer.forward = torch.compile(model.transformer.forward, mode="reduce-overhead", fullgraph=True)
+
+    if args.generate_positions:
+        diff_model, diff_tokenizer = load_diff_model(args.diff_ckpt, args.diffusion, args.device)
+
+        if os.path.exists(args.diff_refine_ckpt):
+            refine_model = load_diff_model(args.diff_refine_ckpt, args.diffusion, args.device)[0]
+
+        if args.compile:
+            diff_model.forward = torch.compile(diff_model.forward, mode="reduce-overhead", fullgraph=False)
+
+    for beatmap_path in tqdm(beatmap_paths, desc=f"Process {idx}"):
+        try:
+            beatmap = Beatmap.from_path(beatmap_path)
+            output_path = Path("generated") / beatmap_path.stem
+
+            if dataset_type == "ors":
+                audio_path = beatmap_path.parents[1] / list(beatmap_path.parents[1].glob('audio.*'))[0]
+            else:
+                audio_path = beatmap_path.parent / beatmap.audio_filename
+
+            if output_path.exists() and len(list(output_path.glob("*.osu"))) > 0:
+                if not output_path.exists() or len(list(output_path.glob("*.osu"))) == 0:
+                    raise FileNotFoundError(f"Generated beatmap not found in {output_path}")
+                gen_logger.info("Skipping %s as it already exists", beatmap_path.stem)
+            else:
+                if ContextType.GD in args.in_context:
+                    other_beatmaps = [k for k in beatmap_path.parent.glob("*.osu") if k != beatmap_path]
+                    if len(other_beatmaps) == 0:
+                        continue
+                    other_beatmap_path = random.choice(other_beatmaps)
+                else:
+                    other_beatmap_path = beatmap_path
+
+                generation_config = generation_config_from_beatmap(beatmap, beatmap_path, tokenizer)
+                beatmap_config = beatmap_config_from_beatmap(beatmap)
+                beatmap_config.version = args.version
+
+                if args.year is not None:
+                    generation_config.year = args.year
+
+                result = generate(
+                    args,
+                    audio_path=audio_path,
+                    beatmap_path=other_beatmap_path,
+                    output_path=output_path,
+                    generation_config=generation_config,
+                    beatmap_config=beatmap_config,
+                    model=model,
+                    tokenizer=tokenizer,
+                    diff_model=diff_model,
+                    diff_tokenizer=diff_tokenizer,
+                    refine_model=refine_model,
+                    verbose=False,
+                    logger=gen_logger,
+                )[0]
+                generated_beatmap = Beatmap.parse(result)
+                gen_logger.info(
+                    "%s Generated %s hit objects",
+                    str(beatmap_path),
+                    len(generated_beatmap.hit_objects(stacking=False)),
+                )
+        except Exception:
+            gen_logger.exception("Error processing %s", beatmap_path)
+        finally:
+            torch.cuda.empty_cache()  # Clear any cached memory
+
+
+@torch.no_grad()
+def calculate_metrics(args: FidConfig, beatmap_paths: list[Path]):
+    print("Calculating metrics...")
+
+    classifier_model, classifier_args, classifier_tokenizer = None, None, None
+    if args.fid:
+        classifier_model, classifier_args, classifier_tokenizer = load_ckpt(args.classifier_ckpt)
+
+        if args.compile:
+            classifier_model.model.transformer.forward = torch.compile(classifier_model.model.transformer.forward,
+                                                                       mode="reduce-overhead", fullgraph=False)
+
+    cm3p_model, cm3p_processor = None, None
+    if args.fid_cm3p:
+        cm3p_processor = AutoProcessor.from_pretrained(args.cm3p_ckpt, trust_remote_code=True, revision="main")
+        cm3p_model = AutoModel.from_pretrained(args.cm3p_ckpt, device_map=args.device, dtype=torch.bfloat16,
+                                               trust_remote_code=True, revision="main")
+
+    real_features = []
+    generated_features = []
+    real_features_cm3p = []
+    generated_features_cm3p = []
+    active_rhythm_stats = {}
+    passive_rhythm_stats = {}
+
+    # Extra metrics accumulators
+    drain_se_sum = 0.0
+    drain_n = 0
+
+    bpm_integrated_se_sum = 0.0
+    bpm_length_sum = 0.0
+
+    sr_se_sum = 0.0
+    sr_n = 0
+
+    ssm_rmse_se_sum = 0.0
+    ssm_rmse_n = 0
+
+    for beatmap_path in tqdm(beatmap_paths, desc=f"Metrics"):
+        try:
+            beatmap = Beatmap.from_path(beatmap_path)
+            generated_path = Path("generated") / beatmap_path.stem
+
+            if args.dataset_type == "ors":
+                audio_path = beatmap_path.parents[1] / list(beatmap_path.parents[1].glob('audio.*'))[0]
+            else:
+                audio_path = beatmap_path.parent / beatmap.audio_filename
+
+            if generated_path.exists() and len(list(generated_path.glob("*.osu"))) > 0:
+                generated_osu_path = list(generated_path.glob("*.osu"))[0]
+                generated_beatmap = Beatmap.from_path(generated_osu_path)
+            else:
+                logger.warning(f"Skipping {beatmap_path.stem} as no generated beatmap found")
+                continue
+
+            if args.fid:
+                # Calculate feature vectors for real and generated beatmaps
+                sample_rate = classifier_args.data.sample_rate
+                audio = load_audio_file(audio_path, sample_rate)
+
+                def process(process_beatmap, feature_list):
+                    for example in DataLoader(
+                            ExampleDataset(process_beatmap, audio, classifier_args, classifier_tokenizer, args.device),
+                            batch_size=args.classifier_batch_size):
+                        classifier_result: OsuClassifierOutput = classifier_model(**example)
+                        features = classifier_result.feature_vector
+                        feature_list.append(features.cpu().numpy())
+
+                process(beatmap, real_features)
+                process(generated_beatmap, generated_features)
+
+            if args.fid_cm3p:
+                def process(process_beatmap, feature_list):
+                    beatmap_data = cm3p_processor(beatmap=process_beatmap, audio=audio_path)
+                    beatmap_data = beatmap_data.to(args.device, dtype=torch.bfloat16)
+                    # Turn dict of tensors into list of dicts of tensors for DataLoader
+                    beatmap_data = [{key: beatmap_data[key][i] for key in beatmap_data} for i in
+                                    range(len(beatmap_data['input_ids']))]
+                    beatmap_features = []
+                    for example in DataLoader(beatmap_data, batch_size=args.cm3p_batch_size):
+                        outputs = cm3p_model(**example, return_loss=False)
+                        beatmap_embeds = outputs.beatmap_embeds
+                        batch_features = beatmap_embeds.float().cpu().numpy()
+                        feature_list.append(batch_features)
+                        beatmap_features.append(batch_features)
+
+                    if not beatmap_features:
+                        return None
+                    return np.concatenate(beatmap_features, axis=0)
+
+                real_cm3p_features = process(beatmap, real_features_cm3p)
+                generated_cm3p_features = process(generated_beatmap, generated_features_cm3p)
+
+                if args.extra_stats:
+                    ssm_rmse = _ssm_rmse_for_pair(real_cm3p_features, generated_cm3p_features)
+                    if ssm_rmse is not None:
+                        ssm_rmse_se_sum += ssm_rmse * ssm_rmse
+                        ssm_rmse_n += 1
+
+            if args.rhythm_stats:
+                # Calculate rhythm stats
+                real_active_rhythm = get_rhythm(beatmap, passive=False)
+                generated_active_rhythm = get_rhythm(generated_beatmap, passive=False)
+                add_to_dict(calculate_rhythm_stats(real_active_rhythm, generated_active_rhythm), active_rhythm_stats)
+
+                real_passive_rhythm = get_rhythm(beatmap, passive=True)
+                generated_passive_rhythm = get_rhythm(generated_beatmap, passive=True)
+                add_to_dict(calculate_rhythm_stats(real_passive_rhythm, generated_passive_rhythm), passive_rhythm_stats)
+
+            if args.extra_stats:
+                # --- Extra metrics per pair ---
+                # Drain time MSE
+                real_drain = _drain_time_seconds(beatmap)
+                gen_drain = _drain_time_seconds(generated_beatmap)
+                drain_diff = real_drain - gen_drain
+                drain_se_sum += float(drain_diff * drain_diff)
+                drain_n += 1
+
+                # BPM MSE (accumulate integral and length so final is sum(integrals)/sum(lengths)
+                integ, length_s = _bpm_mse_for_pair(beatmap, generated_beatmap)
+                bpm_integrated_se_sum += float(integ)
+                bpm_length_sum += float(length_s)
+
+                # SR MSE (rosu)
+                real_sr = _sr_stars(beatmap_path)
+                gen_sr = _sr_stars(generated_osu_path)
+                sr_diff = float(real_sr - gen_sr)
+                sr_se_sum += sr_diff * sr_diff
+                sr_n += 1
+
+        except Exception as e:
+            print(f"Error processing {beatmap_path}: {e}")
+            traceback.print_exc()
+        finally:
+            torch.cuda.empty_cache()  # Clear any cached memory
+
+    def fid_calc(features1, features2, name):
+        features1 = np.concatenate(features1, axis=0)
+        features2 = np.concatenate(features2, axis=0)
+        m1, s1 = np.mean(features1, axis=0), np.cov(features1, rowvar=False)
+        m2, s2 = np.mean(features2, axis=0), np.cov(features2, rowvar=False)
+        fid = calculate_frechet_distance(m1, s1, m2, s2)
+        logger.info(f"{name}: {fid}")
+
+    if args.fid:
+        fid_calc(real_features, generated_features, "FID")
+
+    if args.fid_cm3p:
+        fid_calc(real_features_cm3p, generated_features_cm3p, "FID CM3P")
+
+    if args.rhythm_stats:
+        # Calculate rhythm precision, recall, and F1 score
+        active_precision = calculate_precision(active_rhythm_stats)
+        active_recall = calculate_recall(active_rhythm_stats)
+        active_f1 = calculate_f1(active_rhythm_stats)
+        passive_precision = calculate_precision(passive_rhythm_stats)
+        passive_recall = calculate_recall(passive_rhythm_stats)
+        passive_f1 = calculate_f1(passive_rhythm_stats)
+        logger.info(f"Active Rhythm Precision: {active_precision}")
+        logger.info(f"Active Rhythm Recall: {active_recall}")
+        logger.info(f"Active Rhythm F1: {active_f1}")
+        logger.info(f"Passive Rhythm Precision: {passive_precision}")
+        logger.info(f"Passive Rhythm Recall: {passive_recall}")
+        logger.info(f"Passive Rhythm F1: {passive_f1}")
+
+    if args.extra_stats:
+        # --- Log extra metrics ---
+        if drain_n > 0:
+            logger.info(f"Drain RMSE: {np.sqrt(drain_se_sum / drain_n)}")
+
+        if bpm_length_sum > 0:
+            logger.info(f"BPM RMSE: {np.sqrt(bpm_integrated_se_sum / bpm_length_sum)}")
+
+        if sr_n > 0:
+            logger.info(f"SR RMSE: {np.sqrt(sr_se_sum / sr_n)}")
+
+        if ssm_rmse_n > 0:
+            logger.info(f"SSM RMSE: {np.sqrt(ssm_rmse_se_sum / ssm_rmse_n)}")
+
+
+def test_training_set_overlap(beatmap_paths: list[Path], training_set_ids_path: Optional[str]):
+    if training_set_ids_path is None:
+        return
+
+    if not os.path.exists(training_set_ids_path):
+        logger.error(f"Training set IDs file {training_set_ids_path} does not exist.")
+        return
+
+    with open(training_set_ids_path, "r") as f:
+        training_set_ids = set(int(line.strip()) for line in f)
+
+    in_set = 0
+    out_set = 0
+    for path in tqdm(beatmap_paths):
+        beatmap = Beatmap.from_path(path)
+        if beatmap.beatmap_id in training_set_ids:
+            in_set += 1
+        else:
+            out_set += 1
+    logger.info(
+        f"In training set: {in_set}, Not in training set: {out_set}, Total: {len(beatmap_paths)}, Ratio: {in_set / (in_set + out_set):.2f}")
+
+
+@hydra.main(config_path="configs", config_name="calc_fid", version_base="1.1")
+def main(args: FidConfig):
+    args: FidConfig = OmegaConf.to_object(args)
+    compile_device_and_seed(args.inference)
+    setup_inference_environment(args.inference.seed)
+    args.device = args.inference.device
+
+    print(f"Logging to directory: {os.getcwd()}")
+
+    # Fix inference model path
+    base_model_path = args.inference.model_path
+    if base_model_path.startswith("./"):
+        base_model_path = os.path.join(Path(__file__).parent, base_model_path[2:])
+    args.inference.model_path = base_model_path
+
+    # Group beatmaps by gamemode so each stage uses the correct checkpoint
+    paths_by_gm = get_beatmap_paths_by_gamemode(args)
+    all_beatmap_paths = [p for gm_paths in paths_by_gm.values() for p in gm_paths]
+
+    test_training_set_overlap(all_beatmap_paths, args.training_set_ids_path)
+
+    listener = None
+    try:
+        # Configure generation logger (writes to generation.log in the Hydra run dir)
+        listener, log_queue = _configure_generation_log_parent(Path(os.getcwd()) / "generation.log")
+
+        if not args.skip_generation:
+            gamemode_names = {0: "std", 1: "taiko", 2: "catch", 3: "mania"}
+            for gm, gm_beatmap_paths in paths_by_gm.items():
+                gm_name = gamemode_names.get(gm, f"gamemode {gm}")
+                logger.info(
+                    "=== Generating %s beatmaps (%d maps) with base checkpoint %s ===",
+                    gm_name, len(gm_beatmap_paths), base_model_path,
+                )
+
+                args.inference.gamemode = gm
+
+                # Assign beatmaps to processes in a round-robin fashion
+                num_processes = max(args.num_processes, 1)
+                chunks = [[] for _ in range(num_processes)]
+                for i, path in enumerate(gm_beatmap_paths):
+                    chunks[i % num_processes].append(path)
+
+                if args.num_processes <= 0:
+                    generate_beatmaps(chunks[0], args.inference, args.dataset_type, 0, log_queue=log_queue)
+                else:
+                    processes = []
+                    for i in range(num_processes):
+                        p = Process(target=generate_beatmaps, args=(chunks[i], args.inference, args.dataset_type, i, log_queue))
+                        processes.append(p)
+                        p.start()
+
+                    for p in processes:
+                        p.join()
+
+                logger.info("=== Finished generating %s beatmaps ===", gm_name)
+
+        calculate_metrics(args, all_beatmap_paths)
+    finally:
+        if listener is not None:
+            listener.stop()
+
+
+if __name__ == "__main__":
+    main()

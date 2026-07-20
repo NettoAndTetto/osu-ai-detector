@@ -1,0 +1,36 @@
+defaults:
+  - train
+  - _self_
+  - model: whisper_base
+
+compile: true          # PyTorch 2.0 optimization
+mixed_precision: 'bf16'         # Enable mixed precision (no/fp16/bf16)
+
+data:                  # Data settings
+  train_dataset_path: "/workspace/datasets/ORS16291"
+  test_dataset_path: "/workspace/datasets/ORS16291"
+  add_descriptors: true
+  timing_random_offset: 2
+  src_seq_len: 1024
+  tgt_seq_len: 128
+  rhythm_weight: 3.0    # Weight of rhythm tokens in the loss calculation
+  context_types: [
+    {"in": ["none"], "out": "timing"}
+  ]      # List of context types to include in the dataset
+  context_weights: [1]    # List of weights for each context type. Determines how often each context type is sampled
+  descriptors_path: "../../../datasets/beatmap_descriptors.csv"   # Path to file with all beatmap descriptors
+  add_timing_points: true  # Model beatmap timing with timing points
+  add_pre_tokens: false
+  per_track: true
+  only_last_beatmap: true  # Only use the last beatmap in the mapset
+  dt_augment_prob: 0.7   # Probability of augmenting the dataset with DT
+  dt_augment_range: [1.25, 1.5]  # Range of DT augmentation
+  types_first: true       # Put the type token at the start of the group before the timeshift token
+
+dataloader:             # Dataloader settings
+  num_workers: 8
+
+optim:                  # Optimizer settings
+  base_lr: 1e-2         # Should not be scaled with the number of devices present
+  batch_size: 128
+  grad_acc: 2

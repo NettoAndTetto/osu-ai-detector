@@ -1,5 +1,6 @@
 .runtime/
 .runtime-assets/
+manual-models/
 offline-output/
 __pycache__/
 *.py[cod]

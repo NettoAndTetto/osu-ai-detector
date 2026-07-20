@@ -1,0 +1,55 @@
+defaults:
+  - base_fid
+  - inference: v32
+  - _self_
+
+num_processes: 32
+compile: false
+
+skip_generation: false
+fid: true
+fid_cm3p: true
+rhythm_stats: true
+extra_stats: true
+
+classifier_ckpt: 'OliBomby/osu-classifier'
+classifier_batch_size: 32
+
+cm3p_ckpt: 'OliBomby/CM3P'
+cm3p_batch_size: 32
+
+training_set_ids_path: null
+
+dataset_type: "mmrs"
+dataset_path: C:/Users/Olivier/Documents/Collections/Beatmap ML Datasets/MMRS2025
+dataset_start: 0
+dataset_end: 106  # Contains 324 std beatmaps
+gamemodes: [0, 1, 2, 3]  # List of gamemodes to include in the dataset
+min_year: null
+max_year: null
+min_difficulty: null
+max_difficulty: null
+
+inference:
+  seed: 0
+  compile: false
+  super_timing: false
+  temperature: 0.9        # Sampling temperature
+  top_p: 0.9              # Top-p sampling threshold
+  lookback: 0.5             # Fraction of audio sequence to fill with tokens from previous inference window
+  lookahead: 0.4            # Fraction of audio sequence to skip at the end of the audio window
+  year: 2023
+  resnap_events: true
+  use_server: true
+  auto_select_gamemode_model: true
+
+hydra:
+  job:
+    chdir: True
+    name: calc_fid
+  run:
+#    dir: ./logs_fid/${now:%Y-%m-%d}/${now:%H-%M-%S}
+    dir: ./logs_fid/sweeps/test_a/inference=v32
+  sweep:
+    dir: ./logs_fid/sweeps/test_a
+    subdir: ${hydra.job.override_dirname}

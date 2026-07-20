@@ -1,0 +1,37 @@
+defaults:
+  - train
+  - _self_
+  - model: whisper_base
+
+compile: false          # PyTorch 2.0 optimization
+mixed_precision: 'no'         # Enable mixed precision (no/fp16/bf16)
+
+data:                  # Data settings
+  add_diff_token: true
+  add_mapper_token: true
+  add_descriptors: true
+  timing_random_offset: 2
+  tgt_seq_len: 768
+  rhythm_weight: 3.0    # Weight of rhythm tokens in the loss calculation
+  sample_weights_path: "../../../datasets/rhythm_complexities.csv"    # Path to sample weights
+  context_types: [
+    {"in": ["none"], "out": ["map"]},
+    {"in": ["timing"], "out": ["map"]},
+    {"in": ["no_hs"], "out": ["map"]},
+    {"in": ["gd"], "out": ["map"]}
+  ]      # List of context types to include in the dataset
+  context_weights: [3, 1, 1, 1]    # List of weights for each context type. Determines how often each context type is sampled
+  descriptors_path: "../../../datasets/beatmap_descriptors.csv"   # Path to file with all beatmap descriptors
+  mappers_path: "../../../datasets/beatmap_users.json"       # Path to file with all beatmap mappers
+  add_timing: true      # Model beatmap timing
+  add_snapping: true    # Model hit object snapping
+  add_hitsounds: true   # Model beatmap hitsounds
+  add_pre_tokens: false
+
+dataloader:             # Dataloader settings
+  num_workers: 3
+
+optim:                  # Optimizer settings
+  base_lr: 1e-2         # Should be scaled with the number of devices present
+  batch_size: 128
+  grad_acc: 8

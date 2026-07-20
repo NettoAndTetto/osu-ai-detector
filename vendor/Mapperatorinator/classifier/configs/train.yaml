@@ -1,0 +1,82 @@
+compile: true          # PyTorch 2.0 optimization
+device: gpu             # Training device (cpu/gpu)
+precision: 'bf16-mixed'         # Enable mixed precision (no/fp16/bf16)
+seed: 42                # Project seed
+
+checkpoint_path: ''     # Project checkpoint directory (to resume training)
+pretrained_path: ''     # Path to pretrained model weights (to do transfer learning)
+
+data:                  # Data settings
+  train_dataset_path: "/workspace/datasets/ORS16291"
+  test_dataset_path: "/workspace/datasets/ORS16291"
+  train_dataset_start: 0  # Training dataset start index
+  train_dataset_end: 16200    # Training dataset end index
+  test_dataset_start: 16200   # Testing/validation dataset start index
+  test_dataset_end: 16291     # Testing/validation dataset end index
+  src_seq_len: 1024
+  tgt_seq_len: 1024
+  sample_rate: ${..model.spectrogram.sample_rate}
+  hop_length: ${..model.spectrogram.hop_length}
+  cycle_length: 16
+  per_track: false      # Loads all beatmaps in a track sequentially which optimizes audio data loading
+  num_classes: 3731     # Number of label classes in the dataset
+  timing_random_offset: 0
+  min_difficulty: 0     # Minimum difficulty to consider including in the dataset
+  mappers_path: "../../../datasets/beatmap_users.json"       # Path to file with all beatmap mappers
+  add_timing: true      # Model beatmap timing
+  add_snapping: true    # Model hit object snapping
+  add_timing_points: false  # Model beatmap timing with timing points
+  add_hitsounds: true   # Model beatmap hitsounds
+  add_distances: false   # Model hit object distances
+  add_positions: true   # Model hit object coordinates
+  position_precision: 1  # Precision of hit object coordinates
+  position_split_axes: true  # Split hit object X and Y coordinates into separate tokens
+  position_range: [-256, 768, -256, 640]  # Range of hit object coordinates
+  dt_augment_prob: 0.7   # Probability of augmenting the dataset with DT
+  dt_augment_range: [1.25, 1.5]  # Range of DT augmentation
+  types_first: true       # Put the type token at the start of the group before the timeshift token
+  augment_flip: false    # Augment the dataset with flipped positions
+
+
+dataloader:             # Dataloader settings
+  num_workers: 8
+
+optim:                  # Optimizer settings
+  name: adamw
+  base_lr: 1e-2         # Should be scaled with the number of devices present
+  batch_size: 128       # This is the batch size per GPU
+  total_steps: 65536
+  warmup_steps: 10000
+  lr_scheduler: cosine
+  weight_decay: 0.0
+  grad_clip: 1.0
+  grad_acc: 2
+  final_cosine: 1e-5
+
+eval:                   # Evaluation settings 
+  every_steps: 1000
+  steps: 500
+
+checkpoint:             # Checkpoint settings
+  every_steps: 5000
+
+logging:                # Logging settings
+  log_with: 'wandb'     # Logging service (wandb/tensorboard)
+  every_steps: 10
+  grad_l2: true
+  weights_l2: true
+  mode: 'online'
+
+profile:                # Profiling settings
+  do_profile: false
+  early_stop: false
+  wait: 8
+  warmup: 8
+  active: 8
+  repeat: 1
+
+hydra:
+  job:
+    chdir: True
+  run:
+    dir: ./logs/${now:%Y-%m-%d}/${now:%H-%M-%S}

@@ -1,0 +1,6 @@
+defaults:
+  - model
+  - _self_
+
+name: 'openai/whisper-base'
+input_features: true

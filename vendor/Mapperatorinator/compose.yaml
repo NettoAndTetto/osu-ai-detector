@@ -1,0 +1,26 @@
+name: mapperatorinator
+services:
+    mapperatorinator:
+        stdin_open: true
+        tty: true
+        deploy:
+            resources:
+                reservations:
+                    devices:
+                        - driver: nvidia
+                          count: all
+                          capabilities:
+                              - gpu
+        volumes:
+        - .:/workspace/Mapperatorinator
+        - ../datasets:/workspace/datasets
+        network_mode: host
+        container_name: mapperatorinator_space
+        shm_size: 16gb
+        build: .
+        # image: my_fixed_image
+        command: /bin/bash
+        environment:
+          - PROJECT_PATH=/workspace/Mapperatorinator
+          - WANDB_API_KEY=${WANDB_API_KEY}
+          - WANDB_ENTITY=${WANDB_ENTITY}

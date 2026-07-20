@@ -1,0 +1,8 @@
+defaults:
+  - inference
+  - osut5: train_v8_gd
+  - diffusion: v1
+  - _self_
+
+version: 'osuT5 V8 GD'        # Beatmap version
+lookback: 0.5             # Fraction of audio sequence to fill with tokens from previous inference window

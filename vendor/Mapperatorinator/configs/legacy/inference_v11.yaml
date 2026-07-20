@@ -1,0 +1,9 @@
+defaults:
+  - inference
+  - osut5: train_v11
+  - diffusion: v1
+  - _self_
+
+version: 'osuT5 V11'        # Beatmap version
+lookback: 0.5             # Fraction of audio sequence to fill with tokens from previous inference window
+lookahead: 0.4            # Fraction of audio sequence to skip at the end of the audio window

@@ -1,0 +1,26 @@
+defaults:
+  - train
+  - _self_
+  - model: t5_base
+
+compile: true          # PyTorch 2.0 optimization
+mixed_precision: 'bf16'         # Enable mixed precision (no/fp16/bf16)
+
+data:                  # Data settings
+  src_seq_len: 1024
+  tgt_seq_len: 512
+  add_diff_token: true
+  add_style_token: true
+  max_pre_token_len: 4
+
+dataloader:             # Dataloader settings
+  num_workers: 8
+
+optim:                  # Optimizer settings
+  batch_size: 126
+  grad_acc: 21
+#  base_lr: 4e-2         # Should be scaled with the number of devices present
+#  final_cosine: 2e-5
+
+logging:                # Logging settings
+  every_steps: 10

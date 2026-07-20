@@ -1,0 +1,4 @@
+defaults:
+  - train
+  - _self_
+  - model: whisper_tiny

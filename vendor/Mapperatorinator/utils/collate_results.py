@@ -1,0 +1,463 @@
+import os
+import re
+import sys
+import argparse
+import subprocess
+import math
+
+
+def get_color_for_value(value, min_val, max_val, lower_is_better=False):
+    """
+    Generates an HSL color string from red to green based on a value's
+    position between a min and max.
+
+    Args:
+        value (float): The current value.
+        min_val (float): The minimum value in the dataset for this metric.
+        max_val (float): The maximum value in the dataset for this metric.
+        lower_is_better (bool): If True, lower values get greener colors.
+
+    Returns:
+        str: An HSL color string for use in CSS.
+    """
+    # Avoid division by zero if all values are the same
+    if min_val == max_val:
+        return "hsl(120, 70%, 60%)"  # Default to green
+
+    # Normalize the value to a 0-1 range
+    normalized = (value - min_val) / (max_val - min_val)
+    # Clamp so values outside robust bounds still map to valid endpoint colors.
+    normalized = max(0.0, min(1.0, normalized))
+
+    if lower_is_better:
+        # Invert the scale: 1 (best) -> 0 (worst)
+        hue = (1 - normalized) * 120
+    else:
+        # Standard scale: 0 (worst) -> 1 (best)
+        hue = normalized * 120
+
+    # Return HSL color: hue from 0 (red) to 120 (green), with fixed saturation and lightness
+    return f"hsl({hue:.0f}, 70%, 60%)"
+
+
+def _percentile(sorted_values, pct):
+    """Return a percentile from a pre-sorted numeric list using linear interpolation."""
+    if not sorted_values:
+        raise ValueError("sorted_values must not be empty")
+
+    if len(sorted_values) == 1:
+        return float(sorted_values[0])
+
+    p = max(0.0, min(100.0, float(pct)))
+    pos = (len(sorted_values) - 1) * (p / 100.0)
+    lo = int(math.floor(pos))
+    hi = int(math.ceil(pos))
+    if lo == hi:
+        return float(sorted_values[lo])
+    weight = pos - lo
+    return float(sorted_values[lo] * (1.0 - weight) + sorted_values[hi] * weight)
+
+
+def _robust_min_max(values, min_samples=5, iqr_multiplier=1.5):
+    """Compute color bounds while reducing outlier impact.
+
+    Uses Tukey IQR fences and clamps to in-fence observations.
+    For small samples we keep raw min/max to avoid over-clipping.
+    """
+    clean_values = [float(v) for v in values if v is not None and math.isfinite(float(v))]
+    if not clean_values:
+        return None
+
+    clean_values.sort()
+    raw_min = clean_values[0]
+    raw_max = clean_values[-1]
+    if raw_min == raw_max:
+        return {'min': raw_min, 'max': raw_max}
+
+    if len(clean_values) < min_samples:
+        return {'min': raw_min, 'max': raw_max}
+
+    q1 = _percentile(clean_values, 25.0)
+    q3 = _percentile(clean_values, 75.0)
+    iqr = q3 - q1
+    if iqr <= 0:
+        return {'min': raw_min, 'max': raw_max}
+
+    lo_fence = q1 - iqr_multiplier * iqr
+    hi_fence = q3 + iqr_multiplier * iqr
+
+    inliers = [v for v in clean_values if lo_fence <= v <= hi_fence]
+    if len(inliers) < 2:
+        return {'min': raw_min, 'max': raw_max}
+
+    lo = inliers[0]
+    hi = inliers[-1]
+
+    if lo >= hi:
+        return {'min': raw_min, 'max': raw_max}
+
+    return {'min': lo, 'max': hi}
+
+
+def _model_sort_key(name: str):
+    """Create a sort key for model names following the order:
+    1) v* (numeric ascending)
+    2) tiny_dist (no number)
+    3) tiny_nodist (no number)
+    4) tiny_dist* (numeric ascending)
+    5) tiny* (numeric ascending)
+    6) anything else (alphabetical fallback)
+
+    For tiny models, supports optional variant suffixes like:
+      - tiny41
+      - tiny41_2  (== tiny41 variant 2)
+      - tiny-41-2
+
+    Variants sort within the same base number:
+      tiny41 < tiny41_2 < tiny41_3 < tiny42
+    """
+    if name is None:
+        return 99, float('inf'), float('inf'), name or ''
+
+    s = name.strip()
+
+    # v<number>
+    m = re.fullmatch(r"v(\d+)", s)
+    if m:
+        return 0, int(m.group(1)), -1, s
+
+    # exact tiny_dist
+    if s == "tiny_dist":
+        return 1, -1, -1, s
+
+    # exact tiny_nodist
+    if s == "tiny_nodist":
+        return 2, -1, -1, s
+
+    # tiny_dist<number> with optional numeric suffixes (e.g. tiny_dist41_2)
+    m = re.fullmatch(r"tiny_dist[-_]?([0-9]+)(?:[-_]+([0-9]+))?", s)
+    if m:
+        base = int(m.group(1))
+        variant = int(m.group(2)) if m.group(2) is not None else -1
+        return 3, base, variant, s
+
+    # tiny<number> with optional variant suffixes (e.g. tiny41_2)
+    m = re.fullmatch(r"tiny[-_]?([0-9]+)(?:[-_]+([0-9]+))?", s)
+    if m:
+        base = int(m.group(1))
+        variant = int(m.group(2)) if m.group(2) is not None else -1
+        return 4, base, variant, s
+
+    # Fallback: put others last, keep alphabetical within group
+    return 5, float('inf'), float('inf'), s
+
+
+def parse_log_files(root_dir):
+    """
+    Parses log files in subdirectories to extract metrics and format them
+    into an HTML table with colored cells.
+
+    Args:
+        root_dir (str): The path to the main folder containing the model subfolders.
+
+    Returns:
+        str: A string containing the formatted HTML table.
+    """
+    results = []
+    dir_pattern = re.compile(r"inference=(inference_)?([a-zA-Z0-9_-]+)")
+    metric_patterns = {
+        'FCD': re.compile(r"FID CM3P: ([\d.]+)"),
+        'FID': re.compile(r"FID: ([\d.]+)"),
+        'AR F1': re.compile(r"Active Rhythm F1: ([\d.]+)"),
+        'PR F1': re.compile(r"Passive Rhythm F1: ([\d.]+)"),
+        'DRN': re.compile(r"Drain RMSE: ([\d.]+)"),
+        'BPM': re.compile(r"BPM RMSE: ([\d.]+)"),
+        'SR': re.compile(r"SR RMSE: ([\d.]+)"),
+        'SIM': re.compile(r"SSM RMSE: ([\d.]+)")
+    }
+
+    # Count warnings generated by postprocessor.py in generation.log
+    # generation.log format (from calc_fid.py):
+    #   [%(asctime)s][%(processName)s][%(name)s][%(levelname)s] - %(message)s
+    postprocessor_warning_pattern = re.compile(
+        r"\[[^]]*]\[[^]]*]\[[^]]*postprocessor[^]]*]\[WARNING]"
+    )
+
+    for dirpath, dirnames, filenames in os.walk(root_dir):
+        if dirpath == root_dir:
+            for dirname in dirnames:
+                dir_match = dir_pattern.match(dirname)
+                if not dir_match:
+                    continue
+                model_name = dir_match.group(2)
+                log_file_path = os.path.join(dirpath, dirname, 'calc_fid.log')
+                generation_log_path = os.path.join(dirpath, dirname, 'generation.log')
+
+                if not os.path.exists(log_file_path):
+                    print(f"Warning: 'calc_fid.log' not found in {dirname}")
+                    continue
+
+                latest_metrics = {}
+                try:
+                    with open(log_file_path, 'r') as f:
+                        for line in f:
+                            for key, pattern in metric_patterns.items():
+                                match = pattern.search(line)
+                                if match:
+                                    latest_metrics[key] = float(match.group(1))
+                except Exception as e:
+                    print(f"Error reading {log_file_path}: {e}")
+                    continue
+
+                # Count postprocessor warnings from generation.log (if present)
+                gen_warn_count = None
+                if os.path.exists(generation_log_path):
+                    try:
+                        count = 0
+                        line_count = 0
+                        with open(generation_log_path, 'r', encoding='utf-8', errors='replace') as f:
+                            for line in f:
+                                line_count += 1
+                                if postprocessor_warning_pattern.search(line):
+                                    count += 1
+                        if line_count > 0:
+                            gen_warn_count = count
+                    except Exception as e:
+                        print(f"Error reading {generation_log_path}: {e}")
+                        gen_warn_count = None
+                latest_metrics['Warn'] = gen_warn_count
+
+                if latest_metrics:
+                    latest_metrics['Model name'] = model_name
+                    results.append(latest_metrics)
+            dirnames[:] = []
+
+    if not results:
+        return "<p>No results found. Check if <code>root_dir</code> is correct and log files exist.</p>"
+
+    # Sort by Model name
+    # The order is: v*, tiny_dist, tiny_nodist, tiny_dist*, tiny*
+
+    # --- Pre-calculate Min/Max for coloring ---
+    headers = ["Model name", "FCD", "FID", "AR F1", "PR F1", "DRN", "BPM", "SR", "SIM", "Warn"]
+    min_max_vals = {}
+    for header in headers:
+        if header == "Model name":
+            continue
+        # Get all valid values for the current header
+        values = [res.get(header) for res in results if res.get(header) is not None]
+        bounds = _robust_min_max(values)
+        if bounds is not None:
+            min_max_vals[header] = bounds
+
+    # --- Generate HTML Table ---
+    html = ["<table>"]
+    # Header row
+    html.append("  <thead>")
+    html.append("    <tr>" + "".join([f"<th>{h}</th>" for h in headers]) + "</tr>")
+    html.append("  </thead>")
+
+    # Data rows
+    html.append("  <tbody>")
+    for res in sorted(results, key=lambda x: _model_sort_key(x.get('Model name', ''))):
+        row_html = "    <tr>"
+        for header in headers:
+            value = res.get(header)
+
+            if header == 'Model name':
+                row_html += f"<td>{res.get('Model name', 'N/A')}</td>"
+                continue
+
+            if value is None:
+                row_html += "<td>N/A</td>"
+                continue
+
+            # Formatting
+            if 'FID' in header or 'FCD' in header:
+                formatted_value = f"{value:.3f}"
+                lower_is_better = True
+            elif header == 'Warn':
+                formatted_value = f"{int(value)}"
+                lower_is_better = True
+            elif header in {'DRN', 'BPM', 'SR', 'SIM'}:
+                formatted_value = f"{value:.3f}"
+                lower_is_better = True
+            else:
+                formatted_value = f"{value:.3f}"
+                lower_is_better = False
+
+            # Get color and apply style
+            color = get_color_for_value(
+                float(value),
+                min_max_vals[header]['min'],
+                min_max_vals[header]['max'],
+                lower_is_better,
+            )
+            # Added a light text shadow for better readability on bright colors
+            style = f"background-color: {color}; color: black; text-shadow: 0 0 5px white;"
+            row_html += f'<td style="{style}">{formatted_value}</td>'
+
+        row_html += "</tr>"
+        html.append(row_html)
+
+    html.append("  </tbody>")
+    html.append("</table>")
+
+    return "\n".join(html)
+
+
+def _copy_text_clipboard_windows(text: str) -> None:
+    """Copy plain text to Windows clipboard via clip.exe."""
+    # clip.exe expects UTF-16LE when stdin is a pipe.
+    p = subprocess.run(
+        ["clip"],
+        input=text.encode("utf-16le"),
+        stdout=subprocess.DEVNULL,
+        stderr=subprocess.PIPE,
+        check=True,
+    )
+
+
+def _copy_html_clipboard_windows(html: str) -> None:
+    """Copy HTML to Windows clipboard in CF_HTML format.
+
+    Many targets (Outlook, Word, some editors) will preserve formatting.
+    Falls back to text copy if the HTML clipboard format can't be set.
+    """
+    import ctypes
+
+    CF_UNICODETEXT = 13
+
+    user32 = ctypes.windll.user32
+    kernel32 = ctypes.windll.kernel32
+
+    # Register HTML clipboard format.
+    CF_HTML = user32.RegisterClipboardFormatW("HTML Format")
+
+    def build_cf_html(fragment: str) -> bytes:
+        # Per CF_HTML spec: https header with byte offsets.
+        start_html = 0
+        end_html = 0
+        start_fragment = 0
+        end_fragment = 0
+
+        prefix = (
+            "Version:0.9\r\n"
+            "StartHTML:{:010d}\r\n"
+            "EndHTML:{:010d}\r\n"
+            "StartFragment:{:010d}\r\n"
+            "EndFragment:{:010d}\r\n"
+        )
+
+        html_doc_prefix = "<html><body><!--StartFragment-->"
+        html_doc_suffix = "<!--EndFragment--></body></html>"
+        html_doc = html_doc_prefix + fragment + html_doc_suffix
+
+        # We'll fill offsets after assembling the full text.
+        header_placeholder = prefix.format(0, 0, 0, 0)
+        full = header_placeholder + html_doc
+
+        # Offsets are byte offsets in UTF-8.
+        start_html = len(header_placeholder.encode("utf-8"))
+        end_html = len(full.encode("utf-8"))
+        start_fragment = start_html + len(html_doc_prefix.encode("utf-8"))
+        end_fragment = start_fragment + len(fragment.encode("utf-8"))
+
+        header = prefix.format(start_html, end_html, start_fragment, end_fragment)
+        full = header + html_doc
+        return full.encode("utf-8")
+
+    def set_clipboard_data(fmt: int, data: bytes) -> None:
+        GMEM_MOVEABLE = 0x0002
+
+        hglobal = kernel32.GlobalAlloc(GMEM_MOVEABLE, len(data) + 1)
+        if not hglobal:
+            raise OSError("GlobalAlloc failed")
+
+        locked = kernel32.GlobalLock(hglobal)
+        if not locked:
+            kernel32.GlobalFree(hglobal)
+            raise OSError("GlobalLock failed")
+
+        ctypes.memmove(locked, data, len(data))
+        ctypes.memset(locked + len(data), 0, 1)
+        kernel32.GlobalUnlock(hglobal)
+
+        if not user32.SetClipboardData(fmt, hglobal):
+            # If SetClipboardData fails, we must free.
+            kernel32.GlobalFree(hglobal)
+            raise OSError("SetClipboardData failed")
+
+    if not user32.OpenClipboard(None):
+        raise OSError("OpenClipboard failed")
+
+    try:
+        if not user32.EmptyClipboard():
+            raise OSError("EmptyClipboard failed")
+
+        cf_html_bytes = build_cf_html(html)
+        set_clipboard_data(CF_HTML, cf_html_bytes)
+
+        # Also set Unicode text, so paste targets without CF_HTML still work.
+        # Use UTF-16LE without BOM for CF_UNICODETEXT with terminating null.
+        text_bytes = (html).encode("utf-16le")
+        set_clipboard_data(CF_UNICODETEXT, text_bytes + b"\x00\x00")
+    finally:
+        user32.CloseClipboard()
+
+
+def copy_to_clipboard(content: str, *, prefer_html: bool = True) -> bool:
+    """Copy content to clipboard.
+
+    Returns True if copied successfully, False otherwise.
+    Currently supports Windows; other OSes will return False.
+    """
+    if os.name != "nt":
+        return False
+
+    if prefer_html:
+        try:
+            _copy_html_clipboard_windows(content)
+            return True
+        except Exception:
+            # fall back to text
+            pass
+
+    try:
+        _copy_text_clipboard_windows(content)
+        return True
+    except Exception:
+        return False
+
+
+if __name__ == '__main__':
+    parser = argparse.ArgumentParser(description="Collate calc_fid.log metrics into an HTML table.")
+    parser.add_argument(
+        "--root-dir",
+        default="./logs_fid/sweeps/test_1",
+        help="Path to folder containing inference=* subfolders (default: ./logs_fid/sweeps/test_1)",
+    )
+    parser.add_argument(
+        "--copy",
+        action="store_true",
+        help="Copy the generated HTML to clipboard (Windows only).",
+    )
+    parser.add_argument(
+        "--copy-text",
+        action="store_true",
+        help="Copy as plain text only (Windows only).",
+    )
+
+    args = parser.parse_args()
+
+    logs_directory = args.root_dir
+
+    html_table = parse_log_files(logs_directory)
+    print(html_table)
+
+    if args.copy or args.copy_text:
+        ok = copy_to_clipboard(html_table, prefer_html=not args.copy_text)
+        if ok:
+            print("\n[collate_results] Copied to clipboard.", file=sys.stderr)
+        else:
+            print("\n[collate_results] Clipboard copy failed (or unsupported OS).", file=sys.stderr)

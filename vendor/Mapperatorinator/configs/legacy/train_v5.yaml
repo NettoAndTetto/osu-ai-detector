@@ -1,0 +1,14 @@
+defaults:
+  - train
+  - _self_
+  - model: t5_small_v4
+
+data:                  # Data settings
+  per_track: true      # Loads all beatmaps in a track sequentially which optimizes audio data loading
+  add_diff_token: true
+  add_style_token: true
+  add_empty_sequences: false
+  add_empty_sequences_at_step: 35000
+
+logging:                # Logging settings
+  every_steps: 100

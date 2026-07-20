@@ -1,0 +1,4 @@
+defaults:
+  - train_v2
+  - inference
+  - _self_

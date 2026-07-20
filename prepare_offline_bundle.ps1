@@ -11,7 +11,7 @@ if (Test-Path -LiteralPath $Work) { throw "Output already exists: $Work" }
 New-Item -ItemType Directory -Force -Path $Work | Out-Null
 
 Write-Host 'Copying the allowlisted application release...'
-Get-ChildItem -LiteralPath $Root -Force | Where-Object { $_.Name -notin @('.git','.runtime','.runtime-assets','offline-output') } | ForEach-Object {
+Get-ChildItem -LiteralPath $Root -Force | Where-Object { $_.Name -notin @('.git','.runtime','.runtime-assets','manual-models','offline-output') } | ForEach-Object {
     Copy-Item -LiteralPath $_.FullName -Destination $Work -Recurse -Force
 }
 

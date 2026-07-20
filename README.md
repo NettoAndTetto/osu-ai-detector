@@ -30,7 +30,40 @@ Set-ExecutionPolicy -Scope Process Bypass
 .\install.ps1
 ```
 
-The installer is an unsigned, readable PowerShell script. It installs an isolated Miniforge environment, downloads this project's model artifacts, downloads the original Mapperatorinator source and five upstream checkpoint snapshots at pinned revisions, and verifies the recorded identities before marking the installation complete. It does not send telemetry or check for updates.
+The installer is an unsigned, readable PowerShell script. It installs an isolated Miniforge environment, downloads this project's model artifacts and five upstream checkpoint snapshots at pinned revisions, and verifies the recorded identities before marking the installation complete. The pinned Mapperatorinator source code is already bundled with the release, so it is not fetched during installation. The installer does not send telemetry or check for updates.
+
+### Manual model download fallback
+
+The installer makes one automatic model-download attempt. If Hugging Face is unavailable or unreliable, do not keep retrying it. Download only the missing repositories in a browser and place their files under:
+
+```text
+manual-models/
+  osu-ai-detector-models/
+  v29/
+  v30/
+  v31/
+  v32/
+  v32-mini/
+```
+
+Use these exact pinned pages:
+
+- [osu-ai-detector-models v1.0.0](https://huggingface.co/NettoAndTetto/osu-ai-detector-models/tree/v1.0.0)
+- [Mapperatorinator v29.1](https://huggingface.co/OliBomby/Mapperatorinator-v29.1/tree/656db0cd04a8a6a77d94a96e7af89810fb6de5ef)
+- [Mapperatorinator v30](https://huggingface.co/OliBomby/Mapperatorinator-v30/tree/a4c6e6e69c055711c2293d63161c0e52980e56a1)
+- [Mapperatorinator v31](https://huggingface.co/OliBomby/Mapperatorinator-v31/tree/12772791b862b97a11153aa766b2481afa5dda11)
+- [Mapperatorinator v32](https://huggingface.co/OliBomby/Mapperatorinator-v32/tree/74f22583400d259bf424819e11027c17933efe54)
+- [Mapperatorinator v32-mini](https://huggingface.co/OliBomby/Mapperatorinator-v32-mini/tree/7807f0dc70cab671be012e1f5ddf945b0b8b7278)
+
+Preserve the repository directory structure while downloading. For v29–v31 this includes root-level `config.json`, `tokenizer.json`, and the complete `model.safetensors`; v32 and v32-mini place the required files under `gamemode=0/`. A completed repository already present in the automatic-download cache may be omitted. Then run:
+
+```powershell
+.\install.ps1 -ManualModelsDirectory .\manual-models
+```
+
+The installer imports these ordinary files into the same pinned local cache used by inference and verifies every required file against the release's recorded byte size and SHA-256. It does not switch the detector to a less strict model-loading path.
+
+If Conda package retrieval is blocked rather than model retrieval, prepare the fully offline bundle on another connected Windows machine as described below. Manually assembling hundreds of Conda packages is not supported.
 
 Start the local application with:
 

@@ -1,0 +1,23 @@
+defaults:
+  - train
+  - _self_
+  - model: t5_small_v4
+
+compile: false          # PyTorch 2.0 optimization
+mixed_precision: 'no'         # Enable mixed precision (no/fp16/bf16)
+
+data:                  # Data settings
+  add_diff_token: true
+  add_style_token: true
+  add_empty_sequences: false
+  add_empty_sequences_at_step: 15000
+  add_pre_tokens: false
+  add_pre_tokens_at_step: 15000
+  max_pre_token_len: -1
+
+dataloader:             # Dataloader settings
+  num_workers: 3
+
+optim:                  # Optimizer settings
+  batch_size: 128
+  grad_acc: 8

@@ -1,0 +1,60 @@
+{
+  "schema_version": 1,
+  "repositories": [
+    {
+      "id": "v29",
+      "repo_id": "OliBomby/Mapperatorinator-v29.1",
+      "revision": "656db0cd04a8a6a77d94a96e7af89810fb6de5ef",
+      "files": [
+        {"path": "config.json", "bytes": 1756, "sha256": "9c2430265b817aac884ca650cd14c6121e0e4e4b9a7e9a28ba7714a0d88d0963"},
+        {"path": "generation_config.json", "bytes": 231, "sha256": "f87c708d474172a24345b50335958e6046fd1322cfaf864f8de3e289749b35bf"},
+        {"path": "model.safetensors", "bytes": 877083296, "sha256": "945b49765a3eeef88751474c9aa31d0e4e7670875005d06aebe323bb2a3bc2fe"},
+        {"path": "tokenizer.json", "bytes": 3082602, "sha256": "44b7e494652440bbbf964b7fbd25b2cdac0ffed84118121be9a07e01494e06ca"}
+      ]
+    },
+    {
+      "id": "v30",
+      "repo_id": "OliBomby/Mapperatorinator-v30",
+      "revision": "a4c6e6e69c055711c2293d63161c0e52980e56a1",
+      "files": [
+        {"path": "config.json", "bytes": 2237, "sha256": "3f0bc161f22d838a7a1582ea0231816dbf4e26ee04e030394f1ceb05e3bdb2cb"},
+        {"path": "generation_config.json", "bytes": 231, "sha256": "cdd37c2acd98f11d2160f4a6be5766a39495bb148c8526a51611576016e2db97"},
+        {"path": "model.safetensors", "bytes": 861280756, "sha256": "28c56449d9bb23afdd2b0a16743ce27dd37aabc5b1a846c78efa63485454fc97"},
+        {"path": "tokenizer.json", "bytes": 1876018, "sha256": "d801be48048583822b55cd4c8ef1e382c38934c8e1b9496e0be83cab3048f8e2"}
+      ]
+    },
+    {
+      "id": "v31",
+      "repo_id": "OliBomby/Mapperatorinator-v31",
+      "revision": "12772791b862b97a11153aa766b2481afa5dda11",
+      "files": [
+        {"path": "config.json", "bytes": 2756, "sha256": "250551fbc9fa300cebb9468c7340b932145c496d4fcaae2f457c9fd82714320b"},
+        {"path": "generation_config.json", "bytes": 259, "sha256": "668105b2e2df1f1adbcfa453cd6ec2087b9cce0a8e7cf1edabd5b377ece3f0ac"},
+        {"path": "model.safetensors", "bytes": 880954204, "sha256": "8adeaea3dd1be66d1df42fb3fe7e471797be1a89c765f656dd37c489cdda11d6"},
+        {"path": "tokenizer.json", "bytes": 3082188, "sha256": "db48ee9de0608264c48cb3746048a5bf401a4e4ac28bf296f57b58c622b33210"}
+      ]
+    },
+    {
+      "id": "v32",
+      "repo_id": "OliBomby/Mapperatorinator-v32",
+      "revision": "74f22583400d259bf424819e11027c17933efe54",
+      "files": [
+        {"path": "gamemode=0/config.json", "bytes": 2972, "sha256": "ff96b8c059179978c93b6f938e39fac945d5682a3495789c00cc159d571a1a22"},
+        {"path": "gamemode=0/generation_config.json", "bytes": 259, "sha256": "10b901beeb3c982c16c53cd5b37a4f9b3d4674fc70cbc3e64c7b20fdb0433f51"},
+        {"path": "gamemode=0/model.safetensors", "bytes": 865544236, "sha256": "dc60cf15609a1e93bf2280b360f00ba30b833c8e95d088db21babe44e1c4d6e9"},
+        {"path": "gamemode=0/tokenizer.json", "bytes": 4974127, "sha256": "6b98be0fc04a95a9e9d4feb8e8b67cc48728a6667e3091dcd5cc528baeca18bd"}
+      ]
+    },
+    {
+      "id": "v32-mini",
+      "repo_id": "OliBomby/Mapperatorinator-v32-mini",
+      "revision": "7807f0dc70cab671be012e1f5ddf945b0b8b7278",
+      "files": [
+        {"path": "gamemode=0/config.json", "bytes": 2963, "sha256": "df23449d5ddc05e07fb30a576b39aed0703de94c8418086a9ebd6e537a65acc0"},
+        {"path": "gamemode=0/generation_config.json", "bytes": 259, "sha256": "10b901beeb3c982c16c53cd5b37a4f9b3d4674fc70cbc3e64c7b20fdb0433f51"},
+        {"path": "gamemode=0/model.safetensors", "bytes": 222891244, "sha256": "a7a795018ea39747be369e571a19319954f999e93925e0c47aa9a807d22c8d7b"},
+        {"path": "gamemode=0/tokenizer.json", "bytes": 4974127, "sha256": "6b98be0fc04a95a9e9d4feb8e8b67cc48728a6667e3091dcd5cc528baeca18bd"}
+      ]
+    }
+  ]
+}

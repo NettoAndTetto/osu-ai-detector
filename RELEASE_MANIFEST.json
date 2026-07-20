@@ -1,9 +1,9 @@
 {
   "files": [
     {
-      "bytes": 94,
+      "bytes": 109,
       "path": ".gitignore",
-      "sha256": "bce0e435e4ea8bdecddc2d74f4a986b0468833bf377b708861875bd0f20d6ea9"
+      "sha256": "f0313c0d2457f0bcf145e4afe1af4c441f80da519160c5a6f23120c21bb008ef"
     },
     {
       "bytes": 1091,
@@ -11,9 +11,9 @@
       "sha256": "7a638141b722cd8960468680dc17a209b66fb9dd9ea5d20dacd63ff4d21ef98c"
     },
     {
-      "bytes": 3633,
+      "bytes": 5714,
       "path": "README.md",
-      "sha256": "b8c34b23efd26a4115000dfb03a22433e6c0e56a65a5458d9b172b9bed268381"
+      "sha256": "64088968cb8c74a1028fefff986a6afc2b8972919aded90d94f8d6b6bcd9ec20"
     },
     {
       "bytes": 41131,
@@ -21,9 +21,9 @@
       "sha256": "c9aa45b539df3b9203f43df5f82c5a30fa406ccd3568453f6cd8f23d2e16ae47"
     },
     {
-      "bytes": 941,
+      "bytes": 1018,
       "path": "THIRD_PARTY_NOTICES.md",
-      "sha256": "3afe10b813c211ad13e6a683489f3378b1941c77e55d7bb09d98c3f848e4a5fb"
+      "sha256": "a8383b53d5a35d0f60ee63476068540c48c88a30a72c94dcc2aa56c98fb03e36"
     },
     {
       "bytes": 7,
@@ -36,14 +36,14 @@
       "sha256": "ff17fb22a5ee82e5278106570c1a5b78d738983da6a14832f934e90593af298c"
     },
     {
-      "bytes": 3296,
+      "bytes": 10194,
       "path": "install.ps1",
-      "sha256": "416ea1d9ed71f6f691aeeaea1798e03299d6a379f1ba5ef7acb9dce347cf0b75"
+      "sha256": "eb958cfa89c345944ae1d8971e0e57a895a80a1c7a2c823f2a7717cb403550c8"
     },
     {
-      "bytes": 5942,
+      "bytes": 5958,
       "path": "prepare_offline_bundle.ps1",
-      "sha256": "20ac85db7cbfd39269a9b95c8efffb4fe41e8982ff88e37e467915bb93a5293f"
+      "sha256": "42a2ffc12daa46e7fcfd132d944de2fa0c859d7f556401759405ca37f68c1a44"
     },
     {
       "bytes": 1176,
@@ -66,9 +66,9 @@
       "sha256": "c53e17b930bc10dad2042e0bea1113d7054d90d1cb4553f91171603b5a5ce04a"
     },
     {
-      "bytes": 3581,
+      "bytes": 11141,
       "path": "scripts/download_release_models.py",
-      "sha256": "833314de9be167261200606d08adf9d585e4089bf0f5e1109550c7c06710a9a5"
+      "sha256": "3387576bd4e80057afd364b8b286715f654f26a170af662578bd16887ea5e15c"
     },
     {
       "bytes": 1374,
@@ -209,6 +209,2361 @@
       "bytes": 5147,
       "path": "tests/test_whitebox_protocol.py",
       "sha256": "1ae87af86f2e6bec9423bb7dde41f0d35889cb52d9b4df0ee79bbd491e22619a"
+    },
+    {
+      "bytes": 3645,
+      "path": "upstream-model-manifest.json",
+      "sha256": "b97e0490037b9df59379f7a6d4aa3c9405d80fc669aaf5abae1d2553202255ad"
+    },
+    {
+      "bytes": 1844,
+      "path": "vendor/Mapperatorinator/.devcontainer/devcontainer.json",
+      "sha256": "e6649b9c4fdc9ff48df2326df3fdb12e6834b656556b203d7e8b4250d2368431"
+    },
+    {
+      "bytes": 906,
+      "path": "vendor/Mapperatorinator/.github/FUNDING.yml",
+      "sha256": "ea0fca78bf27a5ca657a58c2e7bfb4565a538d071f082de91472986c40b9b900"
+    },
+    {
+      "bytes": 143,
+      "path": "vendor/Mapperatorinator/.gitignore",
+      "sha256": "c655dc0a016ed4ff9157a792bcec709214ecbd276fec6a1ba93edd00560886f7"
+    },
+    {
+      "bytes": 41,
+      "path": "vendor/Mapperatorinator/.release-source-revision",
+      "sha256": "e6a2a77b133d817b11d524d8aeed2394f732fd41a1cfe5443472ed628be3d4ee"
+    },
+    {
+      "bytes": 1029,
+      "path": "vendor/Mapperatorinator/Dockerfile",
+      "sha256": "4a44c872dd39c2b7c22afcd30f54cc9742375f910e3967d561cd20e4df7a678d"
+    },
+    {
+      "bytes": 1086,
+      "path": "vendor/Mapperatorinator/LICENSE",
+      "sha256": "f3015f0368e0a5a4db940db56ce7f69581ef0f09816dc1d508e3fffa74d5e34e"
+    },
+    {
+      "bytes": 25583,
+      "path": "vendor/Mapperatorinator/README.md",
+      "sha256": "57ff13645f6b65953c3afe60af93c38497b9e21bdf86a4b7a7b065de00d5b1e2"
+    },
+    {
+      "bytes": 35078,
+      "path": "vendor/Mapperatorinator/calc_fid.py",
+      "sha256": "e7748e5a2be0939f12eda6ed84a3822fdb1f27c4b219fb7d1c5475dde797aa40"
+    },
+    {
+      "bytes": 2082,
+      "path": "vendor/Mapperatorinator/classifier/README.md",
+      "sha256": "9105433841343b792b2ac764360e708ab5ea79afd225180c0be8b4a770117748"
+    },
+    {
+      "bytes": 5883,
+      "path": "vendor/Mapperatorinator/classifier/classify.py",
+      "sha256": "598f9d055a60d6b4f190c3f34530dd68984aa21144c8aeb32a8e3c3b642d9580"
+    },
+    {
+      "bytes": 587,
+      "path": "vendor/Mapperatorinator/classifier/configs/inference.yaml",
+      "sha256": "b932f045f6cf9a85483483acaef946bc41d9afb9cb10bf3249a7f97e8410938f"
+    },
+    {
+      "bytes": 157,
+      "path": "vendor/Mapperatorinator/classifier/configs/model/model.yaml",
+      "sha256": "8ea9e238af6e19b9f382d35307560e82c6e5fc5424f13046277b29c3fd0d0623"
+    },
+    {
+      "bytes": 87,
+      "path": "vendor/Mapperatorinator/classifier/configs/model/whisper_base.yaml",
+      "sha256": "38afe2b15fbaa6ec69071fa5c2423df86fa03aff751a7e373f722377b6f65312"
+    },
+    {
+      "bytes": 115,
+      "path": "vendor/Mapperatorinator/classifier/configs/model/whisper_base_v2.yaml",
+      "sha256": "83d56f666ff5d7353438cbcb135c354b4f8c5bce8d5d6bc58d2f86d42dadd8fb"
+    },
+    {
+      "bytes": 88,
+      "path": "vendor/Mapperatorinator/classifier/configs/model/whisper_small.yaml",
+      "sha256": "3e18ace3912450ec1fe0cda1f90c64b0049f65efbd732ae6a495d593c0d8250c"
+    },
+    {
+      "bytes": 87,
+      "path": "vendor/Mapperatorinator/classifier/configs/model/whisper_tiny.yaml",
+      "sha256": "8a75ff240fe99ddc5b82b07ea92206b6eee72c4f33a002fdeab5729c34656bec"
+    },
+    {
+      "bytes": 3190,
+      "path": "vendor/Mapperatorinator/classifier/configs/train.yaml",
+      "sha256": "abbdc553268d25212d9ab263079fb834a1f1a1eded680bd32e61e4061d192e35"
+    },
+    {
+      "bytes": 59,
+      "path": "vendor/Mapperatorinator/classifier/configs/train_v1.yaml",
+      "sha256": "56b71f400fb608ba729b3d277ef8f516672fb94523f125706420145a71c0d8c7"
+    },
+    {
+      "bytes": 369,
+      "path": "vendor/Mapperatorinator/classifier/configs/train_v2.yaml",
+      "sha256": "dc13ccd674bc72124f0bb8a48a4c8bcf67bae1d71e3da7166690068ecce661cd"
+    },
+    {
+      "bytes": 404,
+      "path": "vendor/Mapperatorinator/classifier/configs/train_v3.yaml",
+      "sha256": "5905e9a7bbef2656d9082b0fb226d668c016111055701216b8dee5eddf133b6f"
+    },
+    {
+      "bytes": 1939,
+      "path": "vendor/Mapperatorinator/classifier/count_classes.py",
+      "sha256": "b0db3a676c2cb138341476a9e1d52c3e99768a7b5be2aa6571e780e5a494609a"
+    },
+    {
+      "bytes": 93,
+      "path": "vendor/Mapperatorinator/classifier/libs/__init__.py",
+      "sha256": "e23ed933958a653aa542a904b012e568ce16b3048f0a6684ae269c52abe0113b"
+    },
+    {
+      "bytes": 116,
+      "path": "vendor/Mapperatorinator/classifier/libs/dataset/__init__.py",
+      "sha256": "aeb27c5434618c4c60e7e910aae70083aa7a481161411a561be5e666b5e4ae81"
+    },
+    {
+      "bytes": 9969,
+      "path": "vendor/Mapperatorinator/classifier/libs/dataset/data_utils.py",
+      "sha256": "8f3a33fe1a894e7e0ee86ee5cb673d1e4352a3bb426a8e8f4501479a99c9c40a"
+    },
+    {
+      "bytes": 18128,
+      "path": "vendor/Mapperatorinator/classifier/libs/dataset/ors_dataset.py",
+      "sha256": "48b7d53179d71dce6d182f0b6642c09d40b174d8532f9dfe08aabbc6f5585ccb"
+    },
+    {
+      "bytes": 19199,
+      "path": "vendor/Mapperatorinator/classifier/libs/dataset/osu_parser.py",
+      "sha256": "309ff6ff6d0651cd449291e59758ac1a2baed9caea1fda7e800eb9e9efae8498"
+    },
+    {
+      "bytes": 32,
+      "path": "vendor/Mapperatorinator/classifier/libs/model/__init__.py",
+      "sha256": "f87ef74c8d2849d15fc4403b7bc1d8dc3214ce2bfc2f6afd7b7f43f947530c74"
+    },
+    {
+      "bytes": 5419,
+      "path": "vendor/Mapperatorinator/classifier/libs/model/model.py",
+      "sha256": "4d1989e97744072b652bca30bb877bb8bcc9e59029c9abb9234899a770310b75"
+    },
+    {
+      "bytes": 1751,
+      "path": "vendor/Mapperatorinator/classifier/libs/model/spectrogram.py",
+      "sha256": "2368530e8d859a081d0cc26a8471ab415204fa13b7ef6d4accfec578e88440ad"
+    },
+    {
+      "bytes": 56,
+      "path": "vendor/Mapperatorinator/classifier/libs/tokenizer/__init__.py",
+      "sha256": "19562c0cf149b74974637f83f124375c9c2e2756e4d4a7496448bc4bfdb39101"
+    },
+    {
+      "bytes": 1195,
+      "path": "vendor/Mapperatorinator/classifier/libs/tokenizer/event.py",
+      "sha256": "135058b4ca1bc2891fa9c3c132e9d853515ccb683ea35b8a871b01ccb515eb76"
+    },
+    {
+      "bytes": 7972,
+      "path": "vendor/Mapperatorinator/classifier/libs/tokenizer/tokenizer.py",
+      "sha256": "00017611292575f53df56bd69192866fce1ad7b4dcb06c6cfb378600929ce8db"
+    },
+    {
+      "bytes": 28,
+      "path": "vendor/Mapperatorinator/classifier/libs/utils/__init__.py",
+      "sha256": "3f097695b391c82956dc5ddec1f857945b71f9e8d9f93610ea9d5e8dde1ead66"
+    },
+    {
+      "bytes": 6322,
+      "path": "vendor/Mapperatorinator/classifier/libs/utils/model_utils.py",
+      "sha256": "648e798ff7da5072bd7bb58d104f5591846f684e53d2553aae360b193a9306bb"
+    },
+    {
+      "bytes": 665,
+      "path": "vendor/Mapperatorinator/classifier/libs/utils/routed_pickle.py",
+      "sha256": "e6c90a38e19e6450866b11dc07c3f20f4ba03176cc55a4ad36118f7c3d72d130"
+    },
+    {
+      "bytes": 752,
+      "path": "vendor/Mapperatorinator/classifier/test.py",
+      "sha256": "6bac4626dd2425f49284df0d58114312e98fba6aab6f475c9cfb5cd00135129d"
+    },
+    {
+      "bytes": 2683,
+      "path": "vendor/Mapperatorinator/classifier/train.py",
+      "sha256": "db5c74d5cf4337b628dead5e1241f50a345bc95999a078fcab050806db478f84"
+    },
+    {
+      "bytes": 14338,
+      "path": "vendor/Mapperatorinator/cli_inference.sh",
+      "sha256": "c4b5211e69c6b40ecc666b01bb48ff32b63609a3c5e9f227b9b18bf8922134af"
+    },
+    {
+      "bytes": 4372,
+      "path": "vendor/Mapperatorinator/colab/classifier_classify.ipynb",
+      "sha256": "42eb91e0d9942ffa4c3d35745eb6db39a1fe11c278fea3bcba3188909548b068"
+    },
+    {
+      "bytes": 5948,
+      "path": "vendor/Mapperatorinator/colab/mai_mod_inference.ipynb",
+      "sha256": "2c9137af2a520898bcd4ce3444050875f08d3d051be2a6f4408fda6886404e43"
+    },
+    {
+      "bytes": 35099,
+      "path": "vendor/Mapperatorinator/colab/mapperatorinator_inference.ipynb",
+      "sha256": "0b013b29b2b8e48eb0f9300c2cff74a318798f257a4101d14b83783e32c90c66"
+    },
+    {
+      "bytes": 804,
+      "path": "vendor/Mapperatorinator/compose.yaml",
+      "sha256": "8a9795e0503daaaac39acf26380ed74a2edf9558aef1940d0337d0b362eb40cf"
+    },
+    {
+      "bytes": 8944,
+      "path": "vendor/Mapperatorinator/config.py",
+      "sha256": "b8e1abd5bf9851d91949e35b51e69bec813b398d5c58e985f67f0e582f194469"
+    },
+    {
+      "bytes": 1384,
+      "path": "vendor/Mapperatorinator/configs/calc_fid.yaml",
+      "sha256": "340029b95f318aa7735a2b0555ba0e975fe99870ffe3ff33eb1c371b35827b17"
+    },
+    {
+      "bytes": 2588,
+      "path": "vendor/Mapperatorinator/configs/diffusion/v1.yaml",
+      "sha256": "58d3cc29ef494ad9bd1502e35a6661e79d81df368107a759bb1f0dee41698dd6"
+    },
+    {
+      "bytes": 5604,
+      "path": "vendor/Mapperatorinator/configs/inference/default.yaml",
+      "sha256": "aa08294b29351f12c3fef4e4fc22a4166c85d71a9ccdf7cef8e264ddd06386fc"
+    },
+    {
+      "bytes": 835,
+      "path": "vendor/Mapperatorinator/configs/inference/legacy/tiny23.yaml",
+      "sha256": "bb865d866ad0a44b3e45bef36d10161ece565bd0828a67f19456f023d497e5fe"
+    },
+    {
+      "bytes": 835,
+      "path": "vendor/Mapperatorinator/configs/inference/legacy/tiny24.yaml",
+      "sha256": "659e56d24099c6370fa929b3a40333cb77719aeec5e2dfb9fca810cb2d622862"
+    },
+    {
+      "bytes": 835,
+      "path": "vendor/Mapperatorinator/configs/inference/legacy/tiny25.yaml",
+      "sha256": "39bb32dfc4bd3f7bc1bbb97ac6ebf930436286c0dd6c8908d1c4ca2c71adbc1d"
+    },
+    {
+      "bytes": 835,
+      "path": "vendor/Mapperatorinator/configs/inference/legacy/tiny26.yaml",
+      "sha256": "76e68f10a02972b5ebbf16e68cf8022677a6be360fcaa08323a63fae48b71ec4"
+    },
+    {
+      "bytes": 835,
+      "path": "vendor/Mapperatorinator/configs/inference/legacy/tiny27.yaml",
+      "sha256": "955163274888a942f21d35812c81ca2f6a4966e356c31022885d9118eaaf4472"
+    },
+    {
+      "bytes": 835,
+      "path": "vendor/Mapperatorinator/configs/inference/legacy/tiny28.yaml",
+      "sha256": "0df605ee94d1068b37d610e6508fb625fc9b05386a1c76109ba8c1f7a38c9f9c"
+    },
+    {
+      "bytes": 835,
+      "path": "vendor/Mapperatorinator/configs/inference/legacy/tiny29.yaml",
+      "sha256": "796f01c12be3ee284bf48a15e207420c35c09c7db2127f5c50170b75f4780f12"
+    },
+    {
+      "bytes": 835,
+      "path": "vendor/Mapperatorinator/configs/inference/legacy/tiny30.yaml",
+      "sha256": "635b1fc70063a8b84cb639395ee0839fa95575439df5b70b4544928e4955bde3"
+    },
+    {
+      "bytes": 835,
+      "path": "vendor/Mapperatorinator/configs/inference/legacy/tiny31.yaml",
+      "sha256": "f8bc125ba9409351f3ad677881ab38dec09b9bcac807bbddbf2416041b485c7a"
+    },
+    {
+      "bytes": 835,
+      "path": "vendor/Mapperatorinator/configs/inference/legacy/tiny32.yaml",
+      "sha256": "57ddf100280af672db87f04be9b048d7916268e7840d39f24996e5ec226178ad"
+    },
+    {
+      "bytes": 835,
+      "path": "vendor/Mapperatorinator/configs/inference/legacy/tiny33.yaml",
+      "sha256": "d77df8cf6302dc8485b8abad9d8a7ddf4455386f1484cbf1f75630551983d242"
+    },
+    {
+      "bytes": 835,
+      "path": "vendor/Mapperatorinator/configs/inference/legacy/tiny34.yaml",
+      "sha256": "447c8569aea291521f110cb0dec066284aa4503d955c8eff3a814eefbb1c1f0e"
+    },
+    {
+      "bytes": 835,
+      "path": "vendor/Mapperatorinator/configs/inference/legacy/tiny35.yaml",
+      "sha256": "49cefaef95d8080c95f8263d63a658424b9fcfc4733b68100f47cac147631475"
+    },
+    {
+      "bytes": 835,
+      "path": "vendor/Mapperatorinator/configs/inference/legacy/tiny36.yaml",
+      "sha256": "09cc6a4e02b5391a31883183ff380918cabb3571462383754c54a2f482cbe730"
+    },
+    {
+      "bytes": 835,
+      "path": "vendor/Mapperatorinator/configs/inference/legacy/tiny37.yaml",
+      "sha256": "5d7fcfb1126f5c7624d7fa7a2834bb358c3b0a02cb5e67fa1a9a3fdfa6e93de6"
+    },
+    {
+      "bytes": 835,
+      "path": "vendor/Mapperatorinator/configs/inference/legacy/tiny38.yaml",
+      "sha256": "706d6589b8e163673b83fbba4d0ba0b02280ce33aebb86fbda8879c645cf2e70"
+    },
+    {
+      "bytes": 835,
+      "path": "vendor/Mapperatorinator/configs/inference/legacy/tiny39.yaml",
+      "sha256": "7404e0db5d13fe113b597580b881e35f73bc377078538f307707b042ea4b9e08"
+    },
+    {
+      "bytes": 835,
+      "path": "vendor/Mapperatorinator/configs/inference/legacy/tiny40.yaml",
+      "sha256": "295ad5cc401da08cc1f02e467eb15525c2938bab6cbdac40d3eea102822c3454"
+    },
+    {
+      "bytes": 525,
+      "path": "vendor/Mapperatorinator/configs/inference/legacy/tiny41.yaml",
+      "sha256": "5ae7fead69eefaf8d1c2958666d7950c9e3e098508ca5e6ba93ed1ea23246e86"
+    },
+    {
+      "bytes": 525,
+      "path": "vendor/Mapperatorinator/configs/inference/legacy/tiny42.yaml",
+      "sha256": "1ca318cc4ee966977e2e89d7c32af9b9912c44ba7f090d33c301b87f4dc78962"
+    },
+    {
+      "bytes": 525,
+      "path": "vendor/Mapperatorinator/configs/inference/legacy/tiny46.yaml",
+      "sha256": "79173bd1ff485ae8ef4d4753ab2220cb5046f18c151bbaf896e67f46a5571171"
+    },
+    {
+      "bytes": 525,
+      "path": "vendor/Mapperatorinator/configs/inference/legacy/tiny47.yaml",
+      "sha256": "71c8e6731cf6a3ba54ff96cb497a7e0f564a810882b5a80122f4bcd7fb825dc0"
+    },
+    {
+      "bytes": 525,
+      "path": "vendor/Mapperatorinator/configs/inference/legacy/tiny48.yaml",
+      "sha256": "ecbe3f2bb3711565aa4e59c621c390bbc324e24fb33160d706037e8b52a75ccb"
+    },
+    {
+      "bytes": 525,
+      "path": "vendor/Mapperatorinator/configs/inference/legacy/tiny49.yaml",
+      "sha256": "e7c0e6be16077f52814d679da53102a42a313d9b6c856696f335f7a0a09bae7b"
+    },
+    {
+      "bytes": 525,
+      "path": "vendor/Mapperatorinator/configs/inference/legacy/tiny50.yaml",
+      "sha256": "73b64edfac5e9f41dd8d81dd373c9946560605bf31fa62555bf3d37a0fca7e9d"
+    },
+    {
+      "bytes": 529,
+      "path": "vendor/Mapperatorinator/configs/inference/legacy/tiny51.yaml",
+      "sha256": "85332297f86b9d91e2ade5b29893cb17de51c6c79c4a8e121e851eeecc7a064e"
+    },
+    {
+      "bytes": 529,
+      "path": "vendor/Mapperatorinator/configs/inference/legacy/tiny52.yaml",
+      "sha256": "083f91e3e4bed4c66aaa5ae22ece13db8311e4f127ad34bd6f93ed0fe484b054"
+    },
+    {
+      "bytes": 529,
+      "path": "vendor/Mapperatorinator/configs/inference/legacy/tiny53.yaml",
+      "sha256": "3e7ea125cf127890242c9a9ec07e0f3a8c1ede5a133fb6c86cc2eac7332d71a3"
+    },
+    {
+      "bytes": 529,
+      "path": "vendor/Mapperatorinator/configs/inference/legacy/tiny54.yaml",
+      "sha256": "c0c06ca72c333d2f7a950d9bdd6f7436d7553bb266a78249cf5cac5bf34559dc"
+    },
+    {
+      "bytes": 529,
+      "path": "vendor/Mapperatorinator/configs/inference/legacy/tiny55.yaml",
+      "sha256": "0a357da2076367483a9e5eec26ebd85c7d1f76569d575816764056f45e530225"
+    },
+    {
+      "bytes": 529,
+      "path": "vendor/Mapperatorinator/configs/inference/legacy/tiny56.yaml",
+      "sha256": "287b8d9457b96a115bc35dce234ad9c738819c948c7c92f24b8d1dd9bbb3b37e"
+    },
+    {
+      "bytes": 529,
+      "path": "vendor/Mapperatorinator/configs/inference/legacy/tiny57.yaml",
+      "sha256": "4ea75a55443c3993f981dfdecf0d0cd413ef71db8ee088fef94aad38c1958ba1"
+    },
+    {
+      "bytes": 531,
+      "path": "vendor/Mapperatorinator/configs/inference/legacy/tiny57m.yaml",
+      "sha256": "363b042796aae83cbecf4c6696c7a101b51814f594300eef3860af660c74ba0d"
+    },
+    {
+      "bytes": 529,
+      "path": "vendor/Mapperatorinator/configs/inference/legacy/tiny58.yaml",
+      "sha256": "8e0eae193b0ad0ebf274373c2978b8c1d87c643f7c7546744cfe9ee3fcb51abc"
+    },
+    {
+      "bytes": 532,
+      "path": "vendor/Mapperatorinator/configs/inference/legacy/tiny58m.yaml",
+      "sha256": "b5825f8e573c7072d4acaba631ee9afe74fb7e03b6525d69bb0de1334f0a0509"
+    },
+    {
+      "bytes": 529,
+      "path": "vendor/Mapperatorinator/configs/inference/legacy/tiny59.yaml",
+      "sha256": "475086011f91a94c807550bb74cbabaf49e6022e2330ba99a01736e1f2a74573"
+    },
+    {
+      "bytes": 529,
+      "path": "vendor/Mapperatorinator/configs/inference/legacy/tiny60.yaml",
+      "sha256": "302a46281a585d1241d4abd80527a7a827df72ee716b16459ef1f25e862be3bc"
+    },
+    {
+      "bytes": 529,
+      "path": "vendor/Mapperatorinator/configs/inference/legacy/tiny61.yaml",
+      "sha256": "80b55146cdc6e2a40fcdd3e334a949d135d20769fab28d115e070af073a1f572"
+    },
+    {
+      "bytes": 529,
+      "path": "vendor/Mapperatorinator/configs/inference/legacy/tiny62.yaml",
+      "sha256": "96c4e3181ea55256560ba21c6717fd799742bde90f8144e65e9ca0c0137d42db"
+    },
+    {
+      "bytes": 529,
+      "path": "vendor/Mapperatorinator/configs/inference/legacy/tiny63.yaml",
+      "sha256": "ada3dcd52883dc2497b5d74beccc9992148bd3ba1f74721351ad3c37c2a82d43"
+    },
+    {
+      "bytes": 529,
+      "path": "vendor/Mapperatorinator/configs/inference/legacy/tiny64.yaml",
+      "sha256": "b02e654baf45fcaaace9c49a8ca02e939685a13159640b3e29974088cf33d89d"
+    },
+    {
+      "bytes": 861,
+      "path": "vendor/Mapperatorinator/configs/inference/legacy/tiny_dist.yaml",
+      "sha256": "b7178b38846995c36dbe98d9f0c38964d31a4cb8e6d7072055dfe33f48e2b1af"
+    },
+    {
+      "bytes": 840,
+      "path": "vendor/Mapperatorinator/configs/inference/legacy/tiny_dist10.yaml",
+      "sha256": "aadbd8723e6a4d3eefa8f8598a360667a5fc4485f5ab62e42a80474ac54f2434"
+    },
+    {
+      "bytes": 840,
+      "path": "vendor/Mapperatorinator/configs/inference/legacy/tiny_dist11.yaml",
+      "sha256": "d9c53517f0c962422e183be76cf167c62461f9839d54de3291239690864b699f"
+    },
+    {
+      "bytes": 842,
+      "path": "vendor/Mapperatorinator/configs/inference/legacy/tiny_dist12.yaml",
+      "sha256": "0e6f821d87f5e99c45221207449b43cfd7eff6f34d9b626ab644d9432b970d5b"
+    },
+    {
+      "bytes": 842,
+      "path": "vendor/Mapperatorinator/configs/inference/legacy/tiny_dist13.yaml",
+      "sha256": "39923cac4af641e102cd4616c5841d5c0eebc7faca234e629f7ebbcc2bf36202"
+    },
+    {
+      "bytes": 842,
+      "path": "vendor/Mapperatorinator/configs/inference/legacy/tiny_dist14.yaml",
+      "sha256": "124c117af32d0f7ff9216be1f0a5ef5999f9b4c261184bbe83e51653ab621e1b"
+    },
+    {
+      "bytes": 850,
+      "path": "vendor/Mapperatorinator/configs/inference/legacy/tiny_dist15.yaml",
+      "sha256": "1bb0175250b0431bb381450da2c877b8043a8500570f20d48a6c648cac462829"
+    },
+    {
+      "bytes": 850,
+      "path": "vendor/Mapperatorinator/configs/inference/legacy/tiny_dist16.yaml",
+      "sha256": "b76f0d19db57a1e01e0c6b0590a593f97602e2b0d03d8c0a0ef600c7b0a354b0"
+    },
+    {
+      "bytes": 842,
+      "path": "vendor/Mapperatorinator/configs/inference/legacy/tiny_dist17.yaml",
+      "sha256": "1aa71b2c3dee91afac88c859e9d48c58ed52a2f2ce9223f8e008991d0c75037b"
+    },
+    {
+      "bytes": 850,
+      "path": "vendor/Mapperatorinator/configs/inference/legacy/tiny_dist18.yaml",
+      "sha256": "dd2710414d8b112dd412b17e82592feea6edb3a5db3ca824175816203a966009"
+    },
+    {
+      "bytes": 842,
+      "path": "vendor/Mapperatorinator/configs/inference/legacy/tiny_dist19.yaml",
+      "sha256": "7ac42e7ea8c7192fa0a9c3687a0ae07f59e53a3feb667bc748f54f023a495acc"
+    },
+    {
+      "bytes": 864,
+      "path": "vendor/Mapperatorinator/configs/inference/legacy/tiny_dist2.yaml",
+      "sha256": "3fb0ec8489a2428f148d04b28e8b66077ab3dfd346a31d84d993f16170ad82e2"
+    },
+    {
+      "bytes": 850,
+      "path": "vendor/Mapperatorinator/configs/inference/legacy/tiny_dist20.yaml",
+      "sha256": "27ff90762991ac43bc2a0465bfdec128e25ca3a29cc81fc1d37b4b69ae3d758c"
+    },
+    {
+      "bytes": 850,
+      "path": "vendor/Mapperatorinator/configs/inference/legacy/tiny_dist21.yaml",
+      "sha256": "5391f684acc622b2fb97838e47786dd844e929611789486298e7b42936f1c095"
+    },
+    {
+      "bytes": 850,
+      "path": "vendor/Mapperatorinator/configs/inference/legacy/tiny_dist22.yaml",
+      "sha256": "5cfd26fd80bf7d817c96798c9a47938bc821d3a8e4204d9e3fceb1494ca522a4"
+    },
+    {
+      "bytes": 864,
+      "path": "vendor/Mapperatorinator/configs/inference/legacy/tiny_dist3.yaml",
+      "sha256": "bcab71d34095f553c5ac6dd1a50478cc160f7436ebfe8705f7828995dc379859"
+    },
+    {
+      "bytes": 864,
+      "path": "vendor/Mapperatorinator/configs/inference/legacy/tiny_dist4.yaml",
+      "sha256": "b71acd31d2344b7b978fd0ac4cf4d3ba7708c0d85514cc862f9e9e5e80e10145"
+    },
+    {
+      "bytes": 839,
+      "path": "vendor/Mapperatorinator/configs/inference/legacy/tiny_dist5.yaml",
+      "sha256": "73579c516594fbb56824c872e57e9378594450acd48425da3a5c28edbba2a5d9"
+    },
+    {
+      "bytes": 839,
+      "path": "vendor/Mapperatorinator/configs/inference/legacy/tiny_dist6.yaml",
+      "sha256": "576d648ffd7265b36cd50d82f1d90d3e5b445c09d4a659c20105c8b2e6af35c5"
+    },
+    {
+      "bytes": 839,
+      "path": "vendor/Mapperatorinator/configs/inference/legacy/tiny_dist7.yaml",
+      "sha256": "f43990568784c68f5ed47dd966e805744885068dee11bbdc3daaaa3981237c49"
+    },
+    {
+      "bytes": 839,
+      "path": "vendor/Mapperatorinator/configs/inference/legacy/tiny_dist8.yaml",
+      "sha256": "9c01fb378b0d941c6773dd82b3aa54e1191dfb9c6206375b0627017ff203a26c"
+    },
+    {
+      "bytes": 839,
+      "path": "vendor/Mapperatorinator/configs/inference/legacy/tiny_dist9.yaml",
+      "sha256": "a924fca694769668e1fc39ed269fa5a564007a1f46ccb1e3ed1ea95f738f3f33"
+    },
+    {
+      "bytes": 867,
+      "path": "vendor/Mapperatorinator/configs/inference/legacy/tiny_nodist.yaml",
+      "sha256": "70ad881abf51afe473c183b4962e55a0f1dc9cf17ffdffc4325c4fef4b5c768b"
+    },
+    {
+      "bytes": 417,
+      "path": "vendor/Mapperatorinator/configs/inference/legacy/v19.yaml",
+      "sha256": "b6d173f9bfde89c66ef095907e3604229bea2f8fdf6e1ddbaa233f9abd33d41d"
+    },
+    {
+      "bytes": 340,
+      "path": "vendor/Mapperatorinator/configs/inference/legacy/v20.yaml",
+      "sha256": "1e4b9ba9fd96ba2703361844c2a37bf9a441265f84c2451a3ec9b439f6861faa"
+    },
+    {
+      "bytes": 340,
+      "path": "vendor/Mapperatorinator/configs/inference/legacy/v21.yaml",
+      "sha256": "2db2082513d5d5241bf0a3e65396d35ef1b9b1847751db68b453aa05dea8d9e4"
+    },
+    {
+      "bytes": 268,
+      "path": "vendor/Mapperatorinator/configs/inference/legacy/v22.yaml",
+      "sha256": "c01735acc3316d30a5d8805ae4d125fbb166c0127807c657f07987669fe0ce1b"
+    },
+    {
+      "bytes": 437,
+      "path": "vendor/Mapperatorinator/configs/inference/legacy/v23.yaml",
+      "sha256": "fc2f8f7f2d4c2e42451fdcd043ff82670fc88f0db36e91f7d5459e9a174a284d"
+    },
+    {
+      "bytes": 268,
+      "path": "vendor/Mapperatorinator/configs/inference/legacy/v25.yaml",
+      "sha256": "588d2130623374cf37e08aa68e9f6053f1cd9b021d8d902048098498e73e7cfb"
+    },
+    {
+      "bytes": 268,
+      "path": "vendor/Mapperatorinator/configs/inference/legacy/v26.yaml",
+      "sha256": "3c38beda7cdffb0a64b1d8ea0f1a70c6b1d78e505593763b4e415b5a11dd48d8"
+    },
+    {
+      "bytes": 493,
+      "path": "vendor/Mapperatorinator/configs/inference/v28.yaml",
+      "sha256": "23384fbf6bae755943c8b7209333eb52b960ec7b6a5169e9db394f946ae30e96"
+    },
+    {
+      "bytes": 597,
+      "path": "vendor/Mapperatorinator/configs/inference/v29.yaml",
+      "sha256": "0fa6e59bc3edae3835504c7b08550754d996a23ffc7c4227ebe3782d1c9c2d78"
+    },
+    {
+      "bytes": 800,
+      "path": "vendor/Mapperatorinator/configs/inference/v30.yaml",
+      "sha256": "064e49a30892b20729f07ad20d10a636a2d51d344d5fffc208e3aebe068537b8"
+    },
+    {
+      "bytes": 862,
+      "path": "vendor/Mapperatorinator/configs/inference/v31.yaml",
+      "sha256": "06f434cf9dfddb11a4c6e389bfcc84b7a30be1b2bae179c26ad544af07552b64"
+    },
+    {
+      "bytes": 553,
+      "path": "vendor/Mapperatorinator/configs/inference/v32-mini.yaml",
+      "sha256": "6b680e35fa1782e7478be847aec2336b6e46dd0ca0fd4f4355ee28fd6b3bd4f5"
+    },
+    {
+      "bytes": 538,
+      "path": "vendor/Mapperatorinator/configs/inference/v32.yaml",
+      "sha256": "135500789d87e5a7071d2b1da73b8b9eedfea9a577bafaf40437871693fb90e4"
+    },
+    {
+      "bytes": 824,
+      "path": "vendor/Mapperatorinator/configs/legacy/inference_timer_v24.yaml",
+      "sha256": "adde2fe23a39b77b4edbe46350839ac425ed4e168c7b792d19e95026d6b98ce0"
+    },
+    {
+      "bytes": 126,
+      "path": "vendor/Mapperatorinator/configs/legacy/inference_v1.yaml",
+      "sha256": "ace278fa153b6e4df19d1dd68c533bb9717da144b8e211a489fc0e32fefd99f2"
+    },
+    {
+      "bytes": 235,
+      "path": "vendor/Mapperatorinator/configs/legacy/inference_v10.yaml",
+      "sha256": "8fad899ae64c2078b0a7183de5ea2f55d9301841dab5ca6ce6de137c9465abda"
+    },
+    {
+      "bytes": 338,
+      "path": "vendor/Mapperatorinator/configs/legacy/inference_v10_1_GD.yaml",
+      "sha256": "62096aacadbe4a03ee1b2e9125bc3eec47014d4735d08408daaf6d2459504797"
+    },
+    {
+      "bytes": 241,
+      "path": "vendor/Mapperatorinator/configs/legacy/inference_v10_GD.yaml",
+      "sha256": "af86a32a4390da494bcaedc738d5ad433b25a1937ebdaa0b67c97992578ae7b3"
+    },
+    {
+      "bytes": 330,
+      "path": "vendor/Mapperatorinator/configs/legacy/inference_v11.yaml",
+      "sha256": "fbd819029febbc8834433c7b7cf5f68f8c8b078ed5d15cb4d7fe3ce2105cdbac"
+    },
+    {
+      "bytes": 330,
+      "path": "vendor/Mapperatorinator/configs/legacy/inference_v12.yaml",
+      "sha256": "f96df866ebb8a62891f8b5e4bdb34de9a284958db7d4d05c281ee7de733b0c69"
+    },
+    {
+      "bytes": 330,
+      "path": "vendor/Mapperatorinator/configs/legacy/inference_v14.yaml",
+      "sha256": "2f2bcd6361328df11e83d188b7807ba575a69f278afbc5f007f7ee5f850bd72a"
+    },
+    {
+      "bytes": 330,
+      "path": "vendor/Mapperatorinator/configs/legacy/inference_v15.yaml",
+      "sha256": "f21571c91d798d60c98d2cb9d51de58d1b815b7a54c444b738dc932858255773"
+    },
+    {
+      "bytes": 391,
+      "path": "vendor/Mapperatorinator/configs/legacy/inference_v16.yaml",
+      "sha256": "48169630b7017bd9b329a81737db610451fb001156956f59b387cd2d57489ba2"
+    },
+    {
+      "bytes": 391,
+      "path": "vendor/Mapperatorinator/configs/legacy/inference_v17.yaml",
+      "sha256": "d7caedd7dfcb0c7b398c0e3397ed1db038d8ccc2062953b2abca287af32895fc"
+    },
+    {
+      "bytes": 463,
+      "path": "vendor/Mapperatorinator/configs/legacy/inference_v18.yaml",
+      "sha256": "ab631b30c822f0c6e620520601abb17c76d0e756a8a359bc357321de4375442a"
+    },
+    {
+      "bytes": 126,
+      "path": "vendor/Mapperatorinator/configs/legacy/inference_v4.yaml",
+      "sha256": "97bb404573b434dc80f11a809ddc7edeba2e3a712c5f84df364cbec43613af7c"
+    },
+    {
+      "bytes": 126,
+      "path": "vendor/Mapperatorinator/configs/legacy/inference_v5.yaml",
+      "sha256": "ddb8f9e28fac406fc39a11e947846e76c1a76e197f06a5ddc4be677cd712e2f7"
+    },
+    {
+      "bytes": 126,
+      "path": "vendor/Mapperatorinator/configs/legacy/inference_v6.yaml",
+      "sha256": "7a8995479f8e7846f9930447510dedc6e938ba442a5fce61c14b4baf1dc500ee"
+    },
+    {
+      "bytes": 253,
+      "path": "vendor/Mapperatorinator/configs/legacy/inference_v7.yaml",
+      "sha256": "7b56aaf367f8384982a3663b49dfa50dc006d2552ae9ffa9d0d22b42f9597b62"
+    },
+    {
+      "bytes": 233,
+      "path": "vendor/Mapperatorinator/configs/legacy/inference_v8.yaml",
+      "sha256": "ef34d57a5bb5acae4738db88f49535f5bcd22ca9cc19dd3155bc12a7708dde24"
+    },
+    {
+      "bytes": 239,
+      "path": "vendor/Mapperatorinator/configs/legacy/inference_v8_gd.yaml",
+      "sha256": "8603996fc544362c5268ef5118bbee3a1c6e3fafbd4c51e9d60e372d9119ceff"
+    },
+    {
+      "bytes": 233,
+      "path": "vendor/Mapperatorinator/configs/legacy/inference_v9.yaml",
+      "sha256": "98e3398bac12175a182a0c5e8104177040f714887ecaae28632583e8a10e13cc"
+    },
+    {
+      "bytes": 1500,
+      "path": "vendor/Mapperatorinator/configs/legacy/train_timer_v24.yaml",
+      "sha256": "4a8736ef21c2d08c220feef87def5e4eab7fd9e3071b224725e7527c1dfb5190"
+    },
+    {
+      "bytes": 455,
+      "path": "vendor/Mapperatorinator/configs/legacy/train_v1.1.yaml",
+      "sha256": "8713b80fe059d0182648d2881dc40247c6c592c525360a172de3c6e6392da7e1"
+    },
+    {
+      "bytes": 315,
+      "path": "vendor/Mapperatorinator/configs/legacy/train_v1.yaml",
+      "sha256": "04176e1402b6f907a1978149c8f43464553c61bc5afeefd0507bfaa639d1d858"
+    },
+    {
+      "bytes": 521,
+      "path": "vendor/Mapperatorinator/configs/legacy/train_v10.yaml",
+      "sha256": "3b23df163ddd88b9826210a2315495095eec422a6be2c483fd2a2b711af3a007"
+    },
+    {
+      "bytes": 741,
+      "path": "vendor/Mapperatorinator/configs/legacy/train_v10_gd.yaml",
+      "sha256": "99b93ab6b252417b439b935294ffda61c042728e1fdfe6f29c43af84e0e82982"
+    },
+    {
+      "bytes": 551,
+      "path": "vendor/Mapperatorinator/configs/legacy/train_v11.yaml",
+      "sha256": "75047f322eea5358aaffe2af6da783e5258c177c499379931d22cd56cc5dc95a"
+    },
+    {
+      "bytes": 758,
+      "path": "vendor/Mapperatorinator/configs/legacy/train_v12.yaml",
+      "sha256": "ba255c59b070aa665744894300bdcb96ae91ffc72796d2a592e491f90f58fea5"
+    },
+    {
+      "bytes": 723,
+      "path": "vendor/Mapperatorinator/configs/legacy/train_v13.yaml",
+      "sha256": "6ec16e87074fc2df8367795bdf5dda04521369eeebe538cfc37d0f06eba4e34c"
+    },
+    {
+      "bytes": 546,
+      "path": "vendor/Mapperatorinator/configs/legacy/train_v14.yaml",
+      "sha256": "17b94a8eb0982d0b8feb9bb038bdc63a1749873a33e38b63f59853b15318459a"
+    },
+    {
+      "bytes": 717,
+      "path": "vendor/Mapperatorinator/configs/legacy/train_v15.yaml",
+      "sha256": "a8cd4b21f009e888f7e2d590e8e9d02348c5afc511d6edbf5df0f3c69a8a5e44"
+    },
+    {
+      "bytes": 1496,
+      "path": "vendor/Mapperatorinator/configs/legacy/train_v16.yaml",
+      "sha256": "4d59b062387109e23e52d046867815c9c38eae9a0b76646328f934ec40f3237b"
+    },
+    {
+      "bytes": 1498,
+      "path": "vendor/Mapperatorinator/configs/legacy/train_v17.yaml",
+      "sha256": "93cd9c43c52fa76de8b7bd05bc23667201c2470049fef316fe6dfdb6303f8dd9"
+    },
+    {
+      "bytes": 1647,
+      "path": "vendor/Mapperatorinator/configs/legacy/train_v18.yaml",
+      "sha256": "4e2d269a3b5e2bc22d733f4131ade9d9975ce61c1ef0cfbe17a5954ecef476c0"
+    },
+    {
+      "bytes": 572,
+      "path": "vendor/Mapperatorinator/configs/legacy/train_v4.yaml",
+      "sha256": "1415a833d250682579d7e0591aa82ba7a7714399d4276e0c02be82087b57daa7"
+    },
+    {
+      "bytes": 385,
+      "path": "vendor/Mapperatorinator/configs/legacy/train_v5.yaml",
+      "sha256": "deebf3196eee0f3ac3ca744972b4532ad2b2a3adc02fa50bec858d653280d0c9"
+    },
+    {
+      "bytes": 445,
+      "path": "vendor/Mapperatorinator/configs/legacy/train_v6.yaml",
+      "sha256": "1cf57c5dd9ad0142a075c6aec9269ec239e4342efb8e472b013a29564a94019e"
+    },
+    {
+      "bytes": 652,
+      "path": "vendor/Mapperatorinator/configs/legacy/train_v7.yaml",
+      "sha256": "1411e23fc3b6a6632c6d212dcf8397b2ebfd7cc7e85aab74ee9c90d8bc4dbbc0"
+    },
+    {
+      "bytes": 524,
+      "path": "vendor/Mapperatorinator/configs/legacy/train_v8.yaml",
+      "sha256": "01ad6fc8185413edcf0d5575b3f9e36b32490ff52d887f1291fcbd5971bb901d"
+    },
+    {
+      "bytes": 748,
+      "path": "vendor/Mapperatorinator/configs/legacy/train_v8_gd.yaml",
+      "sha256": "92719c1dfabe3fc3dc9f7c380e93ef47f82040003be8804685dcff050028c6b9"
+    },
+    {
+      "bytes": 447,
+      "path": "vendor/Mapperatorinator/configs/legacy/train_v9.yaml",
+      "sha256": "b2017e5bd7e5c461c2ff1dea2270bafd13b813124641f76a4372a6c3911590f7"
+    },
+    {
+      "bytes": 325,
+      "path": "vendor/Mapperatorinator/configs/mai_mod.yaml",
+      "sha256": "7be56d56f2cc2e5ed5233c32347970b28e6f7305aa5818c7722ec8df20130e01"
+    },
+    {
+      "bytes": 805,
+      "path": "vendor/Mapperatorinator/configs/model/default.yaml",
+      "sha256": "c5cb6873a1e95d02d966e7e2bb159ab65ac14a06efe5f28d4ba5be207dc50dde"
+    },
+    {
+      "bytes": 151,
+      "path": "vendor/Mapperatorinator/configs/model/moonshine_tiny.yaml",
+      "sha256": "4a4014ea88ff4438f9d1e70a98cef327c0754231da6e481a6328ae8f88a2e403"
+    },
+    {
+      "bytes": 243,
+      "path": "vendor/Mapperatorinator/configs/model/nwhisper_base.yaml",
+      "sha256": "f2e87ca8f2146c9975b84d0035fcb16ef0f9b61c368f6244d35ece0ef9889935"
+    },
+    {
+      "bytes": 98,
+      "path": "vendor/Mapperatorinator/configs/model/t5_base.yaml",
+      "sha256": "b2ac57cfc82ea8c4ae93133614ca81412a778cb40ea7300dde4499948fe6f00b"
+    },
+    {
+      "bytes": 130,
+      "path": "vendor/Mapperatorinator/configs/model/t5_small.yaml",
+      "sha256": "9fe0584a9d0a897e27d9bf9382b044f350d46d220a20004e1fd91f323363f551"
+    },
+    {
+      "bytes": 99,
+      "path": "vendor/Mapperatorinator/configs/model/t5_small_v4.yaml",
+      "sha256": "0c6c22d24b519fb7032f10cfc0c780bbf1ecb86119dea3b7dfa6ec4173caaa18"
+    },
+    {
+      "bytes": 124,
+      "path": "vendor/Mapperatorinator/configs/model/t5_small_v9.yaml",
+      "sha256": "587ec36d737919c8f729e687f4dbf90ab25a66ba0ead84a44892ec0fc23fa8c1"
+    },
+    {
+      "bytes": 421,
+      "path": "vendor/Mapperatorinator/configs/model/varwhisper_base_v3.yaml",
+      "sha256": "a401b6f0112a01cb07cf9b7de7601684ab3f5cf309cf03f120738f300b9457a0"
+    },
+    {
+      "bytes": 422,
+      "path": "vendor/Mapperatorinator/configs/model/varwhisper_small_v3.yaml",
+      "sha256": "c7dc1eb38e355243aeb47ff372996ee5e82596f8566c71e7c2106aac2f4a6191"
+    },
+    {
+      "bytes": 154,
+      "path": "vendor/Mapperatorinator/configs/model/whisper_base.yaml",
+      "sha256": "359ef06c0372777c21bbff67d4a4eed8d8ba46fb071e410393a301d0fbb9cd61"
+    },
+    {
+      "bytes": 422,
+      "path": "vendor/Mapperatorinator/configs/model/whisper_base_v3.yaml",
+      "sha256": "91e9b34142e2cdb5e81dbd42d61bb07f98a073e9f0e5333c637d36b3e7256d6a"
+    },
+    {
+      "bytes": 156,
+      "path": "vendor/Mapperatorinator/configs/model/whisper_medium.yaml",
+      "sha256": "cb31a44ca72e5883259279ab9b6c0844bdb0bfdb40b55949e85798d1ebbdd247"
+    },
+    {
+      "bytes": 155,
+      "path": "vendor/Mapperatorinator/configs/model/whisper_small.yaml",
+      "sha256": "4a239d39f9a10e8f0e9992a6a7b9a100f90ac016c811c99c93329f748d65869a"
+    },
+    {
+      "bytes": 421,
+      "path": "vendor/Mapperatorinator/configs/model/whisper_small_v2.yaml",
+      "sha256": "8583d4611e8622f12443e0f9d49ee1e75adc6622cce22c8104b0599ee10309d2"
+    },
+    {
+      "bytes": 593,
+      "path": "vendor/Mapperatorinator/configs/model/whisper_smaller_v3.yaml",
+      "sha256": "84ccfc3be9970f55730394a2fb0faed19470add8a88c591e7831820bb513bd52"
+    },
+    {
+      "bytes": 420,
+      "path": "vendor/Mapperatorinator/configs/model/whisper_tiny_v2.yaml",
+      "sha256": "f1b1164c3b4237af5dd9ea91749081eac80c45e2fc63eef336212631a61127a3"
+    },
+    {
+      "bytes": 9252,
+      "path": "vendor/Mapperatorinator/configs/train/default.yaml",
+      "sha256": "6e2a8311e1b3c8f76465942e294f3f319aaca8d9660e660ae8e689cb0258974b"
+    },
+    {
+      "bytes": 4576,
+      "path": "vendor/Mapperatorinator/configs/train/legacy/tiny23.yaml",
+      "sha256": "fb901a7a591c3a9ad966635347c9fb47bf490b3ffdaeaba0248e1a35689be9eb"
+    },
+    {
+      "bytes": 4524,
+      "path": "vendor/Mapperatorinator/configs/train/legacy/tiny24.yaml",
+      "sha256": "2a4adcd7a4c47a2b87734148e5ef1f07e21ca93f516f0bfb3fea4e9b0ad7c708"
+    },
+    {
+      "bytes": 4314,
+      "path": "vendor/Mapperatorinator/configs/train/legacy/tiny25.yaml",
+      "sha256": "f7fb2680be0457c5bc6e4b0a46bbecaff9b3c4f235b56420fcac8ca4199132d6"
+    },
+    {
+      "bytes": 4524,
+      "path": "vendor/Mapperatorinator/configs/train/legacy/tiny26.yaml",
+      "sha256": "4137846095d7c3d1b5d457b2bd7aad06cc0cc663fe2d10f8c179b6f38ec27e60"
+    },
+    {
+      "bytes": 4521,
+      "path": "vendor/Mapperatorinator/configs/train/legacy/tiny27.yaml",
+      "sha256": "b9ac4c298a43a2ceb9344e07b1c19c33d83c5e14a4ec3273252746dad33637a2"
+    },
+    {
+      "bytes": 4520,
+      "path": "vendor/Mapperatorinator/configs/train/legacy/tiny28.yaml",
+      "sha256": "4ed9858828e2c7ae1afb41ccd975015ca8d07cf7977610947825137f8407f270"
+    },
+    {
+      "bytes": 4519,
+      "path": "vendor/Mapperatorinator/configs/train/legacy/tiny29.yaml",
+      "sha256": "e1deda69b810b4d414482e275f4508c16c533230241eba19dc0fa0e58ab616ac"
+    },
+    {
+      "bytes": 4515,
+      "path": "vendor/Mapperatorinator/configs/train/legacy/tiny30.yaml",
+      "sha256": "f06eb4e6e09b954e4d3ad12d869bdd6e3d9075c053b08b029a6da309bea24ba2"
+    },
+    {
+      "bytes": 4518,
+      "path": "vendor/Mapperatorinator/configs/train/legacy/tiny31.yaml",
+      "sha256": "c0e088c29b25524e0dc198aa0cc14d906ca1fd5e83402d8ccba1b0f4da35a784"
+    },
+    {
+      "bytes": 4519,
+      "path": "vendor/Mapperatorinator/configs/train/legacy/tiny32.yaml",
+      "sha256": "33b7886e26824f157f15d9af4597ca825b6f72e323f52f2e03a5636ac3f0b27c"
+    },
+    {
+      "bytes": 4519,
+      "path": "vendor/Mapperatorinator/configs/train/legacy/tiny33.yaml",
+      "sha256": "f72292a87df8dcfc8d70c1f42ac9f7cebe8fca3f732256207c60a60404d6e287"
+    },
+    {
+      "bytes": 4519,
+      "path": "vendor/Mapperatorinator/configs/train/legacy/tiny34.yaml",
+      "sha256": "e394430c85b22390fb6f9d47d5893cfb6c245e1b98ee318e89f4e05009f3dbaa"
+    },
+    {
+      "bytes": 4414,
+      "path": "vendor/Mapperatorinator/configs/train/legacy/tiny35.yaml",
+      "sha256": "903ce9bb5164aad5a14fb852f8101b4f434f050944e51be1f418e29919760d59"
+    },
+    {
+      "bytes": 4614,
+      "path": "vendor/Mapperatorinator/configs/train/legacy/tiny36.yaml",
+      "sha256": "1d92fd0f441dc0db215a18bcd4f10391920d0b49244effa6b1e62aba03b8c212"
+    },
+    {
+      "bytes": 4614,
+      "path": "vendor/Mapperatorinator/configs/train/legacy/tiny37.yaml",
+      "sha256": "7d98fa0d97b2783088ad369b806a7bfa7111ba51dd2b19e10317e20e23953929"
+    },
+    {
+      "bytes": 4465,
+      "path": "vendor/Mapperatorinator/configs/train/legacy/tiny38.yaml",
+      "sha256": "5dc40ec816fc7cc690426ea250c1c61cc6453382cc1e76eb13de1a42e6fe3b76"
+    },
+    {
+      "bytes": 4469,
+      "path": "vendor/Mapperatorinator/configs/train/legacy/tiny39.yaml",
+      "sha256": "34f67060390e83663706d63e37e3285a504f1c330e1a977ac054b38947f463a1"
+    },
+    {
+      "bytes": 4465,
+      "path": "vendor/Mapperatorinator/configs/train/legacy/tiny40.yaml",
+      "sha256": "f028a649374793653c6711de80bfa5cb9afb27243c281a20ffa24655ab08a064"
+    },
+    {
+      "bytes": 4570,
+      "path": "vendor/Mapperatorinator/configs/train/legacy/tiny41.yaml",
+      "sha256": "c88816fa8dbfba1220157bbb6021fb599a01d512e1be4000c63253bff34d0b64"
+    },
+    {
+      "bytes": 4476,
+      "path": "vendor/Mapperatorinator/configs/train/legacy/tiny42.yaml",
+      "sha256": "1c2b99cac4008f75b7a0f2b8039aae85298bfe241da0f56a0e1437e74c633b38"
+    },
+    {
+      "bytes": 4666,
+      "path": "vendor/Mapperatorinator/configs/train/legacy/tiny46.yaml",
+      "sha256": "3074b0d4b8f774f7de226b79b7bd82db754a5b499942eded8b285cbf945ab4f6"
+    },
+    {
+      "bytes": 4703,
+      "path": "vendor/Mapperatorinator/configs/train/legacy/tiny47.yaml",
+      "sha256": "d3cdc2f09d1fc063793b9d01aae76b3829c0a2e0b74ef6b9145a7b63c574c6b8"
+    },
+    {
+      "bytes": 4793,
+      "path": "vendor/Mapperatorinator/configs/train/legacy/tiny48.yaml",
+      "sha256": "c0ab5bca3c977501de51ac1cd102ef3e5cb80b1faead6df25c489bc6c5565e8b"
+    },
+    {
+      "bytes": 4973,
+      "path": "vendor/Mapperatorinator/configs/train/legacy/tiny49.yaml",
+      "sha256": "6b057b749d294e56f2111bb14cd3ffd81d3aa1452246eddff96290ac1c2599ed"
+    },
+    {
+      "bytes": 4878,
+      "path": "vendor/Mapperatorinator/configs/train/legacy/tiny50.yaml",
+      "sha256": "253b949c66bf4dac231f0e1317d21bc247985c00c64f8cad43ddefc9623ddfa0"
+    },
+    {
+      "bytes": 4819,
+      "path": "vendor/Mapperatorinator/configs/train/legacy/tiny51.yaml",
+      "sha256": "2802b86d6399fe408056fd8ff2c4bd3524efad763b36ff5ab0ccad1503642b56"
+    },
+    {
+      "bytes": 4724,
+      "path": "vendor/Mapperatorinator/configs/train/legacy/tiny52.yaml",
+      "sha256": "aa5d8bd49124f40826520ac02736a555022866aa5034be6d99f8d464bc9a9a91"
+    },
+    {
+      "bytes": 4819,
+      "path": "vendor/Mapperatorinator/configs/train/legacy/tiny53.yaml",
+      "sha256": "d0fd5024cf52591c00d917cedc82813a9ba1265db1d4f7e1a4b292523791507e"
+    },
+    {
+      "bytes": 4819,
+      "path": "vendor/Mapperatorinator/configs/train/legacy/tiny54.yaml",
+      "sha256": "22870581630a4fc591398bd637e28eab59544c4a33f1ab99855725cba8005ff3"
+    },
+    {
+      "bytes": 4819,
+      "path": "vendor/Mapperatorinator/configs/train/legacy/tiny55.yaml",
+      "sha256": "f073a826eea3c61ac70c78456aa9b17c6a5a948c3efde9b854060788de859206"
+    },
+    {
+      "bytes": 4930,
+      "path": "vendor/Mapperatorinator/configs/train/legacy/tiny56.yaml",
+      "sha256": "57250b7b05e3d330a33e3fe0af9adcc917501bc55d58c0b2ea8ae22f6cf63830"
+    },
+    {
+      "bytes": 4946,
+      "path": "vendor/Mapperatorinator/configs/train/legacy/tiny57.yaml",
+      "sha256": "0609ffd846910d2d3d84652d26bf6b475a84c8f48101977548b96628ced849ad"
+    },
+    {
+      "bytes": 4937,
+      "path": "vendor/Mapperatorinator/configs/train/legacy/tiny57m.yaml",
+      "sha256": "84545e997d8102c4ad2d4c77790287b2d49aa27607e2d17fd076963cb22886ea"
+    },
+    {
+      "bytes": 4946,
+      "path": "vendor/Mapperatorinator/configs/train/legacy/tiny58.yaml",
+      "sha256": "ccd47f203db703e0671e1bb12939eed76bbb39a13560127cf0b9dd695ab5cc71"
+    },
+    {
+      "bytes": 4936,
+      "path": "vendor/Mapperatorinator/configs/train/legacy/tiny58m.yaml",
+      "sha256": "aca0dac950a6666442da51aa625bef89f9dc6ecac93cbba03b6409eb13d1cf87"
+    },
+    {
+      "bytes": 4930,
+      "path": "vendor/Mapperatorinator/configs/train/legacy/tiny59.yaml",
+      "sha256": "c38c7705b9a8e106d531ce7e188064bd77e7f30bde8b65daf07c69de7634743e"
+    },
+    {
+      "bytes": 4929,
+      "path": "vendor/Mapperatorinator/configs/train/legacy/tiny60.yaml",
+      "sha256": "7840c95b0b1deed24648bfe7fb85b52d00496ae7e16f8a380b9bfb69cf927436"
+    },
+    {
+      "bytes": 5362,
+      "path": "vendor/Mapperatorinator/configs/train/legacy/tiny61.yaml",
+      "sha256": "4c7ff829936db2565796e2c504efcc41c6ff198ed8102c1349cd554c8fb9826a"
+    },
+    {
+      "bytes": 5442,
+      "path": "vendor/Mapperatorinator/configs/train/legacy/tiny62.yaml",
+      "sha256": "a2cfd2a232da3c7b5835a6679755aaaa743ef2181adcfb5a88ea6515c6e22dcb"
+    },
+    {
+      "bytes": 5440,
+      "path": "vendor/Mapperatorinator/configs/train/legacy/tiny63.yaml",
+      "sha256": "ee9cd35aa9db62c781538ac3095ba2aa4b5866e73d00eb10cc7f78cdcb1ccaaf"
+    },
+    {
+      "bytes": 5362,
+      "path": "vendor/Mapperatorinator/configs/train/legacy/tiny64.yaml",
+      "sha256": "5b52cfe75c0cec506c7dace1e27e1417e2969bc032c337fdc98a1aad913ca9fa"
+    },
+    {
+      "bytes": 4587,
+      "path": "vendor/Mapperatorinator/configs/train/legacy/tiny_dist.yaml",
+      "sha256": "afa1f1e7b655e4328011b52f8d6e5343fcdafbf31be162f0973f4f2960c15ffe"
+    },
+    {
+      "bytes": 4698,
+      "path": "vendor/Mapperatorinator/configs/train/legacy/tiny_dist12.yaml",
+      "sha256": "a714cc0e48734e713599220dcdc13afa887d6aca986feca821c12025268ab938"
+    },
+    {
+      "bytes": 4628,
+      "path": "vendor/Mapperatorinator/configs/train/legacy/tiny_dist13.yaml",
+      "sha256": "502af8ac946d47de2ea49ffe0de0ad4cb3999c9d81c6f380fbc98960fbd20e93"
+    },
+    {
+      "bytes": 4627,
+      "path": "vendor/Mapperatorinator/configs/train/legacy/tiny_dist14.yaml",
+      "sha256": "2668c19d0ff888c750433654dd16d2b5ad263098e82af300383073b2bc2d1b52"
+    },
+    {
+      "bytes": 4654,
+      "path": "vendor/Mapperatorinator/configs/train/legacy/tiny_dist15.yaml",
+      "sha256": "4dac9c6700b90dcb2a604226bc53a9bb0ec1923519fdf8bfe7e27d2932265ec4"
+    },
+    {
+      "bytes": 4653,
+      "path": "vendor/Mapperatorinator/configs/train/legacy/tiny_dist16.yaml",
+      "sha256": "d7fca1648a7eb1373f3edd5b56e5788805ffe186802ddafc4220c76df6ac8ca9"
+    },
+    {
+      "bytes": 4629,
+      "path": "vendor/Mapperatorinator/configs/train/legacy/tiny_dist17.yaml",
+      "sha256": "2f5f0ed0aa0dad782da0c7c8df78ca33d1a439aac88467be843fa31e09176f59"
+    },
+    {
+      "bytes": 4708,
+      "path": "vendor/Mapperatorinator/configs/train/legacy/tiny_dist18.yaml",
+      "sha256": "8bbbc55183af9af9d64916bc1799af031ee4fd9eac0383d9e7749e57a2f8db99"
+    },
+    {
+      "bytes": 4683,
+      "path": "vendor/Mapperatorinator/configs/train/legacy/tiny_dist19.yaml",
+      "sha256": "affc0fccd66e68fc752408e4e2b7247ea6c7de5df8493cb62d7001a25d7b9c8c"
+    },
+    {
+      "bytes": 4598,
+      "path": "vendor/Mapperatorinator/configs/train/legacy/tiny_dist20.yaml",
+      "sha256": "f379c4d73d41768eb9f077df81a7b253fc37eb48bf88b06ebbf3604028257434"
+    },
+    {
+      "bytes": 4598,
+      "path": "vendor/Mapperatorinator/configs/train/legacy/tiny_dist21.yaml",
+      "sha256": "b563f259a8ae1514cefe72a4a942fe5140e04a83357d7acd3a85e2257d573119"
+    },
+    {
+      "bytes": 4641,
+      "path": "vendor/Mapperatorinator/configs/train/legacy/tiny_dist22.yaml",
+      "sha256": "f0f5b38e964a72936cd16fed0f7771279a6023654e0cc44888f587c09c155512"
+    },
+    {
+      "bytes": 3468,
+      "path": "vendor/Mapperatorinator/configs/train/legacy/tiny_dist3.yaml",
+      "sha256": "59a080974fa8a7cf224347b29cc90a25e15e4a6c9a396540cbb902f7fd36f62b"
+    },
+    {
+      "bytes": 3394,
+      "path": "vendor/Mapperatorinator/configs/train/legacy/tiny_dist4.yaml",
+      "sha256": "db7d1e2e1529f59f5ce0c38b62bf532c8f371aae7e70d9ce57bf121b4376e021"
+    },
+    {
+      "bytes": 4025,
+      "path": "vendor/Mapperatorinator/configs/train/legacy/tiny_dist5.yaml",
+      "sha256": "54162022b0c037ef46b2eaa292ad8e894d0773369de61b0e9463a72617649e94"
+    },
+    {
+      "bytes": 4134,
+      "path": "vendor/Mapperatorinator/configs/train/legacy/tiny_dist6.yaml",
+      "sha256": "c916be451e4235ef75986f79ec65a4c56409b0a14aaecd2aff88b844dda50ac3"
+    },
+    {
+      "bytes": 4134,
+      "path": "vendor/Mapperatorinator/configs/train/legacy/tiny_dist7.yaml",
+      "sha256": "5a1c4c7cc1455d48addd32c63a7aa7b08bedd757de5fda8f2e68ac5a0486ba74"
+    },
+    {
+      "bytes": 3444,
+      "path": "vendor/Mapperatorinator/configs/train/legacy/tiny_dist8.yaml",
+      "sha256": "284cdea4c0c22e55f147e0c3b9639a7faa3d33692f2867986e0d7d48ac886721"
+    },
+    {
+      "bytes": 3445,
+      "path": "vendor/Mapperatorinator/configs/train/legacy/tiny_nodist.yaml",
+      "sha256": "b7ede607fc4b4b3de55b7cf7cd67ccf6902af9757586153cd0ae615011918bfa"
+    },
+    {
+      "bytes": 2842,
+      "path": "vendor/Mapperatorinator/configs/train/legacy/v19.yaml",
+      "sha256": "aa36016f18e99e47cb6bd41b9967c8a054fa53765b2b0ec7a5f0637b1de2908e"
+    },
+    {
+      "bytes": 2739,
+      "path": "vendor/Mapperatorinator/configs/train/legacy/v20.yaml",
+      "sha256": "0bcdda0bc9e19eb4a3ebb8ed551494f7614553d2dcec548093a712e4a2416f80"
+    },
+    {
+      "bytes": 2979,
+      "path": "vendor/Mapperatorinator/configs/train/legacy/v21.yaml",
+      "sha256": "689ab7710696a79ee9d0a39de16262eb1ce1e82b9e5e4ca5dba99601dd4e412a"
+    },
+    {
+      "bytes": 3140,
+      "path": "vendor/Mapperatorinator/configs/train/legacy/v22.yaml",
+      "sha256": "3dc3092541956fc771bb702f1cd6c8391622839cf9737b1e07867c5d0f9961a1"
+    },
+    {
+      "bytes": 3294,
+      "path": "vendor/Mapperatorinator/configs/train/legacy/v23.yaml",
+      "sha256": "f9f01acb40959ef57ae974dab44ff9863d626646c2984144b5dc69057c0c4b55"
+    },
+    {
+      "bytes": 3362,
+      "path": "vendor/Mapperatorinator/configs/train/legacy/v25.yaml",
+      "sha256": "da78ea696b3789d0993d299db3a880426b7144db6e8e2804dfea50e0ca2bc65b"
+    },
+    {
+      "bytes": 3495,
+      "path": "vendor/Mapperatorinator/configs/train/legacy/v26.yaml",
+      "sha256": "3f0e3c156c522d41f9812b6b2269b5c5f68a48fbe62974128c6da118981a2ca2"
+    },
+    {
+      "bytes": 3578,
+      "path": "vendor/Mapperatorinator/configs/train/legacy/v27.yaml",
+      "sha256": "2740008f8c7d43980342c609b8c5ab0ced8dd37cc1a35b16925d5bdce600c240"
+    },
+    {
+      "bytes": 1235,
+      "path": "vendor/Mapperatorinator/configs/train/lora.yaml",
+      "sha256": "2af0028ff625342f0a653f80c19172828f6b55ce21138eb2c8db2b6a7b1e952a"
+    },
+    {
+      "bytes": 1817,
+      "path": "vendor/Mapperatorinator/configs/train/lora_v32.yaml",
+      "sha256": "c06e4dfe1759e2aa343a60b465d6207307bbbcfbc6d5443481e5f80c6fc7ea5e"
+    },
+    {
+      "bytes": 3632,
+      "path": "vendor/Mapperatorinator/configs/train/v28.yaml",
+      "sha256": "ce711426e106a6cb060e2997600121eacb7e1ed1c59b691901d78f31bb537bec"
+    },
+    {
+      "bytes": 3635,
+      "path": "vendor/Mapperatorinator/configs/train/v29.yaml",
+      "sha256": "04543e652ec34cf1b3aab88bd5cb5141678b530e3d14449a2dbc9f70d3fcbfd6"
+    },
+    {
+      "bytes": 4159,
+      "path": "vendor/Mapperatorinator/configs/train/v30.yaml",
+      "sha256": "e34bb9bedbed3eec5fe089b4646abc1828c32c4c8e09fd28631a26bc3216e960"
+    },
+    {
+      "bytes": 3858,
+      "path": "vendor/Mapperatorinator/configs/train/v31.yaml",
+      "sha256": "4ba6ce42719e8e6354343cc4da9f993a9376dab7422048923a058b3544c10b52"
+    },
+    {
+      "bytes": 5610,
+      "path": "vendor/Mapperatorinator/configs/train/v32-mini.yaml",
+      "sha256": "25a61682c0cd42e909c83b0b723902abd9f5f1d426d68e50dff0fbe0b4825a8c"
+    },
+    {
+      "bytes": 5609,
+      "path": "vendor/Mapperatorinator/configs/train/v32-mini_ft.yaml",
+      "sha256": "48d85ea429469fd3312beae8f74d94a1becf7ee9a2e17e31b0bd444d2d65e1ae"
+    },
+    {
+      "bytes": 5611,
+      "path": "vendor/Mapperatorinator/configs/train/v32.yaml",
+      "sha256": "2a48ab9a8bb4980a6ef70ea611e44d0c706d0b16592603f94b8f61616745ad47"
+    },
+    {
+      "bytes": 5612,
+      "path": "vendor/Mapperatorinator/configs/train/v32_ft.yaml",
+      "sha256": "0f6f53091662de589987a1d11bf3981bfd682928aaf1c0d5abbd4d0d4e9b89c5"
+    },
+    {
+      "bytes": 235216,
+      "path": "vendor/Mapperatorinator/datasets/beatmap_descriptors.csv",
+      "sha256": "164f297e9771dac108dde272293b4dc1b58f7050201f62746bb2f6d5a207ab1c"
+    },
+    {
+      "bytes": 4911408,
+      "path": "vendor/Mapperatorinator/datasets/beatmap_users.json",
+      "sha256": "bb04032520b1e93ed11d9c05c352eab10192b531569af239aed9be1fc0880f6a"
+    },
+    {
+      "bytes": 16908,
+      "path": "vendor/Mapperatorinator/datasets/omdb_descriptors.json",
+      "sha256": "0c5d466d0044c19dbb321a1cd73f45497ec29ef5f2f7b3edc25453e71a5f28a0"
+    },
+    {
+      "bytes": 215,
+      "path": "vendor/Mapperatorinator/datasets/removed_users.txt",
+      "sha256": "51e6168aa4ebe664dbc95ea842c3a1bd92587e4057fdef35f7b5ac2b933e29ea"
+    },
+    {
+      "bytes": 1343669,
+      "path": "vendor/Mapperatorinator/datasets/rhythm_complexities.csv",
+      "sha256": "556849af356f25777cd9fa4cf666415758054a734cd48b996b1595280d2bacb0"
+    },
+    {
+      "bytes": 29132,
+      "path": "vendor/Mapperatorinator/datasets/tags.json",
+      "sha256": "7e0d26759de2db1cbea0ef303ecaeeca0bb612035c15cb86eda7b271a868d5da"
+    },
+    {
+      "bytes": 30589,
+      "path": "vendor/Mapperatorinator/datasets/tags_2026.json",
+      "sha256": "210acdb9d7ba6cba4bc32645c142dcdfe3a2792390c41c9eb04512990b8ac5ad"
+    },
+    {
+      "bytes": 20016,
+      "path": "vendor/Mapperatorinator/diffusion_pipeline.py",
+      "sha256": "643aeee3017371c664412bcad9bcd53730144694c93058e43539ee22a46a1709"
+    },
+    {
+      "bytes": 29141,
+      "path": "vendor/Mapperatorinator/inference.py",
+      "sha256": "45ec0ffde76186a5fa9f39fa4f5ad4e807e53acbc241f01e8b512b183fe7ba51"
+    },
+    {
+      "bytes": 20465,
+      "path": "vendor/Mapperatorinator/mai_mod.py",
+      "sha256": "952283160cb7a76beaa4db2692a0adffbd4b16b0b45bc33be24ed8f47091f2e8"
+    },
+    {
+      "bytes": 25529,
+      "path": "vendor/Mapperatorinator/mai_mod_ui.py",
+      "sha256": "02ffc52381ae81cf05a5baf2dbe69ed3763a83497f0b95fd1bda70da6bae9c8f"
+    },
+    {
+      "bytes": 0,
+      "path": "vendor/Mapperatorinator/osuT5/__init__.py",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 1557,
+      "path": "vendor/Mapperatorinator/osuT5/clean_wandb_models.py",
+      "sha256": "28549656c2f1290a729ed0d0e256f0813ca85ba344c1d19ed6655cf9ff3dd651"
+    },
+    {
+      "bytes": 7400,
+      "path": "vendor/Mapperatorinator/osuT5/dataloading.py",
+      "sha256": "757dd4f677bb9cb6e1d20ea726a6e4f2c61e0f6b49f68dd520c1412e33a44de5"
+    },
+    {
+      "bytes": 5108,
+      "path": "vendor/Mapperatorinator/osuT5/multi_train.sh",
+      "sha256": "ec5bfe7639a2b680b30d63febcb765302f08cd516cefce0e937a5705c22ef9c3"
+    },
+    {
+      "bytes": 5594,
+      "path": "vendor/Mapperatorinator/osuT5/open_t5x.py",
+      "sha256": "ae8b3c884df9b611a8a86a52b520619de2355b1ba87bbd2dbd6735d5c5ca7247"
+    },
+    {
+      "bytes": 0,
+      "path": "vendor/Mapperatorinator/osuT5/osuT5/__init__.py",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 12234,
+      "path": "vendor/Mapperatorinator/osuT5/osuT5/config.py",
+      "sha256": "8c974462eeed5ac7a7979f7df73ee89323b1b16c7f483232139eb25d5db34a40"
+    },
+    {
+      "bytes": 0,
+      "path": "vendor/Mapperatorinator/osuT5/osuT5/dataset/__init__.py",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 44048,
+      "path": "vendor/Mapperatorinator/osuT5/osuT5/dataset/data_utils.py",
+      "sha256": "37e4c9f3d9f2e2fbf320ae8cdc6c0a26734c9ef93ef12d281d6f39c5bb997210"
+    },
+    {
+      "bytes": 15604,
+      "path": "vendor/Mapperatorinator/osuT5/osuT5/dataset/mmrs_dataset.py",
+      "sha256": "b4a54f1829355bd095e8aaa503617cab2686197285622323efa5aaaa6f392ca7"
+    },
+    {
+      "bytes": 32509,
+      "path": "vendor/Mapperatorinator/osuT5/osuT5/dataset/ors_dataset.py",
+      "sha256": "21521d16d58a7fba25a8f9b2a7ad74df5561894f1b25c8aa24c4c5675a164111"
+    },
+    {
+      "bytes": 31016,
+      "path": "vendor/Mapperatorinator/osuT5/osuT5/dataset/osu_parser.py",
+      "sha256": "4d8ef60306c8c9a70ff00d40fb2d927628435e0a8b619bb5628bb59ea0c63819"
+    },
+    {
+      "bytes": 12343,
+      "path": "vendor/Mapperatorinator/osuT5/osuT5/dataset/web_dataset.py",
+      "sha256": "0f7dbad27a4d2a08771bb1577d0dfde6b80668ee1a8a61ac62c81146874bdd82"
+    },
+    {
+      "bytes": 2281,
+      "path": "vendor/Mapperatorinator/osuT5/osuT5/event.py",
+      "sha256": "49f519df2ebccf4298b89d93c82edf5aedf994f15403b7f38a114173d2e813df"
+    },
+    {
+      "bytes": 85,
+      "path": "vendor/Mapperatorinator/osuT5/osuT5/inference/__init__.py",
+      "sha256": "29ca6645dcd7ae42fbe774d74507577c1622c9903f22783808d588a359a89257"
+    },
+    {
+      "bytes": 1572,
+      "path": "vendor/Mapperatorinator/osuT5/osuT5/inference/cache_utils.py",
+      "sha256": "24993be2a4170eb46ba6a05f186d03ff26aee979f00ae072ab63c9b234a09e8d"
+    },
+    {
+      "bytes": 9112,
+      "path": "vendor/Mapperatorinator/osuT5/osuT5/inference/logit_processors.py",
+      "sha256": "5d462c32cd3070a94076280facefa9391f7f6c634f573a4316deddaf8d89ce88"
+    },
+    {
+      "bytes": 6953,
+      "path": "vendor/Mapperatorinator/osuT5/osuT5/inference/path_approximator.py",
+      "sha256": "951b4ce2f287d71b7b1fb00803d03e157fa110c02bec84b994d6a9f53a0f9db7"
+    },
+    {
+      "bytes": 45198,
+      "path": "vendor/Mapperatorinator/osuT5/osuT5/inference/postprocessor.py",
+      "sha256": "7af5ed2877802cf5f0d15750ee293bbe8453676fff02b3a948a9749725c39b8d"
+    },
+    {
+      "bytes": 4696,
+      "path": "vendor/Mapperatorinator/osuT5/osuT5/inference/preprocessor.py",
+      "sha256": "fe216da8eb9a3873ac3c704dab887bf1e47e0171c055b387ce7ca718a151ce39"
+    },
+    {
+      "bytes": 69952,
+      "path": "vendor/Mapperatorinator/osuT5/osuT5/inference/processor.py",
+      "sha256": "fd78e0292a6c2aaedeeaf6f4a6de960d805aad4befb6363cfc0c6e223af4c6ba"
+    },
+    {
+      "bytes": 26235,
+      "path": "vendor/Mapperatorinator/osuT5/osuT5/inference/server.py",
+      "sha256": "10861590c3c009a0f0fcb2c15c87686bdcfc574c883d97b2e103fa428eb85476"
+    },
+    {
+      "bytes": 7048,
+      "path": "vendor/Mapperatorinator/osuT5/osuT5/inference/slider_path.py",
+      "sha256": "578a764ec767304138f87a26ce16ca19985994b1bd9558d3910ee9542a714fd2"
+    },
+    {
+      "bytes": 15639,
+      "path": "vendor/Mapperatorinator/osuT5/osuT5/inference/super_timing_generator.py",
+      "sha256": "8d2b495632fd226d34287567659f5ba493c556c5f848704df67cc90914e615d0"
+    },
+    {
+      "bytes": 1185,
+      "path": "vendor/Mapperatorinator/osuT5/osuT5/inference/template.osu",
+      "sha256": "998ff6b22049b2578d01ac7db4e503e4291c51f1b4d5652e0f43e5d260fb0872"
+    },
+    {
+      "bytes": 7717,
+      "path": "vendor/Mapperatorinator/osuT5/osuT5/inference/timing_points_change.py",
+      "sha256": "bd1ffcfec4880b3eae93ce8123cac785c07c33605bcef6b60eba8a8fde80df86"
+    },
+    {
+      "bytes": 57,
+      "path": "vendor/Mapperatorinator/osuT5/osuT5/model/__init__.py",
+      "sha256": "3531b85e08bbc91c8767bc9399ba8844c78bb64f409e77124330cfa9806cb937"
+    },
+    {
+      "bytes": 7873,
+      "path": "vendor/Mapperatorinator/osuT5/osuT5/model/configuration_mapperatorinator.py",
+      "sha256": "c4a48bcec6cee901b46f523b70bd485be220bf7576d4993f58a2f35406a71f42"
+    },
+    {
+      "bytes": 441,
+      "path": "vendor/Mapperatorinator/osuT5/osuT5/model/custom_transformers/__init__.py",
+      "sha256": "73787966b9e9fbb8f799113f235348f37d8553018a463684198aae3c763011ba"
+    },
+    {
+      "bytes": 7135,
+      "path": "vendor/Mapperatorinator/osuT5/osuT5/model/custom_transformers/configuration_nwhisper.py",
+      "sha256": "351f0674af119a709947f5a10fd584f79653bd2003cbedbe7442449e5534aa7d"
+    },
+    {
+      "bytes": 3508,
+      "path": "vendor/Mapperatorinator/osuT5/osuT5/model/custom_transformers/configuration_ropewhisper.py",
+      "sha256": "e5f89db81593e0edf32e713ce999591f80cb20db50d127fcfc722247f4689a5a"
+    },
+    {
+      "bytes": 3867,
+      "path": "vendor/Mapperatorinator/osuT5/osuT5/model/custom_transformers/configuration_varwhisper.py",
+      "sha256": "da4b362241b5a7b86a2ea9ae94e92a6613de177d99fdd6bbc70e3da51d1da165"
+    },
+    {
+      "bytes": 118641,
+      "path": "vendor/Mapperatorinator/osuT5/osuT5/model/custom_transformers/modeling_nwhisper.py",
+      "sha256": "9db974ed1015bdd45375aa291a40d5320807144a8466a02cd00dacbb8a7d3182"
+    },
+    {
+      "bytes": 120670,
+      "path": "vendor/Mapperatorinator/osuT5/osuT5/model/custom_transformers/modeling_ropewhisper.py",
+      "sha256": "37943af25e75be91646aac5376edf6b9d0653f42eb3ac5c44f0a44fb9e89f72e"
+    },
+    {
+      "bytes": 66061,
+      "path": "vendor/Mapperatorinator/osuT5/osuT5/model/custom_transformers/modeling_varwhisper.py",
+      "sha256": "554626495f9296b95995eb3e5f33e90ecd5c440b05a1a1c76a684e78437a690e"
+    },
+    {
+      "bytes": 25202,
+      "path": "vendor/Mapperatorinator/osuT5/osuT5/model/custom_transformers/t5.py",
+      "sha256": "842246a8338007972f474795b634465386ec09639493faeddb2da2de38ecc052"
+    },
+    {
+      "bytes": 26987,
+      "path": "vendor/Mapperatorinator/osuT5/osuT5/model/modeling_mapperatorinator.py",
+      "sha256": "8801a9f8e9b5ebf71c2db70af3228441d15ecdb984a6117633a9bbe322ffe854"
+    },
+    {
+      "bytes": 3227,
+      "path": "vendor/Mapperatorinator/osuT5/osuT5/model/spectrogram.py",
+      "sha256": "f5f37c7f29641af07efbeb89d5706502fae780ab4bc2b01ed6551957c1e9502c"
+    },
+    {
+      "bytes": 39132,
+      "path": "vendor/Mapperatorinator/osuT5/osuT5/tokenizer.py",
+      "sha256": "1af6ef3366d2dea0049f27ddc7a214d8b5b299d97e575cfa14053b11903112f2"
+    },
+    {
+      "bytes": 83,
+      "path": "vendor/Mapperatorinator/osuT5/osuT5/utils/__init__.py",
+      "sha256": "e7c8d311f3abdd614ffe25522a9bd3fe514cc75b50c946d234041f660056598b"
+    },
+    {
+      "bytes": 26764,
+      "path": "vendor/Mapperatorinator/osuT5/osuT5/utils/copied_utils.py",
+      "sha256": "bb9eb189a59737f5d457f156a08e22ccf9de663e91754f57c2003bba43921768"
+    },
+    {
+      "bytes": 1115,
+      "path": "vendor/Mapperatorinator/osuT5/osuT5/utils/init_utils.py",
+      "sha256": "aec6febc699f0e40932c11bcb9d9cd6664cd123a4f966073730554c6c60510fe"
+    },
+    {
+      "bytes": 1612,
+      "path": "vendor/Mapperatorinator/osuT5/osuT5/utils/log_utils.py",
+      "sha256": "851a7686ee88b29396ed292cdc78b45fded451449e2797931e47fbea31026137"
+    },
+    {
+      "bytes": 24970,
+      "path": "vendor/Mapperatorinator/osuT5/osuT5/utils/model_utils.py",
+      "sha256": "4b0527570cc77ef1affd761582a6cb71a9c9f81b3eb3f69089916895f0ef18af"
+    },
+    {
+      "bytes": 8689,
+      "path": "vendor/Mapperatorinator/osuT5/osuT5/utils/muon_utils.py",
+      "sha256": "bb87bb48e2e66b2d2d914da12498fa2ce000b49d45140d048b1678f04b0bc812"
+    },
+    {
+      "bytes": 18338,
+      "path": "vendor/Mapperatorinator/osuT5/osuT5/utils/train_utils.py",
+      "sha256": "ecc7bc491ef7c2eb1efa9f9f2ebd9f6c40e3d170b5c9d4758d4ecffc38450c0e"
+    },
+    {
+      "bytes": 1066,
+      "path": "vendor/Mapperatorinator/osuT5/plot_difficulties.py",
+      "sha256": "51ddd49f4e42c1faff496b107697d21b93fa5a9047006dcc2fa127d5dcd58715"
+    },
+    {
+      "bytes": 11977,
+      "path": "vendor/Mapperatorinator/osuT5/test.py",
+      "sha256": "d13a9c64d247ed86ef7500ed8b0b41c3c5b2f234c7c31a6cf500f4da01dbe5d8"
+    },
+    {
+      "bytes": 4797,
+      "path": "vendor/Mapperatorinator/osuT5/train.py",
+      "sha256": "465e2490bec80d2746d3620a36721bba5bb5254171be1a5c7228b33f937d50f4"
+    },
+    {
+      "bytes": 128,
+      "path": "vendor/Mapperatorinator/osu_diffusion/.gitignore",
+      "sha256": "e90659acdbda63ca1020d4ef27d51df08a62232aace3509c59e11c8db2488f1c"
+    },
+    {
+      "bytes": 1166,
+      "path": "vendor/Mapperatorinator/osu_diffusion/.pre-commit-config.yaml",
+      "sha256": "17ee781fdf367d07d3471df8fd32eec88832fbde1087e56809dc09d7f3b54794"
+    },
+    {
+      "bytes": 485,
+      "path": "vendor/Mapperatorinator/osu_diffusion/Pipfile",
+      "sha256": "cb93c13e053e4bca95af9374a161746e85150273115c60ae95212f39b7854a82"
+    },
+    {
+      "bytes": 8198,
+      "path": "vendor/Mapperatorinator/osu_diffusion/README.md",
+      "sha256": "db37c550bba120ceed2afac7f73f000f7c4bef2501ccbcf8862db90846c3a959"
+    },
+    {
+      "bytes": 235,
+      "path": "vendor/Mapperatorinator/osu_diffusion/__init__.py",
+      "sha256": "d1414cd45ca113393839e065f8bafbd383ddb8437b308557b9eaf7f71f1eaa0d"
+    },
+    {
+      "bytes": 20161,
+      "path": "vendor/Mapperatorinator/osu_diffusion/colab/osu_diffusion_sample.ipynb",
+      "sha256": "be1f812ad814f79916d23f72b087734814596af60964b674f82320e6f19f5900"
+    },
+    {
+      "bytes": 3380,
+      "path": "vendor/Mapperatorinator/osu_diffusion/config.py",
+      "sha256": "a835808d1dcc7235f19083c7b9f28686f5acc09a0f6d5929697cba882adbff2a"
+    },
+    {
+      "bytes": 177,
+      "path": "vendor/Mapperatorinator/osu_diffusion/environment.yml",
+      "sha256": "b68b52aa9ab9f4a2e9f45b6164ee1438e892b8d4311991382c7e43434654630b"
+    },
+    {
+      "bytes": 40,
+      "path": "vendor/Mapperatorinator/osu_diffusion/requirements.txt",
+      "sha256": "bedf7d5115d5c3710fc45caa642b5a0b02c4af476280fe468f4c2612b8b7b892"
+    },
+    {
+      "bytes": 69,
+      "path": "vendor/Mapperatorinator/osu_diffusion/sample.bat",
+      "sha256": "c71a4fb9ae7aa6470388aa30e18a71a58baeec5ee1ac16a0d4ad180882966ff8"
+    },
+    {
+      "bytes": 8792,
+      "path": "vendor/Mapperatorinator/osu_diffusion/sample.py",
+      "sha256": "06fb10947a003a843d623e1ed0b9aabeda14556068095662721fb96817ff7651"
+    },
+    {
+      "bytes": 1335,
+      "path": "vendor/Mapperatorinator/osu_diffusion/test_data_loading.py",
+      "sha256": "a002dee410e88d9a2704b1b0c9166b758994cce864faeed6f2c8fee01de427ea"
+    },
+    {
+      "bytes": 2526,
+      "path": "vendor/Mapperatorinator/osu_diffusion/testing/create_beatmap_dataframe.py",
+      "sha256": "b6b7497f66789cc597b7d3d16c5f2966a5c2d0387b1bef97d949773bea426891"
+    },
+    {
+      "bytes": 1465,
+      "path": "vendor/Mapperatorinator/osu_diffusion/testing/distance_distance.py",
+      "sha256": "d96848779ea0f3bc8a9ba7e07ced4df38e98f77c15654626c097190fcb0db4f2"
+    },
+    {
+      "bytes": 3846,
+      "path": "vendor/Mapperatorinator/osu_diffusion/testing/embedding_svm.py",
+      "sha256": "20e4eae2aa3ca16626f10b7f1b42267e3fd1c751e51d8935a4a058e86537da5f"
+    },
+    {
+      "bytes": 822,
+      "path": "vendor/Mapperatorinator/osu_diffusion/testing/find_similar_beatmaps.py",
+      "sha256": "af1de9d841e67098319567d5fd68ca9fde21685676e914c0ac58d8bd144f02a9"
+    },
+    {
+      "bytes": 1241,
+      "path": "vendor/Mapperatorinator/osu_diffusion/testing/find_unique_beatmaps.py",
+      "sha256": "6e48d6b8e16af9cea85c6cdff89786876e37d5f5f9c671f65a9ee5f983ca9e56"
+    },
+    {
+      "bytes": 6120,
+      "path": "vendor/Mapperatorinator/osu_diffusion/testing/plot_embeddings.py",
+      "sha256": "abd57ae559f24402ec469a09b55126c2e957b02953e77d862f4a86f500566d49"
+    },
+    {
+      "bytes": 1616,
+      "path": "vendor/Mapperatorinator/osu_diffusion/testing/plot_loss.py",
+      "sha256": "c8e6b8ea0b0e4b0b83d6db6b3f455f356be4911a313cf742e89677f82e78831a"
+    },
+    {
+      "bytes": 669,
+      "path": "vendor/Mapperatorinator/osu_diffusion/testing/print_ckpt.py",
+      "sha256": "bb1b762a4181718f11096b8ed6ee74e75e0e95a239d1ef7e90bd779363617178"
+    },
+    {
+      "bytes": 7342,
+      "path": "vendor/Mapperatorinator/osu_diffusion/testing/test_toy.py",
+      "sha256": "20c9c48d3edc93003e231ffc0d3fbfd8f022b2a1265bd7334a4167e7e34432e9"
+    },
+    {
+      "bytes": 1077,
+      "path": "vendor/Mapperatorinator/osu_diffusion/testing/toy_datasets/geometry/test - geometry (OliBomby) [test0].osu",
+      "sha256": "beb5e0f00bb1e713f383efebc8f4a7aca8e1d9b0fc811c61b7c5ceed085eb358"
+    },
+    {
+      "bytes": 1131,
+      "path": "vendor/Mapperatorinator/osu_diffusion/testing/toy_datasets/geometry/test - geometry (OliBomby) [test10].osu",
+      "sha256": "5bd6eb12871b3686f31bbeb88256f8c2736b6f5bb9a8509a990806a94397c179"
+    },
+    {
+      "bytes": 1076,
+      "path": "vendor/Mapperatorinator/osu_diffusion/testing/toy_datasets/geometry/test - geometry (OliBomby) [test11].osu",
+      "sha256": "2566a738b459eb7b0b0163c73334899ac171df9ca133080b336f82606ed744e2"
+    },
+    {
+      "bytes": 1075,
+      "path": "vendor/Mapperatorinator/osu_diffusion/testing/toy_datasets/geometry/test - geometry (OliBomby) [test12].osu",
+      "sha256": "08b73e203ca477dc83a1c728c1235809005f429b6df7d87414bac75c0b62a771"
+    },
+    {
+      "bytes": 1158,
+      "path": "vendor/Mapperatorinator/osu_diffusion/testing/toy_datasets/geometry/test - geometry (OliBomby) [test13].osu",
+      "sha256": "6a6165daf9a8a453ba9292c88736c359d4cad4535d6b0eb6e0c98b6b46f82cce"
+    },
+    {
+      "bytes": 1155,
+      "path": "vendor/Mapperatorinator/osu_diffusion/testing/toy_datasets/geometry/test - geometry (OliBomby) [test14].osu",
+      "sha256": "734d801efc8e8193ea08781ea624b03766124f0cb97815747e8671f8038cdf89"
+    },
+    {
+      "bytes": 1251,
+      "path": "vendor/Mapperatorinator/osu_diffusion/testing/toy_datasets/geometry/test - geometry (OliBomby) [test15].osu",
+      "sha256": "5bd246561b724791c2b58c6de2e6ce963e94757522c5de08c721a8d2b4f57303"
+    },
+    {
+      "bytes": 1126,
+      "path": "vendor/Mapperatorinator/osu_diffusion/testing/toy_datasets/geometry/test - geometry (OliBomby) [test16].osu",
+      "sha256": "e44e42a64e8980493f935d4587644440cc0196b3e21907b92afcc3bdaa99120c"
+    },
+    {
+      "bytes": 1077,
+      "path": "vendor/Mapperatorinator/osu_diffusion/testing/toy_datasets/geometry/test - geometry (OliBomby) [test1].osu",
+      "sha256": "fbf4ceb5d5424d82ba005130e960d9682abb3bdc681a815b41e6513f0c20a04f"
+    },
+    {
+      "bytes": 1073,
+      "path": "vendor/Mapperatorinator/osu_diffusion/testing/toy_datasets/geometry/test - geometry (OliBomby) [test2].osu",
+      "sha256": "501eb4058ae94cc2c6e30f093d5c5a4415be86d7db3767571d5eb0fb542510ed"
+    },
+    {
+      "bytes": 1103,
+      "path": "vendor/Mapperatorinator/osu_diffusion/testing/toy_datasets/geometry/test - geometry (OliBomby) [test3].osu",
+      "sha256": "5426fadc52f92b0ec1bb10f8b246af5cfbe2c379d572ec9be72ab38b3eea4ea1"
+    },
+    {
+      "bytes": 1098,
+      "path": "vendor/Mapperatorinator/osu_diffusion/testing/toy_datasets/geometry/test - geometry (OliBomby) [test4].osu",
+      "sha256": "3e0ce18a9c81f6953baa726123a02bbda5652e58f62230d20457e72f21cc8aa2"
+    },
+    {
+      "bytes": 1128,
+      "path": "vendor/Mapperatorinator/osu_diffusion/testing/toy_datasets/geometry/test - geometry (OliBomby) [test5].osu",
+      "sha256": "d5dad0fab73dd5f7b8a6558684ef12b87e6f7df921802b29fca6693ae381e11d"
+    },
+    {
+      "bytes": 1155,
+      "path": "vendor/Mapperatorinator/osu_diffusion/testing/toy_datasets/geometry/test - geometry (OliBomby) [test6].osu",
+      "sha256": "e314f2742d934e758488cab4a2cf492d83befccd70f204726fb22ab473d0e85b"
+    },
+    {
+      "bytes": 1102,
+      "path": "vendor/Mapperatorinator/osu_diffusion/testing/toy_datasets/geometry/test - geometry (OliBomby) [test7].osu",
+      "sha256": "c91979eed7b8cdc45e119036f6254a39a498cb2eeea875237b4f0aef89f30332"
+    },
+    {
+      "bytes": 1076,
+      "path": "vendor/Mapperatorinator/osu_diffusion/testing/toy_datasets/geometry/test - geometry (OliBomby) [test8].osu",
+      "sha256": "b6428769b0a1a52472a8b9c4345a358a5381503c7c61f87727074e066e6a69a5"
+    },
+    {
+      "bytes": 1155,
+      "path": "vendor/Mapperatorinator/osu_diffusion/testing/toy_datasets/geometry/test - geometry (OliBomby) [test9].osu",
+      "sha256": "03f9f2b8df9c82bb04247133a05113aa94eb735417fb6653fbba66c11a5f4728"
+    },
+    {
+      "bytes": 26491,
+      "path": "vendor/Mapperatorinator/osu_diffusion/testing/toy_datasets/kimi_no_bouken.osu",
+      "sha256": "be3d004ce72a6ec0318732548b7dac03980f0b04d8b0897d05d9a4c2a1402e7c"
+    },
+    {
+      "bytes": 1182,
+      "path": "vendor/Mapperatorinator/osu_diffusion/testing/toy_datasets/stream/test - stream (OliBomby) [test0].osu",
+      "sha256": "45bbe84c50cea05d967a7a1ef443f22908a4fc732ff145bf62dd04cfec3b1730"
+    },
+    {
+      "bytes": 1178,
+      "path": "vendor/Mapperatorinator/osu_diffusion/testing/toy_datasets/stream/test - stream (OliBomby) [test10].osu",
+      "sha256": "c81153dcf8cfd50e7545ecb7a3423e0534b115f9e5649e57a5022be058287466"
+    },
+    {
+      "bytes": 1258,
+      "path": "vendor/Mapperatorinator/osu_diffusion/testing/toy_datasets/stream/test - stream (OliBomby) [test11].osu",
+      "sha256": "88511c389654fbf2298b7ba6ff1c035d110760cf7f85fff709c1ab746a18c304"
+    },
+    {
+      "bytes": 1272,
+      "path": "vendor/Mapperatorinator/osu_diffusion/testing/toy_datasets/stream/test - stream (OliBomby) [test12].osu",
+      "sha256": "9f645ff68095e485917b38b534772d6d396d9bca5aeaf18550b3fb8d99b00f2a"
+    },
+    {
+      "bytes": 1221,
+      "path": "vendor/Mapperatorinator/osu_diffusion/testing/toy_datasets/stream/test - stream (OliBomby) [test13].osu",
+      "sha256": "5c697b4900995c4b0bfae50b7554f2d1537ab89ef8432bbd8d16086b22418ee7"
+    },
+    {
+      "bytes": 1285,
+      "path": "vendor/Mapperatorinator/osu_diffusion/testing/toy_datasets/stream/test - stream (OliBomby) [test14].osu",
+      "sha256": "51919707cb3097646554e0639e5824b3059aa2cd921cff4190e341c5186da4d3"
+    },
+    {
+      "bytes": 1177,
+      "path": "vendor/Mapperatorinator/osu_diffusion/testing/toy_datasets/stream/test - stream (OliBomby) [test15].osu",
+      "sha256": "8b77373c69598970eb1ba3901924b147a2ecfe599b4ac16e76eb007bcfc18570"
+    },
+    {
+      "bytes": 1128,
+      "path": "vendor/Mapperatorinator/osu_diffusion/testing/toy_datasets/stream/test - stream (OliBomby) [test16].osu",
+      "sha256": "687e7e2ce21a2bddac7928e43a53e63b147f76d0813e1ca30afeaf3ebf807a85"
+    },
+    {
+      "bytes": 1260,
+      "path": "vendor/Mapperatorinator/osu_diffusion/testing/toy_datasets/stream/test - stream (OliBomby) [test17].osu",
+      "sha256": "dc43e813614801778305e418a4b1826f15f9cb6ebdb2668565e7ca9eac5fe919"
+    },
+    {
+      "bytes": 1396,
+      "path": "vendor/Mapperatorinator/osu_diffusion/testing/toy_datasets/stream/test - stream (OliBomby) [test18].osu",
+      "sha256": "b3dcd041bd49eb5a0a12905a8470cd12afff1a35268088f04e915e7a463767af"
+    },
+    {
+      "bytes": 1316,
+      "path": "vendor/Mapperatorinator/osu_diffusion/testing/toy_datasets/stream/test - stream (OliBomby) [test19].osu",
+      "sha256": "29155ae57f7c26d8c14233c5383d41ecc27fcb52201d7e74ded43071bc3933f9"
+    },
+    {
+      "bytes": 1179,
+      "path": "vendor/Mapperatorinator/osu_diffusion/testing/toy_datasets/stream/test - stream (OliBomby) [test1].osu",
+      "sha256": "ffa7b2bb8612d8d055a074dc806cee1a1d966ef7828f63761fc25243c4935db1"
+    },
+    {
+      "bytes": 1182,
+      "path": "vendor/Mapperatorinator/osu_diffusion/testing/toy_datasets/stream/test - stream (OliBomby) [test2].osu",
+      "sha256": "bd9680837bba18ba8c3b4a1ddcd43e9d20890f6c5e9a8f5a1f09f8ae4d95990f"
+    },
+    {
+      "bytes": 1182,
+      "path": "vendor/Mapperatorinator/osu_diffusion/testing/toy_datasets/stream/test - stream (OliBomby) [test3].osu",
+      "sha256": "755c96407d40fa96d4128177ad867b06c7f8642def0ced428b2933b9b06781a6"
+    },
+    {
+      "bytes": 1182,
+      "path": "vendor/Mapperatorinator/osu_diffusion/testing/toy_datasets/stream/test - stream (OliBomby) [test4].osu",
+      "sha256": "a141d3e5b7723b0756a03ebd5f064b615fc8fda20d05ff5cb83e7c71d04b6224"
+    },
+    {
+      "bytes": 1182,
+      "path": "vendor/Mapperatorinator/osu_diffusion/testing/toy_datasets/stream/test - stream (OliBomby) [test5].osu",
+      "sha256": "3886f70e1ac3bfe622a85fae939caac5ece23ee8e72a537f992bc6e1e330ebbd"
+    },
+    {
+      "bytes": 1171,
+      "path": "vendor/Mapperatorinator/osu_diffusion/testing/toy_datasets/stream/test - stream (OliBomby) [test6].osu",
+      "sha256": "28fc7fcf0bc1a634f018400e90b4a96c4670addaee642a8ddd1b1b06686a3c46"
+    },
+    {
+      "bytes": 1163,
+      "path": "vendor/Mapperatorinator/osu_diffusion/testing/toy_datasets/stream/test - stream (OliBomby) [test7].osu",
+      "sha256": "46c57dde37e67c675ecdb3fe158c9bfa3d9ee5b3396b584c69b5b43139bfe2eb"
+    },
+    {
+      "bytes": 1174,
+      "path": "vendor/Mapperatorinator/osu_diffusion/testing/toy_datasets/stream/test - stream (OliBomby) [test8].osu",
+      "sha256": "2b389bd19a17a6c1e989252e58b62b389a8ad10df14356db64b61939a1eccd79"
+    },
+    {
+      "bytes": 1180,
+      "path": "vendor/Mapperatorinator/osu_diffusion/testing/toy_datasets/stream/test - stream (OliBomby) [test9].osu",
+      "sha256": "4e0c4820f82b5f7f144739229477943eb5b096f8cca1c19c759d368546e9425e"
+    },
+    {
+      "bytes": 1128,
+      "path": "vendor/Mapperatorinator/osu_diffusion/testing/toy_datasets/symmetry/test - symmetry (OliBomby) [test0].osu",
+      "sha256": "426e6fe8346f232856a6075df8463b0317192becea25edcd0c96119b7fbb0f02"
+    },
+    {
+      "bytes": 1184,
+      "path": "vendor/Mapperatorinator/osu_diffusion/testing/toy_datasets/symmetry/test - symmetry (OliBomby) [test10].osu",
+      "sha256": "2f19f90ff008f17016dbc5f7e5c520bd1f196f1970e9d50e9b5f7978f62ac5e6"
+    },
+    {
+      "bytes": 1182,
+      "path": "vendor/Mapperatorinator/osu_diffusion/testing/toy_datasets/symmetry/test - symmetry (OliBomby) [test11].osu",
+      "sha256": "5c8bf6b452776586e2e44ce8f87ec4331c8f24ed5d4cefe3c2e7e2aa71f1a935"
+    },
+    {
+      "bytes": 1153,
+      "path": "vendor/Mapperatorinator/osu_diffusion/testing/toy_datasets/symmetry/test - symmetry (OliBomby) [test1].osu",
+      "sha256": "b8dd70a54bf717901fc9902157d2ba3e5fef91f73dbac638c8ed963098b24b92"
+    },
+    {
+      "bytes": 1186,
+      "path": "vendor/Mapperatorinator/osu_diffusion/testing/toy_datasets/symmetry/test - symmetry (OliBomby) [test2].osu",
+      "sha256": "7db0cce4ad3a37f189ea4d69363e4924e9a2ff61959eb7d14658e751e62ef36b"
+    },
+    {
+      "bytes": 1356,
+      "path": "vendor/Mapperatorinator/osu_diffusion/testing/toy_datasets/symmetry/test - symmetry (OliBomby) [test3].osu",
+      "sha256": "0eb35b8a75ed359726123c975b68371807a52cfc07804890dc6c5d637ad0ba00"
+    },
+    {
+      "bytes": 1247,
+      "path": "vendor/Mapperatorinator/osu_diffusion/testing/toy_datasets/symmetry/test - symmetry (OliBomby) [test4].osu",
+      "sha256": "e5697f4ac5b7cdd15cef1c9e04c3d0932e92c0645b608449351a3b89da0eda62"
+    },
+    {
+      "bytes": 1182,
+      "path": "vendor/Mapperatorinator/osu_diffusion/testing/toy_datasets/symmetry/test - symmetry (OliBomby) [test5].osu",
+      "sha256": "cd84665055ffde38db306100f0fdd2b55471ab30968631dcb3a9a6a6d733b799"
+    },
+    {
+      "bytes": 1130,
+      "path": "vendor/Mapperatorinator/osu_diffusion/testing/toy_datasets/symmetry/test - symmetry (OliBomby) [test6].osu",
+      "sha256": "520d30bc3c50a30d56c0456a34b2ed8898a519ec7cd6bfa0198669de3c812f81"
+    },
+    {
+      "bytes": 1289,
+      "path": "vendor/Mapperatorinator/osu_diffusion/testing/toy_datasets/symmetry/test - symmetry (OliBomby) [test7].osu",
+      "sha256": "f7b758fb3a995187d1973fd4d02b01074f2f32da4f01c37e1fb4ed16e7b7a52a"
+    },
+    {
+      "bytes": 1223,
+      "path": "vendor/Mapperatorinator/osu_diffusion/testing/toy_datasets/symmetry/test - symmetry (OliBomby) [test8].osu",
+      "sha256": "e8a846395d32175e942049df0a091f1a766685fea67f75993977e61dbb979b05"
+    },
+    {
+      "bytes": 1153,
+      "path": "vendor/Mapperatorinator/osu_diffusion/testing/toy_datasets/symmetry/test - symmetry (OliBomby) [test9].osu",
+      "sha256": "2934c2587d8a2adcedebad1e37fc7f764dfec1e432fd3400af4a9969379bdf8b"
+    },
+    {
+      "bytes": 1003,
+      "path": "vendor/Mapperatorinator/osu_diffusion/testing/toy_datasets/visual_spacing/test - visual spacing (OliBomby) [test0].osu",
+      "sha256": "64efb84b34b199b74b85f6036e89b3737e631f79c498056479fb75e360432bca"
+    },
+    {
+      "bytes": 1269,
+      "path": "vendor/Mapperatorinator/osu_diffusion/testing/toy_datasets/visual_spacing/test - visual spacing (OliBomby) [test10].osu",
+      "sha256": "ee5d3f9fb7002aeabe773dace051fd74ba4a29f9c3eadd1cd9ca86f80e864ae9"
+    },
+    {
+      "bytes": 1420,
+      "path": "vendor/Mapperatorinator/osu_diffusion/testing/toy_datasets/visual_spacing/test - visual spacing (OliBomby) [test11].osu",
+      "sha256": "a8a6665269eb1cf275badc0f42ed8458514107503d576633256ec7b6bf34c3eb"
+    },
+    {
+      "bytes": 1744,
+      "path": "vendor/Mapperatorinator/osu_diffusion/testing/toy_datasets/visual_spacing/test - visual spacing (OliBomby) [test12].osu",
+      "sha256": "63faebc1fb7e92da1c4ce07f9fe20dfcb05a5823c9a5a2532ce11b3f15c65d1e"
+    },
+    {
+      "bytes": 1071,
+      "path": "vendor/Mapperatorinator/osu_diffusion/testing/toy_datasets/visual_spacing/test - visual spacing (OliBomby) [test1].osu",
+      "sha256": "0b9b4e4db69b6d8104f5a11030f61885dcc20ec5ffe72a27d9d8a797f8cb1d05"
+    },
+    {
+      "bytes": 1268,
+      "path": "vendor/Mapperatorinator/osu_diffusion/testing/toy_datasets/visual_spacing/test - visual spacing (OliBomby) [test2].osu",
+      "sha256": "45b09da7885f1fe55f21d5fd611c0b63382d038230b1b7e3a4b4d31d3b97f463"
+    },
+    {
+      "bytes": 1119,
+      "path": "vendor/Mapperatorinator/osu_diffusion/testing/toy_datasets/visual_spacing/test - visual spacing (OliBomby) [test3].osu",
+      "sha256": "34100f924206ec072ff7c2287eb649f5d08820f943eaa56559736d871fc85833"
+    },
+    {
+      "bytes": 1139,
+      "path": "vendor/Mapperatorinator/osu_diffusion/testing/toy_datasets/visual_spacing/test - visual spacing (OliBomby) [test4].osu",
+      "sha256": "0537a242a1b805e3bc0e208aa08eae8cca6e270d8e4ebccec1e1fdacfc869cfb"
+    },
+    {
+      "bytes": 1088,
+      "path": "vendor/Mapperatorinator/osu_diffusion/testing/toy_datasets/visual_spacing/test - visual spacing (OliBomby) [test5].osu",
+      "sha256": "590be22d8031993e18c97ac529ee59f2b30b760a4f240236decb03f6746b4f9a"
+    },
+    {
+      "bytes": 1078,
+      "path": "vendor/Mapperatorinator/osu_diffusion/testing/toy_datasets/visual_spacing/test - visual spacing (OliBomby) [test6].osu",
+      "sha256": "0142ca2870606f3c7b0c773171f91bb59284a23367b4a22c0c00ec44b0f25031"
+    },
+    {
+      "bytes": 1150,
+      "path": "vendor/Mapperatorinator/osu_diffusion/testing/toy_datasets/visual_spacing/test - visual spacing (OliBomby) [test7].osu",
+      "sha256": "5da845fbc639489aea470f70ea628be2baae0e23bfa4fb6fd724b3b769861254"
+    },
+    {
+      "bytes": 1184,
+      "path": "vendor/Mapperatorinator/osu_diffusion/testing/toy_datasets/visual_spacing/test - visual spacing (OliBomby) [test8].osu",
+      "sha256": "ec8e4dfd3c5fd3b139836756c5bc8c4b0f164bdd3efaba85a19eb35b3f3e32e7"
+    },
+    {
+      "bytes": 1082,
+      "path": "vendor/Mapperatorinator/osu_diffusion/testing/toy_datasets/visual_spacing/test - visual spacing (OliBomby) [test9].osu",
+      "sha256": "28dc549d6ca75f0b93989e3aa691c726b3914c0add06ccd8309ce6cb4c415415"
+    },
+    {
+      "bytes": 7281,
+      "path": "vendor/Mapperatorinator/osu_diffusion/testing/unfuck_pattern.py",
+      "sha256": "798de8c3f3e854fda5982d72b769cc6065a5b954f5b7a8e5480236378d9b7d54"
+    },
+    {
+      "bytes": 292,
+      "path": "vendor/Mapperatorinator/osu_diffusion/testing/validate_beatmap_dataframe.py",
+      "sha256": "f82ec08f58fd9a42e6320af6f6d2da0c581114af51266e3f94eb6683ff2e2992"
+    },
+    {
+      "bytes": 195,
+      "path": "vendor/Mapperatorinator/osu_diffusion/train.bat",
+      "sha256": "1f64c1347f3a963897fa9dee37a8487a248a1b7a18aec62fb13f11241382763a"
+    },
+    {
+      "bytes": 9426,
+      "path": "vendor/Mapperatorinator/osu_diffusion/train.py",
+      "sha256": "70857ac674a9a349bb11ec353c190c2678256d9c7ab3f59313da4e9a0aca7fcc"
+    },
+    {
+      "bytes": 1292,
+      "path": "vendor/Mapperatorinator/osu_diffusion/train.sh",
+      "sha256": "eea8bedb50d9ce913b3fc5b26e7e6367f0b7d8266019760fc11021eae4dfa327"
+    },
+    {
+      "bytes": 34,
+      "path": "vendor/Mapperatorinator/osu_diffusion/utils/__init__.py",
+      "sha256": "64cc80482968e7edc4c8014b6fb8f0afeaa45f71512d53f3370e009ab33c3055"
+    },
+    {
+      "bytes": 17279,
+      "path": "vendor/Mapperatorinator/osu_diffusion/utils/data_loading.py",
+      "sha256": "e6ca1546b0e24f48e3911510b8929df2a09f56abb4f14d3427ccb9cf61a5741e"
+    },
+    {
+      "bytes": 1776,
+      "path": "vendor/Mapperatorinator/osu_diffusion/utils/diffusion/__init__.py",
+      "sha256": "9f69f5f6a6f1dea2d927eb72fa1df6ae2d481180e62fc8c54c051aa93a31e8dc"
+    },
+    {
+      "bytes": 3292,
+      "path": "vendor/Mapperatorinator/osu_diffusion/utils/diffusion/diffusion_utils.py",
+      "sha256": "8260e221f0f7e4b3bb36678cc7f862f8f5cd7d6271f39b912974d74303d0a110"
+    },
+    {
+      "bytes": 36869,
+      "path": "vendor/Mapperatorinator/osu_diffusion/utils/diffusion/gaussian_diffusion.py",
+      "sha256": "fe9e2d0be91ab70be5a4505dd8127e72fa2a5fe7054c15dbfd8c3e623c611d2e"
+    },
+    {
+      "bytes": 5646,
+      "path": "vendor/Mapperatorinator/osu_diffusion/utils/diffusion/respace.py",
+      "sha256": "c553799a2ba693ec6314d766906b2f19340cab240a091de3b5eeb3642c3579d7"
+    },
+    {
+      "bytes": 6189,
+      "path": "vendor/Mapperatorinator/osu_diffusion/utils/diffusion/timestep_sampler.py",
+      "sha256": "fb186459208996558d8e9c1972bb0d2558cfb19eeaf72da2a945a08259291112"
+    },
+    {
+      "bytes": 0,
+      "path": "vendor/Mapperatorinator/osu_diffusion/utils/export/__init__.py",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 9821,
+      "path": "vendor/Mapperatorinator/osu_diffusion/utils/export/create_beatmap.py",
+      "sha256": "077517ab698ac8d1368d941db4178d1d3e57ee2f0365505d0f35ef1bc90c3eb4"
+    },
+    {
+      "bytes": 6844,
+      "path": "vendor/Mapperatorinator/osu_diffusion/utils/export/path_approximator.py",
+      "sha256": "61d62bd8fd0dbb3ee57503f1a1248a5aeefa448776a6efca562b29e731f2b1c1"
+    },
+    {
+      "bytes": 7067,
+      "path": "vendor/Mapperatorinator/osu_diffusion/utils/export/slider_path.py",
+      "sha256": "5ff53a50370c40c092b0a69f96ff934501c8c658bd506098494448d680c8a428"
+    },
+    {
+      "bytes": 14049,
+      "path": "vendor/Mapperatorinator/osu_diffusion/utils/models.py",
+      "sha256": "07c95631eff8ed6884381ee4e594461e0665148957fa7dde49923865f2ec089a"
+    },
+    {
+      "bytes": 5908,
+      "path": "vendor/Mapperatorinator/osu_diffusion/utils/positional_embedding.py",
+      "sha256": "37ac180579b41e3adb37394c27941574507ad1f1ea0eae7016aa702ae2d87da6"
+    },
+    {
+      "bytes": 10341,
+      "path": "vendor/Mapperatorinator/osu_diffusion/utils/tokenizer.py",
+      "sha256": "cba8b2fc910f5e0008f2cf697a343c8dcd74d0d913e83e66f98d17115c8d5d1c"
+    },
+    {
+      "bytes": 111,
+      "path": "vendor/Mapperatorinator/osu_diffusion/viewlog.sh",
+      "sha256": "18d52af15c855960ffb70faeb6c7b258a0c1edf66117fba26ba7fb1aaf70a382"
+    },
+    {
+      "bytes": 6335,
+      "path": "vendor/Mapperatorinator/push_to_hub.py",
+      "sha256": "fe13e500efc635fc1d1ab33a621830d88ff6e8c693e1a53a2bd75bfb25b86fe1"
+    },
+    {
+      "bytes": 521,
+      "path": "vendor/Mapperatorinator/rcomplexion/README.md",
+      "sha256": "97fc068ee8abea133ac85d0a57289f8cce30ae03801b2efc8ca374d5b38a848f"
+    },
+    {
+      "bytes": 0,
+      "path": "vendor/Mapperatorinator/rcomplexion/__init__.py",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 1563,
+      "path": "vendor/Mapperatorinator/rcomplexion/clean_wandb_models.py",
+      "sha256": "b1ab8bcc4933a615e0082aaa8f26798c9704d132a1691d107c712d03bdee36d9"
+    },
+    {
+      "bytes": 140,
+      "path": "vendor/Mapperatorinator/rcomplexion/configs/inference.yaml",
+      "sha256": "10f7d066c3fabaa6990f837bd94734eac5b091b0a1e7904d525315c5324c5ff6"
+    },
+    {
+      "bytes": 52,
+      "path": "vendor/Mapperatorinator/rcomplexion/configs/inference_v2.yaml",
+      "sha256": "3bb6c21259d8fee8a72807c5aa4e6423354340ffb6b5fc2d96525acd8101faff"
+    },
+    {
+      "bytes": 37,
+      "path": "vendor/Mapperatorinator/rcomplexion/configs/model/osu_r.yaml",
+      "sha256": "94dc73d0f0511db0f8dba5544f6b9efa0c5b1a18efe548ca728f09916d042fc2"
+    },
+    {
+      "bytes": 2071,
+      "path": "vendor/Mapperatorinator/rcomplexion/configs/train.yaml",
+      "sha256": "faa0c6798c99128392ae66a306500ba3b79fb030117d7135ef248998cd403460"
+    },
+    {
+      "bytes": 54,
+      "path": "vendor/Mapperatorinator/rcomplexion/configs/train_v2.yaml",
+      "sha256": "c738cb226f0a37566485902645ec200433b88506995da2fdc2ea9cd3b5215a53"
+    },
+    {
+      "bytes": 405,
+      "path": "vendor/Mapperatorinator/rcomplexion/configs/train_v3.yaml",
+      "sha256": "7fc24ac385245f0e78d9e24e7282b499f57927d218a6e2d634ca3a8cf76ba778"
+    },
+    {
+      "bytes": 3000,
+      "path": "vendor/Mapperatorinator/rcomplexion/dataloading.py",
+      "sha256": "3be9ae83bcfcdb240f8f21c2246a126f938c71a63de7d11025ebdead8d7e0649"
+    },
+    {
+      "bytes": 4579,
+      "path": "vendor/Mapperatorinator/rcomplexion/inference.py",
+      "sha256": "aefed47841ae44e26dbffe3c8b6a53662a23eb304336bc31cb844907e4a530f9"
+    },
+    {
+      "bytes": 0,
+      "path": "vendor/Mapperatorinator/rcomplexion/libs/__init__.py",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 72,
+      "path": "vendor/Mapperatorinator/rcomplexion/libs/dataset/__init__.py",
+      "sha256": "08057315f98b1232bbbe9e87b4120688d25098aae0a6ea87c5c06204b29d976a"
+    },
+    {
+      "bytes": 1306,
+      "path": "vendor/Mapperatorinator/rcomplexion/libs/dataset/data_utils.py",
+      "sha256": "f44564c5b4d4018a6d549b210ecd23be7e4b392aa18a7b0ebb25bb3b7c5b8aa0"
+    },
+    {
+      "bytes": 7985,
+      "path": "vendor/Mapperatorinator/rcomplexion/libs/dataset/ors_dataset.py",
+      "sha256": "5fd79ecbff0dfb4a5be716063c6e186df8f6e73452c2b4048feb1eaf3e640189"
+    },
+    {
+      "bytes": 6647,
+      "path": "vendor/Mapperatorinator/rcomplexion/libs/dataset/osu_parser.py",
+      "sha256": "187087d784334dafba7e4e7c2eae6a69b25fda4b752a7d835232b3db59ab0945"
+    },
+    {
+      "bytes": 25,
+      "path": "vendor/Mapperatorinator/rcomplexion/libs/model/__init__.py",
+      "sha256": "eb8a9bb05340ef5d846bee5c2e18519463a19535c1cf2a3d2d9421a5da47febc"
+    },
+    {
+      "bytes": 2110,
+      "path": "vendor/Mapperatorinator/rcomplexion/libs/model/osu_r.py",
+      "sha256": "f941aa2c3e2591bc3f7b82b2b7b9cac0c1f063800d60f4636c379d9e8a0d3b8b"
+    },
+    {
+      "bytes": 56,
+      "path": "vendor/Mapperatorinator/rcomplexion/libs/tokenizer/__init__.py",
+      "sha256": "19562c0cf149b74974637f83f124375c9c2e2756e4d4a7496448bc4bfdb39101"
+    },
+    {
+      "bytes": 665,
+      "path": "vendor/Mapperatorinator/rcomplexion/libs/tokenizer/event.py",
+      "sha256": "c5a1adacc4b0b77082dac63dfd3bdb1aa9c52d0bf5329741724b47da44bbc0e4"
+    },
+    {
+      "bytes": 4673,
+      "path": "vendor/Mapperatorinator/rcomplexion/libs/tokenizer/tokenizer.py",
+      "sha256": "7bd7071d4c6242a936bf68a95b3a3dcfd4808dbdbe410eecdf008a5380de6c46"
+    },
+    {
+      "bytes": 83,
+      "path": "vendor/Mapperatorinator/rcomplexion/libs/utils/__init__.py",
+      "sha256": "e7c8d311f3abdd614ffe25522a9bd3fe514cc75b50c946d234041f660056598b"
+    },
+    {
+      "bytes": 1180,
+      "path": "vendor/Mapperatorinator/rcomplexion/libs/utils/init_utils.py",
+      "sha256": "43bf9c78ff19e0cb1f715426900005f698e6702e0506058d38ac6df3a9b60cdc"
+    },
+    {
+      "bytes": 1626,
+      "path": "vendor/Mapperatorinator/rcomplexion/libs/utils/log_utils.py",
+      "sha256": "62a880885137cbdfee29f19226eaa13bd088cbf113ca99331cd2f7e209902fc9"
+    },
+    {
+      "bytes": 4910,
+      "path": "vendor/Mapperatorinator/rcomplexion/libs/utils/model_utils.py",
+      "sha256": "8f95614c46db61d61b917cb3d15b3b3bacefd7100cf4f972c3737e2add348a83"
+    },
+    {
+      "bytes": 10527,
+      "path": "vendor/Mapperatorinator/rcomplexion/libs/utils/train_utils.py",
+      "sha256": "c0fc0f56ec69c77646a73cf3427e90625e27fc4a2952256fb473993ee604a16d"
+    },
+    {
+      "bytes": 1605,
+      "path": "vendor/Mapperatorinator/rcomplexion/test.py",
+      "sha256": "59a07c8777fc5b60b13be695ec12fa6badbd0cba4d253a0bb0252afd3177056b"
+    },
+    {
+      "bytes": 2523,
+      "path": "vendor/Mapperatorinator/rcomplexion/train.py",
+      "sha256": "ad3e8f073b5dfc068908ced3350be4a70c579a3c2fb944ec38418f6fadbd0fae"
+    },
+    {
+      "bytes": 523,
+      "path": "vendor/Mapperatorinator/requirements.txt",
+      "sha256": "e831d004c10b2aa9c5582c0e0340d917a2238bcd04e46eb7f9065d44edb457ce"
+    },
+    {
+      "bytes": 70632,
+      "path": "vendor/Mapperatorinator/static/app.js",
+      "sha256": "9920c7b4feb2f7cc491c29289a15c535263de202cc2e47af8189457ce2f3fe54"
+    },
+    {
+      "bytes": 27322,
+      "path": "vendor/Mapperatorinator/static/app_mai_mod.js",
+      "sha256": "db6beb37ee6069004bfde6012d0ec98828ff6ac71b49c69430f34f4f2d63d028"
+    },
+    {
+      "bytes": 11632,
+      "path": "vendor/Mapperatorinator/static/i18n.js",
+      "sha256": "c39586b97c27657275579753733cfd1c1b37fa982910d954588120eb1807df15"
+    },
+    {
+      "bytes": 36326,
+      "path": "vendor/Mapperatorinator/static/i18n/bpd_catgirl.json",
+      "sha256": "0052cf33567860e68da80f12deed7d5f7705a5455e1b2f300b6155a27bfb59f9"
+    },
+    {
+      "bytes": 50616,
+      "path": "vendor/Mapperatorinator/static/i18n/en.json",
+      "sha256": "963c044e5318566cf8320ebc28c0a3cdb53d245578db6cea7d66f228e50d5661"
+    },
+    {
+      "bytes": 73272,
+      "path": "vendor/Mapperatorinator/static/i18n/ru.json",
+      "sha256": "840e26f83fb502afce01069fa582317917f54472ec87bf33bbe6183811b488c4"
+    },
+    {
+      "bytes": 51005,
+      "path": "vendor/Mapperatorinator/static/i18n/zh-CN.json",
+      "sha256": "bcf63e3bb295202066f9026fa9802841afacec4d488746d93e5d8b8045c9e73a"
+    },
+    {
+      "bytes": 34017,
+      "path": "vendor/Mapperatorinator/static/icon.png",
+      "sha256": "c77c3deec6605e55e22ddcb329fd0a99923db0ee2f668da0ebd500ffaf1f398e"
+    },
+    {
+      "bytes": 20075,
+      "path": "vendor/Mapperatorinator/static/style.css",
+      "sha256": "f873f42c57264fb5f5f6e2eec82254c3a81f5fa1c90a468d232be714c03eec77"
+    },
+    {
+      "bytes": 20032,
+      "path": "vendor/Mapperatorinator/static/style_mai_mod.css",
+      "sha256": "eb4c94077950ca100b4a00411f315038f14f5d5995614c6b5dd00efe5dc74c6e"
+    },
+    {
+      "bytes": 31458,
+      "path": "vendor/Mapperatorinator/template/index.html",
+      "sha256": "9baf2667035eb00027daaaed811f47f8c986eb9dc3ab6b5c78153692f491df8b"
+    },
+    {
+      "bytes": 3192,
+      "path": "vendor/Mapperatorinator/template/index_mai_mod.html",
+      "sha256": "c9d0e84609e095f3359f4f9362929d99005130cd84f0de129105ca0f23a1c06d"
+    },
+    {
+      "bytes": 16174,
+      "path": "vendor/Mapperatorinator/utils/collate_results.py",
+      "sha256": "b069bd69c2019da6a71a2e387709a9aea52128d811943d56c80ac2aac0619b15"
+    },
+    {
+      "bytes": 1604,
+      "path": "vendor/Mapperatorinator/utils/excepthook.py",
+      "sha256": "9e673ecfe42b03335272da173206dfd00644267dd6e2a26cd78f0db2c43972b9"
+    },
+    {
+      "bytes": 1821,
+      "path": "vendor/Mapperatorinator/utils/fix_dataset.py",
+      "sha256": "708b843b0e14e74091f9b9c079e167b6c715b54f71c5c19529dc2da9b5cfc88d"
+    },
+    {
+      "bytes": 22406,
+      "path": "vendor/Mapperatorinator/utils/plot_cm3p_self_similarity.py",
+      "sha256": "803f08e9b43e2e8303cc46b4054a7da6d0f136c90e975b73037979ec1a4cfa2d"
+    },
+    {
+      "bytes": 665,
+      "path": "vendor/Mapperatorinator/utils/routed_pickle.py",
+      "sha256": "e6c90a38e19e6450866b11dc07c3f20f4ba03176cc55a4ad36118f7c3d72d130"
+    },
+    {
+      "bytes": 37248,
+      "path": "vendor/Mapperatorinator/web-ui.py",
+      "sha256": "c65cb5538c46d35a777eea29984b7f1857aae8602898210a97d7427e0c7316ae"
     }
   ],
   "schema_version": 1

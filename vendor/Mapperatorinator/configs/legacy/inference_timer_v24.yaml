@@ -1,0 +1,17 @@
+defaults:
+  - inference
+  - osut5: train_timer_v24
+  - diffusion: v1
+  - _self_
+
+version: 'osuT5 V24'        # Beatmap version
+lookback: 0.5             # Fraction of audio sequence to fill with tokens from previous inference window
+lookahead: 0.4            # Fraction of audio sequence to skip at the end of the audio window
+in_context: ["none"]        # Context type of other beatmap
+temperature: 0.9        # Sampling temperature
+top_p: 0.95              # Top-p sampling threshold
+
+# Diffusion settings
+random_init: false
+#timesteps: [50,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]  # The number of timesteps we want to take from equally-sized portions of the original process
+timesteps: [100,0,0,0,0,0,0,0,0,0]  # The number of timesteps we want to take from equally-sized portions of the original process

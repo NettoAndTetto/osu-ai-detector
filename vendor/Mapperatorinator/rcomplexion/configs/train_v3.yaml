@@ -1,0 +1,14 @@
+defaults:
+  - train
+  - _self_
+  - model: osu_r
+
+data:
+  time_resolution: 0.1  # Steps per millisecond
+  min_time: 80           # Minimum time to represent as tokens
+  max_time: 250        # Maximum time to represent as tokens
+
+optim:                  # Optimizer settings
+  base_lr: 1e-2         # Should be scaled with the number of devices present
+  total_steps: 16384
+  warmup_steps: 5000

@@ -1,0 +1,17 @@
+defaults:
+  - train
+  - _self_
+  - model: whisper_base_v2
+
+pretrained_path: "../../../test/ckpt_v22"
+
+data:
+  augment_flip: true
+
+optim:                  # Optimizer settings
+  base_lr: 1e-3         # Should be scaled with the number of devices present
+  batch_size: 128       # This is the batch size per GPU
+  total_steps: 65536
+  warmup_steps: 2000
+  grad_acc: 4
+  final_cosine: 1e-5

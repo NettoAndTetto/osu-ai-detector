@@ -1,0 +1,14 @@
+compile: true          # PyTorch 2.0 optimization
+device: gpu             # Training device (cpu/gpu)
+precision: 'no'         # Enable mixed precision (no/fp16/bf16)
+checkpoint_path: 'OliBomby/osu-classifier'     # Project checkpoint directory (to resume training)
+beatmap_path: ''        # Path to beatmap to classify
+audio_path: ''          # Path to audio to classify
+time: 0                 # Time to classify
+mappers_path: './/datasets/beatmap_users.json'  # Path to mappers dataset
+
+hydra:
+  job:
+    chdir: False
+  run:
+    dir: ./logs/${now:%Y-%m-%d}/${now:%H-%M-%S}

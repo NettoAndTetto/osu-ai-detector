@@ -1,0 +1,23 @@
+defaults:
+  - train
+  - _self_
+  - model: t5_small_v4
+
+compile: false          # PyTorch 2.0 optimization
+mixed_precision: 'no'         # Enable mixed precision (no/fp16/bf16)
+
+data:                  # Data settings
+  add_diff_token: true
+  add_style_token: true
+  max_pre_token_len: 4
+  timing_random_offset: 2
+  rhythm_weight: 4.0    # Weight of rhythm tokens in the loss calculation
+#  sample_weights_path: "../../../datasets/rhythm_complexities.csv"    # Path to sample weights
+
+dataloader:             # Dataloader settings
+  num_workers: 3
+
+optim:                  # Optimizer settings
+  base_lr: 5e-3         # Should be scaled with the number of devices present
+  batch_size: 128
+  grad_acc: 8
