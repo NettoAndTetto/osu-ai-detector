@@ -1,0 +1,18 @@
+name: osu-ai-detector
+channels:
+  - conda-forge
+  - nodefaults
+dependencies:
+  - python=3.12.13
+  - pip=26.1.2
+  - setuptools=82.0.1
+  - wheel=0.47.0
+  - ffmpeg=6.1.1
+  - git=2.51.0
+  - pip:
+      - -r requirements-web.txt
+      - -r requirements-model-agreement.txt
+      - -e .
+variables:
+  PYTHONNOUSERSITE: "1"
+  PYTHONSAFEPATH: "1"

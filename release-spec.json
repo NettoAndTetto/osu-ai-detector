@@ -1,0 +1,58 @@
+{
+  "schema_version": 1,
+  "project": "osu-ai-detector",
+  "version": "1.0.0",
+  "tag": "v1.0.0",
+  "publisher": "NettoAndTetto",
+  "repositories": {
+    "application": "https://github.com/NettoAndTetto/osu-ai-detector",
+    "research": "https://github.com/NettoAndTetto/osu-ai-detector-research",
+    "models": "https://huggingface.co/NettoAndTetto/osu-ai-detector-models",
+    "reproducibility": "https://huggingface.co/datasets/NettoAndTetto/osu-ai-detector-reproducibility"
+  },
+  "model_revision": "v1.0.0",
+  "dataset_revision": "v1.0.0",
+  "miniforge": {
+    "version": "26.3.2-3",
+    "filename": "Miniforge3-26.3.2-3-Windows-x86_64.exe",
+    "url": "https://github.com/conda-forge/miniforge/releases/download/26.3.2-3/Miniforge3-26.3.2-3-Windows-x86_64.exe",
+    "sha256_url": "https://github.com/conda-forge/miniforge/releases/download/26.3.2-3/Miniforge3-26.3.2-3-Windows-x86_64.exe.sha256"
+  },
+  "upstream_models": [
+    {
+      "id": "v29",
+      "repo_id": "OliBomby/Mapperatorinator-v29.1",
+      "revision": "656db0cd04a8a6a77d94a96e7af89810fb6de5ef"
+    },
+    {
+      "id": "v30",
+      "repo_id": "OliBomby/Mapperatorinator-v30",
+      "revision": "a4c6e6e69c055711c2293d63161c0e52980e56a1"
+    },
+    {
+      "id": "v31",
+      "repo_id": "OliBomby/Mapperatorinator-v31",
+      "revision": "12772791b862b97a11153aa766b2481afa5dda11"
+    },
+    {
+      "id": "v32",
+      "repo_id": "OliBomby/Mapperatorinator-v32",
+      "revision": "74f22583400d259bf424819e11027c17933efe54"
+    },
+    {
+      "id": "v32-mini",
+      "repo_id": "OliBomby/Mapperatorinator-v32-mini",
+      "revision": "7807f0dc70cab671be012e1f5ddf945b0b8b7278"
+    }
+  ],
+  "upstream_source": {
+    "repo": "https://github.com/OliBomby/Mapperatorinator.git",
+    "revision": "f345d7dbd5e9fc94741c81e3f08dc2fd0d048a70"
+  },
+  "licenses": {
+    "application_code": "MIT",
+    "original_model_artifacts": "Apache-2.0",
+    "original_reproducibility_metadata": "CC-BY-4.0",
+    "third_party_assets": "Retain their original terms; not redistributed"
+  }
+}
